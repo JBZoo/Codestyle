@@ -37,7 +37,7 @@ test-composer-system:
 
 test-composer-outdated:
 	@echo "$(C_AR)>>> >>> >>> >>> $(C_T) Composer - List of outdated packages $(CE)"
-	@composer outdated --direct --verbose --strict
+	@composer outdated --direct --verbose
 
 
 test-composer-security:
