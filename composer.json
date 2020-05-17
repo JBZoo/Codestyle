@@ -13,7 +13,7 @@
     ],
 
     "require"     : {
-        "php"                                : ">=7.2",
+        "php"                                : ">=7.1",
         "edgedesign/phpqa"                   : "^1.23.3",
 
         "vimeo/psalm"                        : "^3.11.4",
