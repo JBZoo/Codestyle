@@ -41,8 +41,9 @@ composer-graph:
 
 phpmd:
 	@echo "$(C_AR)>>> >>> >>> >>> $(C_T) Check PHPmd $(CE)"
-	@php `pwd`/vendor/bin/phpmd $(SRC_PATH),$(BIN_PATH) ansi \
-        controversial,design,naming,unusedcode --verbose
+	@php `pwd`/vendor/bin/phpmd $(SRC_PATH),$(BIN_PATH) ansi        \
+        cleancode,codesize,controversial,design,naming,unusedcode   \
+        --verbose
 
 
 phpcs:
