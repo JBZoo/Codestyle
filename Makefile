@@ -11,6 +11,8 @@
 # @link       https://github.com/JBZoo/Codestyle
 #
 
+.DEFAULT_GOAL := update
+
 CE   = \033[0m
 C_AR = \033[0;33m
 C_T  = \033[0;30;46m
@@ -29,13 +31,13 @@ test-all:
 
 test-composer-system:
 	@echo "$(C_AR)>>> >>> >>> >>> $(C_T) Composer - Validate system requirements $(CE)"
-	@composer validate --strict --no-check-all
+	@composer validate --verbose --strict
 	@composer check-platform-reqs
 
 
 test-composer-outdated:
 	@echo "$(C_AR)>>> >>> >>> >>> $(C_T) Composer - List of outdated packages $(CE)"
-	@composer outdated --direct --verbose
+	@composer outdated --direct --verbose --strict
 
 
 test-composer-security:
