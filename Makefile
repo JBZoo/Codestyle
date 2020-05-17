@@ -17,19 +17,29 @@ C_T  = \033[0;30;46m
 
 
 update:
-	@echo "$(C_AR)>>> >>> >>> >>> $(C_T) Update 3rd party dependencies $(CE)"
+	@echo "$(C_AR)>>> >>> >>> >>> $(C_T) Update/Install all dependencies $(CE)"
 	@composer update
 
 
 test-all:
-	@make test-composer
+	@make test-composer-system
+	@make test-composer-outdated
+	@make test-composer-security
 
 
-test-composer:
-	@echo "$(C_AR)>>> >>> >>> >>> $(C_T) Composer validate $(CE)"
-	@composer outdated --strict --direct
+test-composer-system:
+	@echo "$(C_AR)>>> >>> >>> >>> $(C_T) Composer - Validate system requirements $(CE)"
 	@composer validate --strict --no-check-all
 	@composer check-platform-reqs
+
+
+test-composer-outdated:
+	@echo "$(C_AR)>>> >>> >>> >>> $(C_T) Composer - List of outdated packages $(CE)"
+	@composer outdated --direct --verbose
+
+
+test-composer-security:
+	@echo "$(C_AR)>>> >>> >>> >>> $(C_T) Composer - Checking dependencies with known security vulnerabilities $(CE)"
 	@php `pwd`/vendor/bin/security-checker security:check
 
 
