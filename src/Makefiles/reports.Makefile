@@ -13,7 +13,12 @@
 
 report-phpqa: ##@Reports PHPqa - Build user-friendly code reports
 	$(call title,"PHPqa - Build user-friendly code reports")
-	@php `pwd`/vendor/bin/phpqa
+	@echo "Config: $(JBZOO_CONFIG_PHPQA)"
+	@rm -rf $(PATH_BUILD)/phpqa
+	@php `pwd`/vendor/bin/phpqa         \
+        --config=$(JBZOO_CONFIG_PHPQA)  \
+        --analyzedDirs=$(PATH_SRC)      \
+        --buildDir=$(PATH_BUILD)/phpqa
 
 
 report-coveralls: ##@Reports Send coverage report to coveralls.io

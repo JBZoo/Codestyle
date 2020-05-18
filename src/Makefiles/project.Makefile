@@ -14,7 +14,6 @@
 update: ##@Project Update all 3rd party dependencies
 	$(call title,"Update all 3rd party dependencies")
 	@composer update --optimize-autoloader
-	@-make report-composer-diff
 
 
 install: ##@Project Install all 3rd party dependencies

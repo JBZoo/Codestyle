@@ -15,7 +15,6 @@ phpqa:
   analyzedDirs:
     - ./src
     - ./bin
-    - ./tests
   buildDir: build/phpqa
   ignoredDirs: vendor
   report: true
@@ -25,33 +24,43 @@ phpqa:
     - phpmetrics:1
     - phploc:1
     - phpcs:1
-  #tools: phpmd,pdepend,phpcpd,phpstan,psalm,security-checker
+    - phpmd:1
+    - pdepend:1
+    - phpcpd:1
+    - phpstan:1
+    - psalm:1
+    - security-checker:1
+    - parallel-lint:1
   extensions:
     - php
+  verbose: false
 
 phpcs:
   standard:
-    - PSR12
+    - ./src/phpcs/ruleset.xml
   ignoreWarnings: false
+  reports:
+    cli:
+      - full
+      - info
+    file:
+      info: phpcs-info.txt
+      full: phpcs-full.txt
+
 
 phpmd:
-  # alternatively you can use an array to define multiple rule sets (https://phpmd.org/documentation/index.html#using-multiple-rule-sets)
-  standard: phpmd.xml
+  standard: ./src/phpmd/jbzoo.xml
 
-pdepend:
-# coverageReport: build/coverage-clover.xml
-
-phpcpd:
-  minLines: 5
-  minTokens: 70
 
 phpmetrics:
   git: true
-  # junit: build/log-junit.xml
   composer: composer.json
+
 
 phpstan:
   level: max
+  standard: phpstan.neon
+
 
 psalm:
   config: psalm.xml

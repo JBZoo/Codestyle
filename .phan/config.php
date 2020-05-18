@@ -13,13 +13,19 @@
  * @link       https://github.com/JBZoo/PHPUnit
  */
 
-// Example for depended projects
-// $default = include __DIR__ . '/../vendor/jbzoo/codestyle/.phan/default.php';
+declare(strict_types=1);
 
-$default = include __DIR__ . '/default.php';
+// Example for depended projects
+// $default = include __DIR__ . '/../vendor/jbzoo/codestyle/src/phan/default.php';
+
+$default = include __DIR__ . '/../src/phan/default.php';
 
 return array_merge($default, [
     'directory_list' => [
-        getenv('PATH_SRC') ?: 'src'
+        // project
+        'src',
+
+        // 3rd party libs
+        'vendor/phan/phan/src'
     ]
 ]);

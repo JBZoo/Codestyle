@@ -14,10 +14,14 @@
 test: test-phpunit ##@Tests Run unit-tests (alias "test-phpunit")
 test-phpunit:
 	$(call title,"PHPUnit - Running all tests")
-	@php `pwd`/vendor/bin/phpunit --color --order-by=random --verbose
+	@php `pwd`/vendor/bin/phpunit \
+        --order-by=random         \
+        --color                   \
+        --verbose
 
 
 codestyle: ##@Tests Run all codestyle linters at once
+	@make test-phplint
 	@make test-phpcs
 	@make test-phpmd
 	@make test-phpmnd
@@ -69,11 +73,18 @@ test-phpmnd: ##@Tests PHPmnd - Magic Number Detector
         $(PATH_SRC)
 
 
+test-phplint: ##@Tests PHP Linter - Checking syntax of PHP
+	$(call title,"PHP Linter - Checking syntax of PHP")
+	@php `pwd`/vendor/bin/parallel-lint  \
+        --blame                          \
+        --colors                         \
+        $(PATH_SRC)
+
+
 test-phpcpd: ##@Tests PHPcpd - Find obvious Copy&Paste
 	$(call title,"PHPcpd - Find obvious Copy\&Paste")
 	@php `pwd`/vendor/bin/phpcpd $(PATH_SRC)  \
         --verbose                             \
-        --log-pmd=$(PATH_BUILD)/phpcpd.xml    \
         --progress
 
 

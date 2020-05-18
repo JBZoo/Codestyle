@@ -67,6 +67,12 @@ else
     JBZOO_CONFIG_COVERALLS ?= `pwd`/.coveralls.yml
 endif
 
+ifeq (, $(wildcard ./.phpqa.yml))
+    JBZOO_CONFIG_PHPQA ?= `pwd`/vendor/jbzoo/codestyle
+else
+    JBZOO_CONFIG_PHPQA ?= `pwd`
+endif
+
 
 # Render nice title before executing the command
 define title

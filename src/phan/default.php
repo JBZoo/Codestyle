@@ -13,6 +13,8 @@
  * @link       https://github.com/JBZoo/PHPUnit
  */
 
+declare(strict_types=1);
+
 use Phan\Issue;
 
 // See for details ./vendor/phan/phan/src/Phan/Config.php
