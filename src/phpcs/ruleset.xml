@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    JBZoo Codestyle
+
+    This file is part of the JBZoo CCK package.
+    For the full copyright and license information, please view the LICENSE
+    file that was distributed with this source code.
+
+    @package    Codestyle
+    @license    MIT
+    @copyright  Copyright (C) JBZoo.com, All rights reserved.
+    @link       https://github.com/JBZoo/Codestyle
+-->
+<ruleset name="JBZoo">
+    <description>The JBZoo coding standard (PSR-12 + PHP Compatibility)</description>
+
+    <arg name="report-width" value="160"/>
+    <arg name="encoding" value="utf-8"/>
+    <config name="installed_paths" value="vendor/phpcompatibility/php-compatibility"/>
+    <config name="testVersion" value="7.2-"/>
+
+    <rule ref="PHPCompatibility"/>
+    <rule ref="PSR12"/>
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+</ruleset>

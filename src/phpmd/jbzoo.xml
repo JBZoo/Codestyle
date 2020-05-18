@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    JBZoo Codestyle
+
+    This file is part of the JBZoo CCK package.
+    For the full copyright and license information, please view the LICENSE
+    file that was distributed with this source code.
+
+    @package    Codestyle
+    @license    MIT
+    @copyright  Copyright (C) JBZoo.com, All rights reserved.
+    @link       https://github.com/JBZoo/Codestyle
+-->
+<ruleset name="JBZoo Ruleset">
+    <description>JBZoo code style rules for PHPmd</description>
+
+    <rule ref="rulesets/unusedcode.xml"/>
+    <rule ref="rulesets/codesize.xml"/>
+    <rule ref="rulesets/controversial.xml"/>
+    <rule ref="rulesets/design.xml"/>
+    <rule ref="rulesets/naming.xml"/>
+    <rule ref="rulesets/unusedcode.xml"/>
+
+</ruleset>

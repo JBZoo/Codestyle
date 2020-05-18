@@ -1,0 +1,39 @@
+#
+# JBZoo Codestyle
+#
+# This file is part of the JBZoo CCK package.
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+#
+# @package    Codestyle
+# @license    MIT
+# @copyright  Copyright (C) JBZoo.com, All rights reserved.
+# @link       https://github.com/JBZoo/Codestyle
+#
+
+report-phpqa: ##@Reports PHPqa - Build user-friendly code reports
+	$(call title,"PHPqa - Build user-friendly code reports")
+	@php `pwd`/vendor/bin/phpqa
+
+
+report-coveralls: ##@Reports Send coverage report to coveralls.io
+	$(call title,"Send coverage to coveralls.io")
+	@mkdir -pv ./build/coverage_total
+	@mkdir -pv ./build/coverage_cov
+	@php `pwd`/vendor/phpunit/phpcov/phpcov merge   \
+        --clover build/coverage_total/merge.xml     \
+        --html   build/coverage_total/merge-html    \
+        build/coverage_cov                          \
+        -v
+	@php `pwd`/vendor/bin/php-coveralls -vvv
+
+
+report-composer-diff: ##@Reports What has changed after a composer update
+	$(call title,"What has changed after a composer update")
+	@php `pwd`/vendor/bin/composer-lock-diff --md
+
+
+report-composer-graph: ##@Reports Build composer graph of dependencies
+	$(call title,"Build composer graph of dependencies")
+	@php `pwd`/vendor/bin/graph-composer export $(PATH_ROOT) $(PATH_BUILD)/composer-graph.png  --verbose --format=png
+	@echo "See ./composer-graph.png"

@@ -11,7 +11,11 @@
 # @link       https://github.com/JBZoo/Codestyle
 #
 
-parameters:
-    level: max
-    checkMissingIterableValueType: false
-    checkGenericClassInNonGenericObjectType: false
+# General Makefile configuration
+.PHONY: app bin build tests vendor help list test
+.DEFAULT_GOAL := help
+SHELL = /bin/sh
+
+# Bootstrap
+CODESTYLE_DIR := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
+include $(CODESTYLE_DIR)/Makefiles/*.Makefile
