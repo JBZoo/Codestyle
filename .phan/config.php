@@ -13,11 +13,10 @@
  * @link       https://github.com/JBZoo/PHPUnit
  */
 
-if (file_exists(__DIR__ . '/vendor/jbzoo/codestyle/.phan/default.php')) {
-    $default = include __DIR__ . '/vendor/jbzoo/codestyle/.phan/default.php';
-} else {
-    $default = include __DIR__ . '/default.php';
-}
+// Example for depended projects
+// $default = include __DIR__ . '/../vendor/jbzoo/codestyle/.phan/default.php';
+
+$default = include __DIR__ . '/default.php';
 
 return array_merge($default, [
     'directory_list' => [
