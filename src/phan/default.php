@@ -1,16 +1,16 @@
 <?php
 
 /**
- * JBZoo Toolbox - PHPUnit
+ * JBZoo Toolbox - Codestyle
  *
  * This file is part of the JBZoo Toolbox project.
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @package    PHPUnit
+ * @package    Codestyle
  * @license    MIT
  * @copyright  Copyright (C) JBZoo.com, All rights reserved.
- * @link       https://github.com/JBZoo/PHPUnit
+ * @link       https://github.com/JBZoo/Codestyle
  */
 
 declare(strict_types=1);
