@@ -14,4 +14,7 @@
 include ./src/init.Makefile
 
 test-all: ##@Project Run all project tests at once
+	@make test-composer
 	@make codestyle
+	@make report-phpqa
+	@make report-composer-graph

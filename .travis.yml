@@ -20,8 +20,6 @@ php:
 
 script:
   - composer self-update
-  - sudo apt install graphviz
+  - sudo apt update && sudo apt install graphviz
   - make install               --no-print-directory
   - make test-all              --no-print-directory
-  - make report-phpqa          --no-print-directory
-  - make report-composer-graph --no-print-directory
