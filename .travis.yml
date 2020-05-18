@@ -19,5 +19,6 @@ php:
   - 7.4
 
 script:
+  - composer self-update
   - make install
   - make test-all
