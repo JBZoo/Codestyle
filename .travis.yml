@@ -20,5 +20,5 @@ php:
 
 script:
   - composer self-update
-  - make install
-  - make test-all
+  - make install  --no-print-directory
+  - make test-all --no-print-directory
