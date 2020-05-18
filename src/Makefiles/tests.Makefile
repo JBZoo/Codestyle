@@ -43,7 +43,7 @@ test-phpcs: ##@Tests PHPcs - Checking PHP Codestyle (PSR-12 + PHP Compatibility)
 	$(call title,"PHPcs - Checking PHP Codestyle \(PSR-12 + PHP Compatibility\)")
 	@echo "Config: $(JBZOO_CONFIG_PHPCS)"
 	@php `pwd`/vendor/bin/phpcs $(PATH_SRC)      \
-            --standard="$(JBZOO_CONFIG_PHPCS)" \
+            --standard="$(JBZOO_CONFIG_PHPCS)"   \
             --report=full                        \
             --colors                             \
             -p -s
@@ -51,7 +51,7 @@ test-phpcs: ##@Tests PHPcs - Checking PHP Codestyle (PSR-12 + PHP Compatibility)
 
 test-phpmd: ##@Tests PHPmd - Mess Detector Checker
 	$(call title,"PHPmd - Mess Detector Checker")
-	@echo "Config: $(BZOO_CONFIG_PHPMD)"
+	@echo "Config: $(JBZOO_CONFIG_PHPMD)"
 	@php `pwd`/vendor/bin/phpmd $(PATH_SRC) ansi $(JBZOO_CONFIG_PHPMD) --verbose
 
 

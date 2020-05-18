@@ -18,14 +18,17 @@ report-phpqa: ##@Reports PHPqa - Build user-friendly code reports
 
 report-coveralls: ##@Reports Send coverage report to coveralls.io
 	$(call title,"Send coverage to coveralls.io")
-	@mkdir -pv ./build/coverage_total
-	@mkdir -pv ./build/coverage_cov
-	@php `pwd`/vendor/phpunit/phpcov/phpcov merge   \
-        --clover build/coverage_total/merge.xml     \
-        --html   build/coverage_total/merge-html    \
-        build/coverage_cov                          \
+	$echo "Config: $(JBZOO_CONFIG_COVERALLS)"
+	@mkdir -pv $(PATH_BUILD)/coverage_total
+	@mkdir -pv $(PATH_BUILD)/coverage_cov
+	@php `pwd`/vendor/bin/phpcovv merge                  \
+        --clover $(PATH_BUILD)/coverage_total/merge.xml  \
+        --html   $(PATH_BUILD)/coverage_total/merge-html \
+        $(PATH_BUILD)/coverage_cov                       \
         -v
-	@php `pwd`/vendor/bin/php-coveralls -vvv
+	@php `pwd`/vendor/bin/php-coveralls    \
+        --config=$(JBZOO_CONFIG_COVERALLS) \
+        -vvv
 
 
 report-composer-diff: ##@Reports What has changed after a composer update

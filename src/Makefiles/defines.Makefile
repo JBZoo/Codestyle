@@ -61,6 +61,13 @@ else
 endif
 
 
+ifeq (, $(wildcard ./.coveralls.yml))
+    JBZOO_CONFIG_COVERALLS ?= `pwd`/vendor/jbzoo/codestyle/.coveralls.yml
+else
+    JBZOO_CONFIG_COVERALLS ?= `pwd`/.coveralls.yml
+endif
+
+
 # Render nice title before executing the command
 define title
     @echo "$(C_BACK)>>> >>> >>> >>> $(C_TITLE) $(1) $(CE)"
