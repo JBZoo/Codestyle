@@ -18,8 +18,11 @@ php:
   - 7.3
   - 7.4
 
-script:
+before_script:
+  - phpenv config-rm xdebug.ini
   - composer self-update
   - sudo apt update && sudo apt install graphviz
-  - make install               --no-print-directory
-  - make test-all              --no-print-directory
+
+script:
+  - make install  --no-print-directory
+  - make test-all --no-print-directory
