@@ -13,8 +13,8 @@
 
 phpqa:
   analyzedDirs:
+    - ./.phan
     - ./src
-    - ./bin
   buildDir: build/phpqa
   ignoredDirs: vendor
   report: true
@@ -38,7 +38,6 @@ phpqa:
 phpcs:
   standard:
     - ./src/phpcs/ruleset.xml
-  ignoreWarnings: false
   reports:
     cli:
       - full
@@ -54,7 +53,7 @@ phpmd:
 
 phpmetrics:
   git: true
-  composer: composer.json
+  composer: %currentWorkingDirectory%/composer.json
 
 
 phpstan:

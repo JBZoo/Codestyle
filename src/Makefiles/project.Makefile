@@ -16,11 +16,6 @@ update: ##@Project Update all 3rd party dependencies
 	@composer update --optimize-autoloader
 
 
-install: ##@Project Install all 3rd party dependencies
-	$(call title,"Install all 3rd party dependencies")
-	@composer install --optimize-autoloader
-
-
 clean-build: ##@Project Cleanup build directory
 	$(call title,"Cleanup build directory")
 	@rm    -fr `pwd`/build
