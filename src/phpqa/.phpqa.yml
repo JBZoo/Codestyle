@@ -14,7 +14,6 @@
 phpqa:
   analyzedDirs:
     - ./src
-    - ./bin
   buildDir: build/phpqa
   ignoredDirs: vendor
   report: true
@@ -35,7 +34,6 @@ phpqa:
     - security-checker:1
   extensions:
     - php
-    - phtml
 
 
 phpcs:
@@ -60,12 +58,12 @@ phpmd:
 
 
 pdepend:
-  coverageReport: ../../../../..build/coverage-clover.xml
+  coverageReport: ../../../../../build/coverage_xml/main.xml
 
 
 phpmetrics:
   git: true
-  junit: ../../../../../build/coverage-junit.xml
+  junit: ../../../../../build/coverage_junit/main.xml
   composer: ../../../../../composer.json
 
 
