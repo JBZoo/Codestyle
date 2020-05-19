@@ -53,16 +53,16 @@ phpmd:
 
 phpmetrics:
   git: true
-  composer: %currentWorkingDirectory%/composer.json
+  composer: ./composer.json
 
 
 phpstan:
   level: max
-  standard: phpstan.neon
+  standard: ./phpstan.neon
 
 
 psalm:
-  config: psalm.xml
+  config: ./psalm.xml
   deadCode: false
   threads: 1
   showInfo: true
