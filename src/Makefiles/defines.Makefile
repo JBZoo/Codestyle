@@ -68,6 +68,13 @@ else
 endif
 
 
+ifneq (, $(wildcard ./phpunit.xml.dist))
+    JBZOO_CONFIG_PHPUNIT ?= `pwd`/phpunit.xml.dist
+else
+    JBZOO_CONFIG_PHPUNIT ?= `pwd`/vendor/jbzoo/codestyle/src/phpunit/phpunit.xml.dist
+endif
+
+
 # Render nice title before executing the command
 define title
     @echo "$(C_BACK)>>> >>> >>> >>> $(C_TITLE) $(1) $(CE)"
