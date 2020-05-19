@@ -23,10 +23,20 @@ report-phpqa: ##@Reports PHPqa - Build user-friendly code reports
 
 report-coveralls: ##@Reports Send coverage report to coveralls.io
 	$(call title,"Send coverage to coveralls.io")
-	@php `pwd`/vendor/bin/php-coveralls                       \
-        --coverage_clover="$(PATH_BUILD)/coverage-clover.xml" \
-        --root_dir="$(PATH_ROOT)"                             \
+	@php `pwd`/vendor/bin/php-coveralls                    \
+        --coverage_clover=$(PATH_BUILD)/coverage_xml/*.xml \
+        --json_path=$(PATH_BUILD)/coveralls.json           \
+        --root_dir=$(PATH_ROOT)                            \
         -vvv
+
+
+report-merge-coverage: ##@Reports Merge all coverage reports in one clover file
+	$(call title,"Merge all coverage reports in one clover file")
+	@mkdir -pv $(PATH_BUILD)/coverage_cov
+	@php `pwd`/vendor/bin/phpcov merge                 \
+        --clover $(PATH_BUILD)/coverage_xml/all.xml    \
+        $(PATH_BUILD)/coverage_cov                     \
+        -v
 
 
 report-composer-diff: ##@Reports What has changed after a composer update

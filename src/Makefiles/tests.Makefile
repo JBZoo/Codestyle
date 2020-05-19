@@ -11,6 +11,8 @@
 # @link       https://github.com/JBZoo/Codestyle
 #
 
+PHPUNIT_PRETTY_PRINT_PROGRESS ?= true
+
 test: test-phpunit ##@Tests Run unit-tests (alias "test-phpunit")
 test-phpunit:
 	$(call title,"PHPUnit - Running all tests")
