@@ -21,7 +21,16 @@ test-phpunit:
         --configuration="$(JBZOO_CONFIG_PHPUNIT)"             \
         --printer='Sempro\PHPUnitPrettyPrinter\PrettyPrinter' \
         --order-by=random                                     \
-        --color                                               \
+        --verbose
+
+
+test-phpunit-teamcity: ##@Tests Run unit-tests with TeamCity output
+	$(call title,"PHPUnit - Running all tests")
+	@echo "Config: $(JBZOO_CONFIG_PHPUNIT)"
+	@php `pwd`/vendor/bin/phpunit                 \
+        --configuration="$(JBZOO_CONFIG_PHPUNIT)" \
+        --teamcity                                \
+        --order-by=random                         \
         --verbose
 
 
