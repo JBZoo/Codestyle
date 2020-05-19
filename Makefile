@@ -11,7 +11,15 @@
 # @link       https://github.com/JBZoo/Codestyle
 #
 
-include ./src/init.Makefile
+ifneq (, $(wildcard ./src/init.Makefile))
+    include ./src/init.Makefile
+endif
+
+
+install: ##@Project Install all 3rd party dependencies
+	$(call title,"Install all 3rd party dependencies")
+	@composer install --optimize-autoloader
+
 
 test-all: ##@Project Run all project tests at once
 	@make test-composer
