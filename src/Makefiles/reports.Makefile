@@ -23,16 +23,9 @@ report-phpqa: ##@Reports PHPqa - Build user-friendly code reports
 
 report-coveralls: ##@Reports Send coverage report to coveralls.io
 	$(call title,"Send coverage to coveralls.io")
-	@echo "Config: $(JBZOO_CONFIG_COVERALLS)"
-	@mkdir -pv $(PATH_BUILD)/coverage_total
-	@mkdir -pv $(PATH_BUILD)/coverage_cov
-	@php `pwd`/vendor/bin/phpcov merge                   \
-        --clover $(PATH_BUILD)/coverage_total/merge.xml  \
-        --html   $(PATH_BUILD)/coverage_total/merge-html \
-        $(PATH_BUILD)/coverage_cov                       \
-        -v
-	@php `pwd`/vendor/bin/php-coveralls    \
-        --config=$(JBZOO_CONFIG_COVERALLS) \
+	@php `pwd`/vendor/bin/php-coveralls                       \
+        --coverage_clover="$(PATH_BUILD)/coverage-clover.xml" \
+        --root_dir="$(PATH_ROOT)"                             \
         -vvv
 
 

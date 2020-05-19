@@ -61,12 +61,6 @@ else
 endif
 
 
-ifneq (, $(wildcard ./.coveralls.yml))
-    JBZOO_CONFIG_COVERALLS ?= `pwd`/.coveralls.yml
-else
-    JBZOO_CONFIG_COVERALLS ?= `pwd`/vendor/jbzoo/codestyle/.coveralls.yml
-endif
-
 ifneq (, $(wildcard ./.phpqa.yml))
     JBZOO_CONFIG_PHPQA ?= `pwd`
 else

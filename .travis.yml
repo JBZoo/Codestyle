@@ -12,6 +12,8 @@
 #
 
 language: php
+os: linux
+dist: xenial
 
 php:
   - 7.2

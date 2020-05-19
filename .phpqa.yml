@@ -20,6 +20,7 @@ phpqa:
   report: true
   execution: parallel
   output: file
+  verbose: false
   tools:
     - phpmetrics:1
     - phploc:1
@@ -35,7 +36,7 @@ phpqa:
   extensions:
     - php
     - phtml
-  verbose: false
+
 
 phpcs:
   standard:
@@ -47,6 +48,11 @@ phpcs:
     file:
       info: phpcs-info.txt
       full: phpcs-full.txt
+
+
+php-cs-fixer:
+  rules: ./src/phpcs/ruleset.xml
+  isDryRun: true
 
 
 phpmd:

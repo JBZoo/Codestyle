@@ -20,6 +20,7 @@ phpqa:
   report: true
   execution: parallel
   output: file
+  verbose: false
   tools:
     - phpmetrics:1
     - phploc:1
@@ -35,7 +36,7 @@ phpqa:
   extensions:
     - php
     - phtml
-  verbose: false
+
 
 phpcs:
   standard:
@@ -49,12 +50,22 @@ phpcs:
       full: phpcs-full.txt
 
 
+php-cs-fixer:
+  rules: ../../../../../vendor/jbzoo/codestyle/src/phpcs/ruleset.xml
+  isDryRun: true
+
+
 phpmd:
   standard: ../../../../../vendor/jbzoo/codestyle/src/phpmd/jbzoo.xml
 
 
+pdepend:
+  coverageReport: ../../../../..build/coverage-clover.xml
+
+
 phpmetrics:
   git: true
+  junit: ../../../../../build/coverage-junit.xml
   composer: ../../../../../composer.json
 
 
