@@ -58,12 +58,12 @@ phpmd:
 
 
 pdepend:
-  coverageReport: ../../../../../build/coverage_xml/main.xml
+  #coverageReport: ../../../../../build/coverage_xml/main.xml
 
 
 phpmetrics:
   git: true
-  junit: ../../../../../build/coverage_junit/main.xml
+  #junit: build/coverage_junit/main.xml
   composer: ../../../../../composer.json
 
 
