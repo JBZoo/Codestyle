@@ -26,51 +26,51 @@ PATH_BUILD ?= $(PATH_ROOT)/build
 PATH_TESTS ?= $(PATH_ROOT)/tests
 
 
-ifeq (, $(wildcard ./src/phpcs/ruleset.xml))
-    JBZOO_CONFIG_PHPCS ?= `pwd`/vendor/jbzoo/codestyle/src/phpcs/ruleset.xml
-else
+ifneq (, $(wildcard ./src/phpcs/ruleset.xml))
     JBZOO_CONFIG_PHPCS ?= `pwd`/src/phpcs/ruleset.xml
+else
+    JBZOO_CONFIG_PHPCS ?= `pwd`/vendor/jbzoo/codestyle/src/phpcs/ruleset.xml
 endif
 
 
-ifeq (, $(wildcard ./src/phpmd/jbzoo.xml))
-    JBZOO_CONFIG_PHPMD ?= `pwd`/vendor/jbzoo/codestyle/src/phpmd/jbzoo.xml
-else
+ifneq (, $(wildcard ./src/phpmd/jbzoo.xml))
     JBZOO_CONFIG_PHPMD ?= `pwd`/src/phpmd/jbzoo.xml
+else
+    JBZOO_CONFIG_PHPMD ?= `pwd`/vendor/jbzoo/codestyle/src/phpmd/jbzoo.xml
 endif
 
 
-ifeq (, $(wildcard ./phpstan.neon))
-    JBZOO_CONFIG_PHPSTAN ?= `pwd`/vendor/jbzoo/codestyle/phpstan.neon
-else
+ifneq (, $(wildcard ./phpstan.neon))
     JBZOO_CONFIG_PHPSTAN ?= `pwd`/phpstan.neon
+else
+    JBZOO_CONFIG_PHPSTAN ?= `pwd`/vendor/jbzoo/codestyle/phpstan.neon
 endif
 
 
-ifeq (, $(wildcard ./psalm.xml))
-    JBZOO_CONFIG_PSALM ?= `pwd`/vendor/jbzoo/codestyle/psalm.xml
-else
+ifneq (, $(wildcard ./psalm.xml))
     JBZOO_CONFIG_PSALM ?= `pwd`/psalm.xml
+else
+    JBZOO_CONFIG_PSALM ?= `pwd`/vendor/jbzoo/codestyle/psalm.xml
 endif
 
 
-ifeq (, $(wildcard ./.phan/config.php))
-    JBZOO_CONFIG_PHAN ?= `pwd`/vendor/jbzoo/codestyle/.phan/config.php
-else
+ifneq (, $(wildcard ./.phan/config.php))
     JBZOO_CONFIG_PHAN ?= `pwd`/.phan/config.php
+else
+    JBZOO_CONFIG_PHAN ?= `pwd`/vendor/jbzoo/codestyle/.phan/config.php
 endif
 
 
-ifeq (, $(wildcard ./.coveralls.yml))
-    JBZOO_CONFIG_COVERALLS ?= `pwd`/vendor/jbzoo/codestyle/.coveralls.yml
-else
+ifneq (, $(wildcard ./.coveralls.yml))
     JBZOO_CONFIG_COVERALLS ?= `pwd`/.coveralls.yml
+else
+    JBZOO_CONFIG_COVERALLS ?= `pwd`/vendor/jbzoo/codestyle/.coveralls.yml
 endif
 
-ifeq (, $(wildcard ./.phpqa.yml))
-    JBZOO_CONFIG_PHPQA ?= `pwd`/vendor/jbzoo/codestyle/src/phpqa
-else
+ifneq (, $(wildcard ./.phpqa.yml))
     JBZOO_CONFIG_PHPQA ?= `pwd`
+else
+    JBZOO_CONFIG_PHPQA ?= `pwd`/vendor/jbzoo/codestyle/src/phpqa
 endif
 
 

@@ -37,7 +37,7 @@ phpqa:
 
 phpcs:
   standard:
-    - ./vendor/jbzoo/codestyle/src/phpcs/ruleset.xml
+    - ../../../../../vendor/jbzoo/codestyle/src/phpcs/ruleset.xml
   reports:
     cli:
       - full
@@ -48,21 +48,21 @@ phpcs:
 
 
 phpmd:
-  standard: ./vendor/jbzoo/codestyle/src/phpmd/jbzoo.xml
+  standard: ../../../../../vendor/jbzoo/codestyle/src/phpmd/jbzoo.xml
 
 
 phpmetrics:
   git: true
-  composer: composer.json
+  composer: ../../../../../composer.json
 
 
 phpstan:
   level: max
-  standard: ./vendor/jbzoo/codestyle/phpstan.neon
+  standard: ../../../../../vendor/jbzoo/codestyle/phpstan.neon
 
 
 psalm:
-  config: ./vendor/jbzoo/codestyle/psalm.xml
+  config: ../../../../../vendor/jbzoo/codestyle/psalm.xml
   deadCode: false
-  threads: 1
+  threads: 4
   showInfo: true
