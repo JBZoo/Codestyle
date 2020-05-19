@@ -21,13 +21,14 @@ phpqa:
   execution: parallel
   output: file
   tools:
-    - parallel-lint:1
+    - phpmetrics:1
+    - phploc:1
+    - phpcs:1
+    - php-cs-fixer:1
+    - phpmd:1
     - pdepend:1
     - phpcpd:1
-    - phpcs:1
-    - phploc:1
-    - phpmd:1
-    - phpmetrics:1
+    - parallel-lint:1
     - phpstan:1
     - psalm:1
     - security-checker:1
