@@ -34,7 +34,8 @@ report-merge-coverage: ##@Reports Merge all coverage reports in one clover file
 	$(call title,"Merge all coverage reports in one clover file")
 	@mkdir -pv $(PATH_BUILD)/coverage_cov
 	@php `pwd`/vendor/bin/phpcov merge                 \
-        --clover $(PATH_BUILD)/coverage_xml/all.xml    \
+        --clover=$(PATH_BUILD)/coverage_xml/all.xml    \
+        --html=$(PATH_BUILD)/coverage_html_merged      \
         $(PATH_BUILD)/coverage_cov                     \
         -v
 
