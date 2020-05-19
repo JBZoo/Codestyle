@@ -68,7 +68,7 @@ else
 endif
 
 ifeq (, $(wildcard ./.phpqa.yml))
-    JBZOO_CONFIG_PHPQA ?= `pwd`/vendor/jbzoo/codestyle
+    JBZOO_CONFIG_PHPQA ?= `pwd`/vendor/jbzoo/codestyle/src/phpqa
 else
     JBZOO_CONFIG_PHPQA ?= `pwd`
 endif
