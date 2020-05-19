@@ -26,7 +26,7 @@ report-coveralls: ##@Reports Send coverage report to coveralls.io
 	@echo "Config: $(JBZOO_CONFIG_COVERALLS)"
 	@mkdir -pv $(PATH_BUILD)/coverage_total
 	@mkdir -pv $(PATH_BUILD)/coverage_cov
-	@php `pwd`/vendor/bin/phpcovv merge                  \
+	@php `pwd`/vendor/bin/phpcov merge                   \
         --clover $(PATH_BUILD)/coverage_total/merge.xml  \
         --html   $(PATH_BUILD)/coverage_total/merge-html \
         $(PATH_BUILD)/coverage_cov                       \
