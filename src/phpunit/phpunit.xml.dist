@@ -16,14 +16,15 @@
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
          convertDeprecationsToExceptions="true"
-         executionOrder="defects"
+         executionOrder="random"
          processIsolation="false"
          stopOnError="false"
          stopOnFailure="false"
          stopOnIncomplete="false"
          stopOnSkipped="false"
          stopOnRisky="false"
-         verbose="false"
+         verbose="true"
+         colors="true"
          printerClass="Sempro\PHPUnitPrettyPrinter\PrettyPrinter"
 >
 
@@ -43,7 +44,8 @@
         <log type="coverage-clover" target="../../../../../build/coverage_xml/main.xml"/>
         <log type="coverage-php" target="../../../../../build/coverage_cov/main.cov"/>
         <log type="junit" target="../../../../../build/coverage_junit/main.xml"/>
-        <log type="coverage-text" target="php://stdout" showUncoveredFiles="false" showOnlySummary="true"/>
+        <log type="coverage-html" target="../../../../../build/coverage_html" lowUpperBound="35" highLowerBound="70"/>
+        <log type="coverage-text" target="php://stdout" showUncoveredFiles="true" showOnlySummary="false"/>
     </logging>
 
 </phpunit>
