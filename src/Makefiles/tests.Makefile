@@ -47,6 +47,8 @@ codestyle: ##@Tests Run all codestyle linters at once
 
 
 test-composer: ##@Tests Validate composer.json and composer.lock
+	$(call title,"Composer - Checking common issue")
+	@-composer diagnose
 	$(call title,"Composer - Validate system requirements")
 	@composer validate --verbose --strict
 	@composer check-platform-reqs
