@@ -25,7 +25,7 @@ phpqa:
     - phpmetrics:1
     - phploc:1
     - phpcs:1
-    - php-cs-fixer:1
+    #- php-cs-fixer:1
     - phpmd:1
     - pdepend:1
     - phpcpd:1
