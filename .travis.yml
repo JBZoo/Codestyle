@@ -22,8 +22,8 @@ php:
 
 env:
   matrix:
-    - JBZOO_COMPOSER_FLAGS="--prefer-lowest --prefer-stable"
-    - JBZOO_COMPOSER_FLAGS=""
+    - JBZOO_COMPOSER_UPDATE_FLAGS="--prefer-lowest --prefer-stable"
+    - JBZOO_COMPOSER_UPDATE_FLAGS=""
 
 before_script:
   - phpenv config-rm xdebug.ini
