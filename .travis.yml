@@ -31,5 +31,9 @@ before_script:
   - sudo apt update && sudo apt install graphviz
 
 script:
-  - make install  --no-print-directory
-  - make test-all --no-print-directory
+  - make install               --no-print-directory
+  - make codestyle             --no-print-directory
+  - make test                  --no-print-directory
+  - make test-composer-reqs    --no-print-directory
+  - make report-phpqa          --no-print-directory
+  - make report-composer-graph --no-print-directory
