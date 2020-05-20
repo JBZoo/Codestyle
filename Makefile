@@ -18,10 +18,11 @@ endif
 
 install: ##@Project Install all 3rd party dependencies
 	$(call title,"Install all 3rd party dependencies")
-	@composer install --optimize-autoloader
+	@composer install --optimize-autoloader $(JBZOO_COMPOSER_UPDATE_FLAGS)
 
 
 test-all: ##@Project Run all project tests at once
 	@make codestyle
+	@make test-composer-reqs
 	@make report-phpqa
 	@make report-composer-graph

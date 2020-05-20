@@ -20,6 +20,11 @@ php:
   - 7.3
   - 7.4
 
+env:
+  matrix:
+    - JBZOO_COMPOSER_FLAGS="--prefer-lowest --prefer-stable"
+    - JBZOO_COMPOSER_FLAGS=""
+
 before_script:
   - phpenv config-rm xdebug.ini
   - composer self-update

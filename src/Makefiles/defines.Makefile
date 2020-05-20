@@ -75,6 +75,13 @@ else
 endif
 
 
+ifneq (, $(wildcard ./composer-require-checker.json))
+    JBZOO_CONFIG_COMPOSER_REQ_CHECKER ?= `pwd`/composer-require-checker.json
+else
+    JBZOO_CONFIG_COMPOSER_REQ_CHECKER ?= `pwd`/vendor/jbzoo/codestyle/src/composer-require-checker.json
+endif
+
+
 # Render nice title before executing the command
 define title
     @echo "$(C_BACK)>>> >>> >>> >>> $(C_TITLE) $(1) $(CE)"

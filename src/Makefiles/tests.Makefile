@@ -61,6 +61,14 @@ test-composer: ##@Tests Validate composer.json and composer.lock
 	@php `pwd`/vendor/bin/security-checker security:check
 
 
+test-composer-reqs: ##@Tests Check composer.json the defined dependencies against your code
+	$(call title,Composer - Check the defined dependencies against your code)
+	@echo "Config: $(JBZOO_CONFIG_COMPOSER_REQ_CHECKER)"
+	@php `pwd`/vendor/bin/composer-require-checker check   \
+        --config-file=$(JBZOO_CONFIG_COMPOSER_REQ_CHECKER) \
+        -vvv                                               \
+        $(PATH_ROOT)/composer.json
+
 
 test-phpcs: ##@Tests PHPcs - Checking PHP Codestyle (PSR-12 + PHP Compatibility)
 	$(call title,"PHPcs - Checking PHP Codestyle \(PSR-12 + PHP Compatibility\)")

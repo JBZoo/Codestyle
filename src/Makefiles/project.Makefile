@@ -13,7 +13,7 @@
 
 update: ##@Project Update all 3rd party dependencies
 	$(call title,"Update all 3rd party dependencies")
-	@composer update --optimize-autoloader
+	@composer update --optimize-autoloader $(JBZOO_COMPOSER_UPDATE_FLAGS)
 
 
 clean-build: ##@Project Cleanup only build directory
