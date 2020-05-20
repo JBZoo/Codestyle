@@ -23,6 +23,7 @@ install: ##@Project Install all 3rd party dependencies
 
 test-all: ##@Project Run all project tests at once
 	@make codestyle
+	@make test
 	@make test-composer-reqs
 	@make report-phpqa
 	@make report-composer-graph
