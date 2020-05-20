@@ -21,7 +21,7 @@ php:
   - 7.4
 
 env:
-  matrix:
+  jobs:
     - JBZOO_COMPOSER_UPDATE_FLAGS="--prefer-lowest --prefer-stable"
     - JBZOO_COMPOSER_UPDATE_FLAGS=""
 
@@ -31,7 +31,7 @@ before_script:
   - sudo apt update && sudo apt install graphviz
 
 script:
-  - make install               --no-print-directory
+  - make update                --no-print-directory
   - make codestyle             --no-print-directory
   - make test                  --no-print-directory
   - make test-composer-reqs    --no-print-directory
