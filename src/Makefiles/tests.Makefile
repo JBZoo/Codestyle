@@ -56,7 +56,7 @@ test-composer: ##@Tests Validate composer.json and composer.lock
 	@composer validate --verbose --strict
 	@composer check-platform-reqs
 	$(call title,"Composer - List of outdated packages")
-	@composer outdated --direct --verbose
+	@composer outdated --verbose
 	$(call title,Composer - Checking dependencies with known security vulnerabilities)
 	@php `pwd`/vendor/bin/security-checker security:check
 
