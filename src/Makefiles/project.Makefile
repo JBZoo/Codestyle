@@ -11,11 +11,6 @@
 # @link       https://github.com/JBZoo/Codestyle
 #
 
-update: ##@Project Update all 3rd party dependencies
-	$(call title,"Update all 3rd party dependencies")
-	composer update --optimize-autoloader --with-all-dependencies $(JBZOO_COMPOSER_UPDATE_FLAGS)
-
-
 clean-build: ##@Project Cleanup only build directory
 	$(call title,"Cleanup build directory")
 	@rm    -fr `pwd`/build
