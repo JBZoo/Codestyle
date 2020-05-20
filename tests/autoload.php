@@ -14,18 +14,10 @@
  * @author     Denis Smetannikov <denis@jbzoo.com>
  */
 
-// Example for depended projects
-// $default = include __DIR__ . '/../vendor/jbzoo/codestyle/src/phan/default.php';
-
-$default = include __DIR__ . '/../src/phan/default.php';
-
-return array_merge($default, [
-    'directory_list' => [
-        // project
-        'src',
-        '.phan',
-
-        // 3rd party libs
-        'vendor/phan/phan/src'
-    ]
-]);
+// main autoload
+if ($autoload = realpath('./vendor/autoload.php')) {
+    require_once $autoload;
+} else {
+    echo 'Please execute "composer update" !' . PHP_EOL;
+    exit(1);
+}

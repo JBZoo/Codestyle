@@ -11,13 +11,13 @@
  * @license    MIT
  * @copyright  Copyright (C) JBZoo.com, All rights reserved.
  * @link       https://github.com/JBZoo/Codestyle
+ * @author     Denis Smetannikov <denis@jbzoo.com>
  */
-
-declare(strict_types=1);
 
 use Phan\Issue;
 
 // See for details ./vendor/phan/phan/src/Phan/Config.php
+// @codeCoverageIgnore
 
 return [
     'target_php_version'         => null,

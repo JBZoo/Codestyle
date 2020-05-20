@@ -14,18 +14,12 @@
  * @author     Denis Smetannikov <denis@jbzoo.com>
  */
 
-// Example for depended projects
-// $default = include __DIR__ . '/../vendor/jbzoo/codestyle/src/phan/default.php';
+namespace JBZoo\PHPUnit;
 
-$default = include __DIR__ . '/../src/phan/default.php';
-
-return array_merge($default, [
-    'directory_list' => [
-        // project
-        'src',
-        '.phan',
-
-        // 3rd party libs
-        'vendor/phan/phan/src'
-    ]
-]);
+/**
+ * Class CodestyleCopyrightsTest
+ * @package JBZoo\PHPUnit
+ */
+class CodestyleCopyrightsTest extends AbstractCodestyleTest
+{
+}
