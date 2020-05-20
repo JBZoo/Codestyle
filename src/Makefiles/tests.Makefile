@@ -17,24 +17,27 @@ test: test-phpunit ##@Tests Run unit-tests (alias "test-phpunit")
 test-phpunit:
 	$(call title,"PHPUnit - Running all tests")
 	@echo "Config: $(JBZOO_CONFIG_PHPUNIT)"
-	@php `pwd`/vendor/bin/phpunit                             \
-        --configuration="$(JBZOO_CONFIG_PHPUNIT)"             \
-        --printer='Sempro\PHPUnitPrettyPrinter\PrettyPrinter' \
-        --order-by=random                                     \
+	@php `pwd`/vendor/bin/phpunit                                 \
+        --cache-result-file="$(PATH_BUILD)/.phpunit.result.cache" \
+        --configuration="$(JBZOO_CONFIG_PHPUNIT)"                 \
+        --printer='Sempro\PHPUnitPrettyPrinter\PrettyPrinter'     \
+        --order-by=random                                         \
         --verbose
 
 
 test-phpunit-teamcity: ##@Tests Run unit-tests with TeamCity output
 	$(call title,"PHPUnit - Running all tests")
 	@echo "Config: $(JBZOO_CONFIG_PHPUNIT)"
-	@php `pwd`/vendor/bin/phpunit                 \
-        --configuration="$(JBZOO_CONFIG_PHPUNIT)" \
-        --teamcity                                \
-        --order-by=random                         \
+	@php `pwd`/vendor/bin/phpunit                                 \
+        --cache-result-file="$(PATH_BUILD)/.phpunit.result.cache" \
+        --configuration="$(JBZOO_CONFIG_PHPUNIT)"                 \
+        --teamcity                                                \
+        --order-by=random                                         \
         --verbose
 
 
 codestyle: ##@Tests Run all codestyle linters at once
+	@make test-composer
 	@make test-phplint
 	@make test-phpcs
 	@make test-phpmd
