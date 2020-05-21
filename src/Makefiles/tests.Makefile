@@ -38,6 +38,7 @@ test-phpunit-teamcity: ##@Tests Run unit-tests with TeamCity output
 
 codestyle: ##@Tests Run all codestyle linters at once
 	@make test-composer
+	@make test-composer-reqs
 	@make test-phplint
 	@make test-phpcs
 	@make test-phpmd
