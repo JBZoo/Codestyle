@@ -42,10 +42,5 @@
     "require-dev"   : {
         "roave/security-advisories" : "dev-master",
         "jbzoo/phpunit"             : "dev-master"
-    },
-
-    "prefer-stable" : true,
-    "config"        : {
-        "optimize-autoloader" : true
     }
 }
