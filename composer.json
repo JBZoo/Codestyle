@@ -16,6 +16,7 @@
     "require"       : {
         "php"                                 : ">=7.2",
         "edgedesign/phpqa"                    : "^1.23.3",
+        "twig/twig"                           : "^2.12.5||^3.0",
 
         "vimeo/psalm"                         : "^3.11.4",
         "phpstan/phpstan"                     : "^0.12.25",
