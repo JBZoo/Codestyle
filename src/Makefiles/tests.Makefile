@@ -57,7 +57,7 @@ test-composer: ##@Tests Validate composer.json and composer.lock
 	@composer validate --verbose --strict
 	@composer check-platform-reqs
 	$(call title,"Composer - List of unused packages")
-	@composer unused --no-progress --ignore-exit-code --verbose
+	@composer unused --excludePackage=php --no-progress --ignore-exit-code --verbose
 	$(call title,"Composer - List of outdated packages")
 	@composer outdated --direct --verbose
 	$(call title,Composer - Checking dependencies with known security vulnerabilities)
