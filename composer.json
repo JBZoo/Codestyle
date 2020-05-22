@@ -1,11 +1,11 @@
 {
-    "name"          : "jbzoo/codestyle",
-    "type"          : "library",
-    "license"       : "MIT",
-    "description"   : "Collection of QA tools ans JBZoo code standards",
-    "keywords"      : ["php", "phpqa", "tests"],
+    "name"        : "jbzoo/codestyle",
+    "type"        : "library",
+    "license"     : "MIT",
+    "description" : "Collection of QA tools ans JBZoo code standards",
+    "keywords"    : ["php", "phpqa", "tests"],
 
-    "authors"       : [
+    "authors"     : [
         {
             "name"  : "Denis Smetannikov",
             "email" : "denis@jbzoo.com",
@@ -13,7 +13,7 @@
         }
     ],
 
-    "require"       : {
+    "require"     : {
         "php"                                 : ">=7.2",
         "edgedesign/phpqa"                    : "^1.23.3",
         "twig/twig"                           : "^2.12.5||^3.0",
@@ -36,10 +36,11 @@
         "clue/graph-composer"                 : "^1.1.0",
         "davidrjonas/composer-lock-diff"      : "^1.5.1",
         "php-coveralls/php-coveralls"         : "^2.2.0",
-        "maglnet/composer-require-checker"    : "^2.0.0"
+        "maglnet/composer-require-checker"    : "^2.0.0",
+        "icanhazstring/composer-unused"       : "^0.7.1"
     },
 
-    "require-dev"   : {
+    "require-dev" : {
         "roave/security-advisories" : "dev-master",
         "jbzoo/phpunit"             : "dev-master"
     }
