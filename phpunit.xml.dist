@@ -23,10 +23,7 @@
          stopOnIncomplete="false"
          stopOnSkipped="false"
          stopOnRisky="false"
-         verbose="true"
-         colors="true"
 >
-
     <testsuites>
         <testsuite name="All">
             <directory suffix="Test.php">tests</directory>

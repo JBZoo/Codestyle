@@ -22,6 +22,7 @@ test-phpunit:
         --configuration="$(JBZOO_CONFIG_PHPUNIT)"                 \
         --printer='Sempro\PHPUnitPrettyPrinter\PrettyPrinter'     \
         --order-by=random                                         \
+        --colors=always                                           \
         --verbose
 
 
@@ -33,6 +34,7 @@ test-phpunit-teamcity: ##@Tests Run unit-tests with TeamCity output
         --configuration="$(JBZOO_CONFIG_PHPUNIT)"                 \
         --teamcity                                                \
         --order-by=random                                         \
+        --colors=always                                           \
         --verbose
 
 
@@ -57,7 +59,7 @@ test-composer: ##@Tests Validate composer.json and composer.lock
 	@composer validate --verbose --strict
 	@composer check-platform-reqs
 	$(call title,"Composer - List of unused packages")
-	@composer unused --excludePackage=php --no-progress --ignore-exit-code --verbose
+	@-composer unused --excludePackage=php --no-progress --ignore-exit-code --verbose
 	$(call title,"Composer - List of outdated packages")
 	@composer outdated --direct --verbose
 	$(call title,Composer - Checking dependencies with known security vulnerabilities)
