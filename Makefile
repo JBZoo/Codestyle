@@ -27,4 +27,3 @@ test-all: ##@Project Run all project tests at once
 	@make test
 	@make test-composer-reqs
 	@make report-phpqa
-	@make report-composer-graph

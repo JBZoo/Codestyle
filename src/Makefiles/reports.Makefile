@@ -47,9 +47,5 @@ report-composer-diff: ##@Reports What has changed after a composer update
 
 report-composer-graph: ##@Reports Build composer graph of dependencies
 	$(call title,"Build composer graph of dependencies")
-	@php `pwd`/vendor/bin/graph-composer export \
-        "$(PATH_ROOT)"                          \
-        "$(PATH_BUILD)/composer-graph.png"      \
-        --verbose                               \
-        --format=png
-	@echo "See ./composer-graph.png"
+	@php `pwd`/vendor/bin/dependency-graph from-lock
+	@mv $(PATH_ROOT)/dependencies.svg $(PATH_BUILD)/dependencies.svg
