@@ -135,7 +135,7 @@ test-psalm: ##@Tests Psalm - static analysis tool for PHP
 	@php `pwd`/vendor/bin/psalm          \
         --config="$(JBZOO_CONFIG_PSALM)" \
         --output-format=compact          \
-        --show-info=false                \
+        --show-info=true                 \
         --show-snippet=true              \
         --find-unused-psalm-suppress     \
         --long-progress                  \
