@@ -27,6 +27,7 @@ env:
 
 before_script:
   - composer self-update
+  - sudo apt update && sudo apt install graphviz
 
 script:
   - make update   --no-print-directory
