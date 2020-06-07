@@ -24,6 +24,7 @@ env:
   matrix:
     - JBZOO_COMPOSER_UPDATE_FLAGS="--prefer-lowest --prefer-stable"
     - JBZOO_COMPOSER_UPDATE_FLAGS=""
+    - XDEBUG_OFF="yes"
 
 before_script:
   - composer self-update
