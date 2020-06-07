@@ -1,17 +1,17 @@
 {
-    "bootstrap"        : "vendor/autoload.php",
-    "path"             : "tests/phpbench",
-    "xml_storage_path" : "build/phpbench/storage",
+    "bootstrap"        : "../../../../../vendor/autoload.php",
+    "path"             : "../../../../../tests/phpbench",
+    "xml_storage_path" : "../../../../../build/phpbench/storage",
     "progress"         : "travis",
 
     "outputs"          : {
         "jbzoo-html-summary" : {
             "extends" : "html",
-            "file"    : "build/phpbench/summary.html"
+            "file"    : "../../../../../build/phpbench/summary.html"
         },
         "jbzoo-md"           : {
             "extends" : "markdown",
-            "file"    : "build/phpbench/for-readme.md"
+            "file"    : "../../../../../build/phpbench/for-readme.md"
         }
     },
 

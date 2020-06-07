@@ -85,7 +85,7 @@ endif
 ifneq (, $(wildcard ./phpbench.json))
     JBZOO_CONFIG_PHPBENCH ?= `pwd`/phpbench.json
 else
-    JBZOO_CONFIG_PHPBENCH ?= `pwd`/vendor/jbzoo/codestyle/phpbench.json
+    JBZOO_CONFIG_PHPBENCH ?= `pwd`/vendor/jbzoo/codestyle/src/phpbench/phpbench.json
 endif
 
 

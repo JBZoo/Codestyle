@@ -165,6 +165,7 @@ test-phploc: ##@Tests PHPloc - Show code stats
 test-performance: ##@Tests Run benchmarks and performance tests
 	$(call title,"Run benchmarks and performance tests")
 	@echo "Config: $(JBZOO_CONFIG_PHPBENCH)"
+	@rm    -fr "$(PATH_BUILD)/phpbench"
 	@mkdir -pv "$(PATH_BUILD)/phpbench"
 	@php `pwd`/vendor/bin/phpbench run         \
         --config="$(JBZOO_CONFIG_PHPBENCH)"    \
