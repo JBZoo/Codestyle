@@ -7,11 +7,11 @@
     "outputs"          : {
         "jbzoo-html-summary" : {
             "extends" : "html",
-            "file"    : "../../../../../build/phpbench/summary.html"
+            "file"    : "build/phpbench/summary.html"
         },
         "jbzoo-md"           : {
             "extends" : "markdown",
-            "file"    : "../../../../../build/phpbench/for-readme.md"
+            "file"    : "build/phpbench/for-readme.md"
         }
     },
 
