@@ -49,3 +49,26 @@ report-composer-graph: ##@Reports Build composer graph of dependencies
 	$(call title,"Build composer graph of dependencies")
 	@php `pwd`/vendor/bin/dependency-graph from-lock
 	@mv $(PATH_ROOT)/dependencies.svg $(PATH_BUILD)/dependencies.svg
+
+
+report-performance: ##@Reports Build performance summary report
+	$(call title,"Performance report - CLI")
+	@php `pwd`/vendor/bin/phpbench report      \
+        --config="$(JBZOO_CONFIG_PHPBENCH)"    \
+        --uuid=tag:jbzoo                       \
+        --report=summary                       \
+        --precision=2
+	$(call title,"Performance report - HTML")
+	@php `pwd`/vendor/bin/phpbench report      \
+        --config="$(JBZOO_CONFIG_PHPBENCH)"    \
+        --uuid=tag:jbzoo                       \
+        --report=summary                       \
+        --output=jbzoo-html-summary
+	$(call title,"Performance report - Markdown")
+	@php `pwd`/vendor/bin/phpbench report      \
+        --config="$(JBZOO_CONFIG_PHPBENCH)"    \
+        --uuid=tag:jbzoo                       \
+        --report=jbzoo                         \
+        --output=jbzoo-md                      \
+        --precision=2
+	@cat $(PATH_BUILD)/phpbench/for-readme.md

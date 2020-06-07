@@ -24,7 +24,7 @@ PATH_SRC   ?= $(PATH_ROOT)/src
 PATH_BIN   ?= $(PATH_ROOT)/bin
 PATH_BUILD ?= $(PATH_ROOT)/build
 PATH_TESTS ?= $(PATH_ROOT)/tests
-
+XDEBUG_OFF ?= no
 
 ifneq (, $(wildcard ./src/phpcs/ruleset.xml))
     JBZOO_CONFIG_PHPCS ?= `pwd`/src/phpcs/ruleset.xml
@@ -79,6 +79,13 @@ ifneq (, $(wildcard ./composer-require-checker.json))
     JBZOO_CONFIG_COMPOSER_REQ_CHECKER ?= `pwd`/composer-require-checker.json
 else
     JBZOO_CONFIG_COMPOSER_REQ_CHECKER ?= `pwd`/vendor/jbzoo/codestyle/src/composer-require-checker.json
+endif
+
+
+ifneq (, $(wildcard ./phpbench.json))
+    JBZOO_CONFIG_PHPBENCH ?= `pwd`/phpbench.json
+else
+    JBZOO_CONFIG_PHPBENCH ?= `pwd`/vendor/jbzoo/codestyle/phpbench.json
 endif
 
 

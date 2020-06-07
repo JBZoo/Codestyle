@@ -12,7 +12,7 @@
 #
 
 # General Makefile configuration
-.PHONY: app bin build tests vendor help list test
+.PHONY: app bin build src  tests vendor help list test tests
 .DEFAULT_GOAL := help
 SHELL = /bin/sh
 

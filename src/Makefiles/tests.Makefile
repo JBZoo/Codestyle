@@ -160,3 +160,25 @@ test-phan: ##@Tests Phan - super strict static analyzer for PHP
 test-phploc: ##@Tests PHPloc - Show code stats
 	$(call title,"PHPloc - Show code stats")
 	@php `pwd`/vendor/bin/phploc "$(PATH_SRC)" --verbose
+
+
+test-performance: ##@Tests Run benchmarks and performance tests
+	$(call title,"Run benchmarks and performance tests")
+	@echo "Config: $(JBZOO_CONFIG_PHPBENCH)"
+	@mkdir -pv "$(PATH_BUILD)/phpbench"
+	@php `pwd`/vendor/bin/phpbench run         \
+        --config="$(JBZOO_CONFIG_PHPBENCH)"    \
+        --tag=jbzoo                            \
+        --warmup=2                             \
+        --store                                \
+        --stop-on-error
+	@make report-performance
+
+
+test-performance-travis: ##@Tests Travis wrapper for benchmarks
+	$(call title,"Run benchmark tests \(Travis Mode\)")
+	@if [ $(XDEBUG_OFF) = "yes" ]; then                      \
+       make test-performance;                                \
+    else                                                     \
+       echo "Performance test works only if XDEBUG_OFF=yes"; \
+    fi;

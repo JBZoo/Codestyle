@@ -1,0 +1,45 @@
+{
+    "bootstrap"        : "./vendor/autoload.php",
+    "path"             : "./tests/phpbench",
+    "xml_storage_path" : "./build/phpbench/storage",
+    "progress"         : "travis",
+
+    "outputs"          : {
+        "jbzoo-html-summary" : {
+            "extends" : "html",
+            "file"    : "./build/phpbench/summary.html"
+        },
+        "jbzoo-md"           : {
+            "extends" : "markdown",
+            "file"    : "./build/phpbench/for-readme.md"
+        }
+    },
+
+    "reports"          : {
+        "jbzoo"   : {
+            "generator" : "table",
+            "title"     : "Summary benchmark info (execution time)",
+            "break"     : ["benchmark"],
+            "cols"      : [
+                "benchmark",
+                "subject",
+                "groups",
+                "its",
+                "revs",
+                "mean",
+                "stdev",
+                "rstdev",
+                "mem_real",
+                "diff"
+            ],
+            "sort"      : {
+                "mean"      : "asc",
+                "benchmark" : "asc"
+            }
+        },
+        "summary" : {
+            "generator" : "composite",
+            "reports"   : ["jbzoo", "env"]
+        }
+    }
+}
