@@ -50,6 +50,7 @@ codestyle: ##@Tests Run all codestyle linters at once
 	@make test-composer
 	@-make test-composer-reqs
 
+
 test-composer: ##@Tests Validate composer.json and composer.lock
 	$(call title,"Composer - Checking common issue")
 	@-composer diagnose
@@ -132,6 +133,10 @@ test-psalm: ##@Tests Psalm - static analysis tool for PHP
         --stats
 
 
+test-psalm-no-info:
+	@make test-psalm | grep INFO -v
+
+
 test-phan: ##@Tests Phan - super strict static analyzer for PHP
 	$(call title,"Phan - super strict static analyzer for PHP")
 	@echo "Config: $(JBZOO_CONFIG_PHAN)"
@@ -144,6 +149,7 @@ test-phan: ##@Tests Phan - super strict static analyzer for PHP
         --markdown-issue-messages            \
         --allow-polyfill-parser              \
         --strict-type-checking               \
+        --analyze-twice	                     \
         --color
 
 
