@@ -39,9 +39,6 @@ test-phpunit-teamcity: ##@Tests Run unit-tests with TeamCity output
 
 
 codestyle: ##@Tests Run all codestyle linters at once
-	@make test-composer
-	@-make test-composer-reqs
-	@make test-phplint
 	@make test-phpcs
 	@make test-phpmd
 	@make test-phpmnd
@@ -50,7 +47,8 @@ codestyle: ##@Tests Run all codestyle linters at once
 	@make test-psalm
 	@make test-phan
 	@make test-phploc
-
+	@make test-composer
+	@-make test-composer-reqs
 
 test-composer: ##@Tests Validate composer.json and composer.lock
 	$(call title,"Composer - Checking common issue")
@@ -102,14 +100,6 @@ test-phpmnd: ##@Tests PHPmnd - Magic Number Detector
 	@php `pwd`/vendor/bin/phpmnd \
         --progress               \
         --hint                   \
-        "$(PATH_SRC)"
-
-
-test-phplint: ##@Tests PHP Linter - Checking syntax of PHP
-	$(call title,"PHP Linter - Checking syntax of PHP")
-	@php `pwd`/vendor/bin/parallel-lint \
-        --blame                         \
-        --colors                        \
         "$(PATH_SRC)"
 
 
