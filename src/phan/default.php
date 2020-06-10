@@ -23,7 +23,7 @@ return [
     'target_php_version'         => null,
     'quick_mode'                 => false,
     'enable_include_path_checks' => false,
-    'processes'                  => 4,
+    'processes'                  => 1,
 
     'allow_missing_properties' => false,
     'null_casts_as_any_type'   => false,

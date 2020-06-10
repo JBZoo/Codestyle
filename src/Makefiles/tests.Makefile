@@ -133,8 +133,8 @@ test-psalm: ##@Tests Psalm - static analysis tool for PHP
         --stats
 
 
-test-psalm-no-info:
-	@make test-psalm | grep INFO -v
+test-psalm-no-info: ##@Tests Psalm - static analysis tool for PHP (INFO is hidden manually)
+	@make test-psalm | grep "INFO" -v | grep "+" -v | grep "SEVERITY" -v
 
 
 test-phan: ##@Tests Phan - super strict static analyzer for PHP
