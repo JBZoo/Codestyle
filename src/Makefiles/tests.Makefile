@@ -13,28 +13,28 @@
 
 PHPUNIT_PRETTY_PRINT_PROGRESS ?= true
 
-test: test-phpunit ##@Tests Run unit-tests (alias "test-phpunit")
+test: test-phpunit ##@Tests Run unit-tests (alias "test-phpunit-manual")
 test-phpunit:
-	$(call title,"PHPUnit - Running all tests")
+	$(call title,"PHPUnit - Running all tests \(Default and Travis CI\)")
 	@echo "Config: $(JBZOO_CONFIG_PHPUNIT)"
-	@php `pwd`/vendor/bin/phpunit                                 \
-        --cache-result-file="$(PATH_BUILD)/.phpunit.result.cache" \
-        --configuration="$(JBZOO_CONFIG_PHPUNIT)"                 \
-        --printer='Sempro\PHPUnitPrettyPrinter\PrettyPrinter'     \
-        --order-by=random                                         \
-        --colors=always                                           \
+	@php `pwd`/vendor/bin/phpunit                                  \
+        --cache-result-file="$(PATH_BUILD)/.phpunit.result.cache"  \
+        --configuration="$(JBZOO_CONFIG_PHPUNIT)"                  \
+        --printer=Codedungeon\\PHPUnitPrettyResultPrinter\\Printer \
+        --order-by=random                                          \
+        --colors=always                                            \
         --verbose
 
 
 test-phpunit-teamcity: ##@Tests Run unit-tests with TeamCity output
-	$(call title,"PHPUnit - Running all tests")
+	$(call title,"PHPUnit - Running all tests \(TeamCity\)")
 	@echo "Config: $(JBZOO_CONFIG_PHPUNIT)"
-	@php `pwd`/vendor/bin/phpunit                                 \
-        --cache-result-file="$(PATH_BUILD)/.phpunit.result.cache" \
-        --configuration="$(JBZOO_CONFIG_PHPUNIT)"                 \
-        --teamcity                                                \
-        --order-by=random                                         \
-        --colors=always                                           \
+	@php `pwd`/vendor/bin/phpunit                                  \
+        --cache-result-file="$(PATH_BUILD)/.phpunit.result.cache"  \
+        --configuration="$(JBZOO_CONFIG_PHPUNIT)"                  \
+        --teamcity                                                 \
+        --order-by=random                                          \
+        --colors=always                                            \
         --verbose
 
 
