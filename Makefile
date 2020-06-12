@@ -23,8 +23,7 @@ update: ##@Project Install/Update all 3rd party dependencies
 
 
 test-all: ##@Project Run all project tests at once
-	@make codestyle
 	@make test
+	@make codestyle
 	@make test-performance-travis
 	@make test-composer-reqs
-	@make report-phpqa
