@@ -55,7 +55,7 @@ test-composer: ##@Tests Validate composer.json and composer.lock
 	$(call title,"Composer - Checking common issue")
 	@-composer diagnose
 	$(call title,"Composer - Validate system requirements")
-	@composer validate --verbose --strict
+	@composer validate --verbose
 	@composer check-platform-reqs
 	$(call title,"Composer - List of unused packages")
 	@-composer unused --excludePackage=php --no-progress --ignore-exit-code --verbose
@@ -140,16 +140,16 @@ test-psalm-no-info: ##@Tests Psalm - static analysis tool for PHP (INFO is hidde
 test-phan: ##@Tests Phan - super strict static analyzer for PHP
 	$(call title,"Phan - super strict static analyzer for PHP")
 	@echo "Config: $(JBZOO_CONFIG_PHAN)"
-	@php `pwd`/vendor/bin/phan               \
-        --config-file="$(JBZOO_CONFIG_PHAN)" \
-        --color-scheme=light                 \
-        --progress-bar                       \
-        --backward-compatibility-checks      \
-        --print-memory-usage-summary         \
-        --markdown-issue-messages            \
-        --allow-polyfill-parser              \
-        --strict-type-checking               \
-        --analyze-twice	                     \
+	@PHAN_DISABLE_XDEBUG_WARN=1 php `pwd`/vendor/bin/phan  \
+        --config-file="$(JBZOO_CONFIG_PHAN)"               \
+        --color-scheme=light                               \
+        --progress-bar                                     \
+        --backward-compatibility-checks                    \
+        --print-memory-usage-summary                       \
+        --markdown-issue-messages                          \
+        --allow-polyfill-parser                            \
+        --strict-type-checking                             \
+        --analyze-twice	                                   \
         --color
 
 

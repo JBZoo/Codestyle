@@ -12,7 +12,8 @@
     @link       https://github.com/JBZoo/Codestyle
 -->
 <psalm
-        errorLevel="2"
+        errorLevel="1"
+        reportMixedIssues="false"
         useDocblockPropertyTypes="true"
         allowPhpStormGenerics="true"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
