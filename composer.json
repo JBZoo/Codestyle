@@ -32,7 +32,6 @@
         "sensiolabs/security-checker"        : "^6.0.3",
         "davidrjonas/composer-lock-diff"     : "^1.5.1",
         "maglnet/composer-require-checker"   : "^2.0.0",
-        "icanhazstring/composer-unused"      : "^0.7.1",
         "innmind/dependency-graph"           : "^1.4||^2.0"
     },
 
