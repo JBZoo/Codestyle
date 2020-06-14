@@ -128,6 +128,7 @@ test-psalm: ##@Tests Psalm - static analysis tool for PHP
         --show-snippet=true              \
         --find-unused-psalm-suppress     \
         --long-progress                  \
+        --shepherd                       \
         --stats
 
 
