@@ -39,7 +39,8 @@
         "roave/security-advisories"   : "dev-master",
         "jbzoo/phpunit"               : "4.0.x-dev",
         "php-coveralls/php-coveralls" : "^2.2.0",
-        "phpbench/phpbench"           : "^0.17.0"
+        "phpbench/phpbench"           : "^0.17.0",
+        "jbzoo/utils"                 : "4.0.x-dev"
     },
 
     "minimum-stability" : "dev",
