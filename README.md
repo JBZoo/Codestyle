@@ -1,6 +1,6 @@
-# JBZoo - Codestyle
+# JBZoo / Codestyle
  
-[![Build Status](https://travis-ci.org/JBZoo/Codestyle.svg?branch=master)](https://travis-ci.org/JBZoo/Codestyle)    [![Coverage Status](https://coveralls.io/repos/JBZoo/Codestyle/badge.svg)](https://coveralls.io/github/JBZoo/Codestyle?branch=master)    [![Psalm Coverage](https://shepherd.dev/github/JBZoo/Codestyle/coverage.svg)](https://shepherd.dev/github/JBZoo/Codestyle)    [![Codacy Badge](https://app.codacy.com/project/badge/Grade/2da2dd592c1640d7b2a536a59dd728ad)](https://www.codacy.com/gh/JBZoo/Codestyle)    
+[![Build Status](https://travis-ci.org/JBZoo/Codestyle.svg?branch=master)](https://travis-ci.org/JBZoo/Codestyle)    [![Coverage Status](https://coveralls.io/repos/JBZoo/Codestyle/badge.svg)](https://coveralls.io/github/JBZoo/Codestyle?branch=master)    [![Psalm Coverage](https://shepherd.dev/github/JBZoo/Codestyle/coverage.svg)](https://shepherd.dev/github/JBZoo/Codestyle)    
 [![Latest Stable Version](https://poser.pugx.org/JBZoo/Codestyle/v)](https://packagist.org/packages/JBZoo/Codestyle)    [![Latest Unstable Version](https://poser.pugx.org/JBZoo/Codestyle/v/unstable)](https://packagist.org/packages/JBZoo/Codestyle)    [![Dependents](https://poser.pugx.org/JBZoo/Codestyle/dependents)](https://packagist.org/packages/JBZoo/Codestyle/dependents?order_by=downloads)    [![GitHub Issues](https://img.shields.io/github/issues/JBZoo/Codestyle)](https://github.com/JBZoo/Codestyle/issues)    [![Total Downloads](https://poser.pugx.org/JBZoo/Codestyle/downloads)](https://packagist.org/packages/JBZoo/Codestyle/stats)    [![GitHub License](https://img.shields.io/github/license/JBZoo/Codestyle)](https://github.com/JBZoo/Codestyle/blob/master/LICENSE)
 
 
