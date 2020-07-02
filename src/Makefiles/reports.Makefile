@@ -58,6 +58,7 @@ report-composer-graph: ##@Reports Build composer graph of dependencies
         --composer-json=`pwd`/composer.json                 \
         --composer-lock=`pwd`/composer.lock                 \
         --output=$(PATH_BUILD)/composer-graph.html          \
+        --link-version=false                                \
         --no-php                                            \
         --no-ext                                            \
         --no-dev                                            \
