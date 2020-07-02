@@ -27,3 +27,4 @@ test-all: ##@Project Run all project tests at once
 	@make codestyle
 	@make test-performance-travis
 	@make test-composer-reqs
+	@make report-composer-graph

@@ -47,8 +47,21 @@ report-composer-diff: ##@Reports What has changed after a composer update
 
 report-composer-graph: ##@Reports Build composer graph of dependencies
 	$(call title,"Build composer graph of dependencies")
-	@php `pwd`/vendor/bin/dependency-graph from-lock
-	@mv $(PATH_ROOT)/dependencies.svg $(PATH_BUILD)/dependencies.svg
+	@php `pwd`/vendor/bin/jbzoo-composer-graph build        \
+        --composer-json=`pwd`/composer.json                 \
+        --composer-lock=`pwd`/composer.lock                 \
+        --output=$(PATH_BUILD)/composer-graph-full.html     \
+        --no-php                                            \
+        --no-ext                                            \
+        -vvv
+	@php `pwd`/vendor/bin/jbzoo-composer-graph build        \
+        --composer-json=`pwd`/composer.json                 \
+        --composer-lock=`pwd`/composer.lock                 \
+        --output=$(PATH_BUILD)/composer-graph.html          \
+        --no-php                                            \
+        --no-ext                                            \
+        --no-dev                                            \
+        -vvv
 
 
 report-performance: ##@Reports Build performance summary report
