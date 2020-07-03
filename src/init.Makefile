@@ -14,7 +14,9 @@
 # General Makefile configuration
 .PHONY: app bin build src  tests vendor help list test tests
 .DEFAULT_GOAL := help
-SHELL = /bin/sh
+
+SHELL    = /bin/sh
+COLUMNS ?= 160
 
 # Bootstrap
 CODESTYLE_DIR := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
