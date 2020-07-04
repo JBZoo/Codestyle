@@ -42,7 +42,18 @@ report-merge-coverage: ##@Reports Merge all coverage reports in one clover file
 
 report-composer-diff: ##@Reports What has changed after a composer update
 	$(call title,"What has changed after a composer update")
-	@php `pwd`/vendor/bin/composer-lock-diff --md
+	@php `pwd`/vendor/bin/jbzoo-composer-diff
+
+
+update-extend: ##@Reports Check new compatible versions of 3rd party libraries
+	@composer outdated
+	@-php `pwd`/vendor/bin/jbzoo-composer-diff
+	@cp -f `pwd`/composer.lock `pwd`/build/composer.lock
+	@make update
+	@-php `pwd`/vendor/bin/jbzoo-composer-diff \
+        --source="`pwd`/build/composer.lock"   \
+        --target="`pwd`/composer.lock"
+	@rm  `pwd`/build/composer.lock
 
 
 report-composer-graph: ##@Reports Build composer graph of dependencies
@@ -61,6 +72,7 @@ report-composer-graph: ##@Reports Build composer graph of dependencies
         --output=$(PATH_BUILD)/composer-graph.html          \
         --link-version=false                                \
         --no-php                                            \
+        --no-ext                                            \
         --no-dev                                            \
         -vvv
 

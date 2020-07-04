@@ -91,5 +91,6 @@ endif
 
 # Render nice title before executing the command
 define title
-    @echo "$(C_BACK)>>> >>> >>> >>> $(C_TITLE) $(1) $(CE)"
+    @echo ""
+    @echo "$(C_BACK)>>>> >>>> >>>> >>>> >>>> >>>> $(C_TITLE) $(1) $(CE)"
 endef
