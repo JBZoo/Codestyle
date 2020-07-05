@@ -47,7 +47,6 @@ report-composer-diff: ##@Reports What has changed after a composer update
 
 update-extend: ##@Reports Check new compatible versions of 3rd party libraries
 	@composer outdated
-	@-php `pwd`/vendor/bin/jbzoo-composer-diff
 	@cp -f `pwd`/composer.lock `pwd`/build/composer.lock
 	@make update
 	@-php `pwd`/vendor/bin/jbzoo-composer-diff \

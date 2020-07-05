@@ -18,7 +18,6 @@ test-phpunit:
 	$(call title,"PHPUnit - Running all tests \(Default and Travis CI\)")
 	@echo "Config: $(JBZOO_CONFIG_PHPUNIT)"
 	@php `pwd`/vendor/bin/phpunit                                  \
-        --cache-result-file="$(PATH_BUILD)/.phpunit.result.cache"  \
         --configuration="$(JBZOO_CONFIG_PHPUNIT)"                  \
         --printer=Codedungeon\\PHPUnitPrettyResultPrinter\\Printer \
         --order-by=random                                          \
@@ -30,7 +29,6 @@ test-phpunit-teamcity: ##@Tests Run unit-tests with TeamCity output
 	$(call title,"PHPUnit - Running all tests \(TeamCity\)")
 	@echo "Config: $(JBZOO_CONFIG_PHPUNIT)"
 	@php `pwd`/vendor/bin/phpunit                                  \
-        --cache-result-file="$(PATH_BUILD)/.phpunit.result.cache"  \
         --configuration="$(JBZOO_CONFIG_PHPUNIT)"                  \
         --teamcity                                                 \
         --order-by=random                                          \
