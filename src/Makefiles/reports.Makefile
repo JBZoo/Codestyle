@@ -57,22 +57,22 @@ update-extend: ##@Reports Check new compatible versions of 3rd party libraries
 
 report-composer-graph: ##@Reports Build composer graph of dependencies
 	$(call title,"Build composer graph of dependencies")
-	@php `pwd`/vendor/bin/jbzoo-composer-graph build        \
-        --composer-json=`pwd`/composer.json                 \
-        --composer-lock=`pwd`/composer.lock                 \
-        --output=$(PATH_BUILD)/composer-graph-full.html     \
-        --link-version=false                                \
-        --no-php                                            \
-        --no-ext                                            \
+	@php `pwd`/vendor/bin/jbzoo-composer-graph           \
+        --composer-json=`pwd`/composer.json              \
+        --composer-lock=`pwd`/composer.lock              \
+        --output=$(PATH_BUILD)/composer-graph-full.html  \
+        --link-version=false                             \
+        --no-php                                         \
+        --no-ext                                         \
         -vvv
-	@php `pwd`/vendor/bin/jbzoo-composer-graph build        \
-        --composer-json=`pwd`/composer.json                 \
-        --composer-lock=`pwd`/composer.lock                 \
-        --output=$(PATH_BUILD)/composer-graph.html          \
-        --link-version=false                                \
-        --no-php                                            \
-        --no-ext                                            \
-        --no-dev                                            \
+	@php `pwd`/vendor/bin/jbzoo-composer-graph           \
+        --composer-json=`pwd`/composer.json              \
+        --composer-lock=`pwd`/composer.lock              \
+        --output=$(PATH_BUILD)/composer-graph.html       \
+        --link-version=false                             \
+        --no-php                                         \
+        --no-ext                                         \
+        --no-dev                                         \
         -vvv
 
 
