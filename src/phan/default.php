@@ -46,7 +46,7 @@ return [
     'backward_compatibility_checks'              => true,
     'check_docblock_signature_return_type_match' => true,
     'phpdoc_type_mapping'                        => [
-        'mixed' => implode('|', ['array', 'bool', 'callable', 'int', 'float', 'null', 'object', 'resource', 'string',])
+        'mixed' => implode('|', ['array', 'bool', 'callable', 'int', 'float', 'null', 'object', 'resource', 'string'])
     ],
 
     'dead_code_detection'                      => true,
