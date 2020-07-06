@@ -18,8 +18,9 @@ SHELL    = /bin/sh
 
 
 .EXPORT_ALL_VARIABLES:
-COLUMNS        ?= 160
-JBZOO_MAKEFILE ?= 1
+COLUMNS                  ?= 160
+JBZOO_MAKEFILE           ?= 1
+PHAN_DISABLE_XDEBUG_WARN ?= 1
 
 
 # Bootstrap

@@ -137,7 +137,7 @@ test-psalm-no-info: ##@Tests Psalm - static analysis tool for PHP (INFO is hidde
 test-phan: ##@Tests Phan - super strict static analyzer for PHP
 	$(call title,"Phan - super strict static analyzer for PHP")
 	@echo "Config: $(JBZOO_CONFIG_PHAN)"
-	@PHAN_DISABLE_XDEBUG_WARN=1 php `pwd`/vendor/bin/phan  \
+	@php `pwd`/vendor/bin/phan                             \
         --config-file="$(JBZOO_CONFIG_PHAN)"               \
         --color-scheme=light                               \
         --progress-bar                                     \
