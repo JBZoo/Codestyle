@@ -45,9 +45,11 @@ return [
 
     'backward_compatibility_checks'              => true,
     'check_docblock_signature_return_type_match' => true,
-    'phpdoc_type_mapping'                        => [],
+    'phpdoc_type_mapping'                        => [
+        'mixed' => implode('|', ['array', 'bool', 'callable', 'int', 'float', 'null', 'object', 'resource', 'string',])
+    ],
 
-    'dead_code_detection'                      => false,
+    'dead_code_detection'                      => true,
     'unused_variable_detection'                => true,
     'redundant_condition_detection'            => true,
     'assume_real_types_for_internal_functions' => true,
@@ -81,5 +83,6 @@ return [
     'exclude_file_list'               => [],
     'exclude_analysis_directory_list' => [
         'vendor/',
+        'tests/',
     ],
 ];
