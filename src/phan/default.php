@@ -23,7 +23,7 @@ return [
     'target_php_version'         => null,
     'quick_mode'                 => false,
     'enable_include_path_checks' => false,
-    'processes'                  => 1,
+    'processes'                  => 1, // Cannot run analysis phase twice when using --processes N :(
 
     'allow_missing_properties' => false,
     'null_casts_as_any_type'   => false,
@@ -45,11 +45,9 @@ return [
 
     'backward_compatibility_checks'              => true,
     'check_docblock_signature_return_type_match' => true,
-    'phpdoc_type_mapping'                        => [
-        'mixed' => implode('|', ['array', 'bool', 'callable', 'int', 'float', 'null', 'object', 'resource', 'string'])
-    ],
+    'phpdoc_type_mapping'                        => [],
 
-    'dead_code_detection'                      => true,
+    'dead_code_detection'                      => false, // TODO: Coming soon
     'unused_variable_detection'                => true,
     'redundant_condition_detection'            => true,
     'assume_real_types_for_internal_functions' => true,
@@ -74,6 +72,28 @@ return [
         'EmptyStatementListPlugin',
         'StrictComparisonPlugin',
         'LoopVariableReusePlugin',
+
+        // Custom Rules
+        'DuplicateConstantPlugin',
+        'FFIAnalysisPlugin',
+        'InlineHTMLPlugin',
+        'InvalidVariableIssetPlugin',
+        'InvokePHPNativeSyntaxCheckPlugin',
+        'PhanSelfCheckPlugin',
+        'PreferNamespaceUsePlugin',
+        'ShortArrayPlugin',
+        'StrictLiteralComparisonPlugin',
+        'SuspiciousParamOrderPlugin',
+        'WhitespacePlugin',
+        'SimplifyExpressionPlugin',
+        'RemoveDebugStatementPlugin',
+        'RedundantAssignmentPlugin',
+        'PossiblyStaticMethodPlugin',
+        'PHPDocToRealTypesPlugin',
+        'NotFullyQualifiedUsagePlugin',
+        'UnusedSuppressionPlugin',
+        //'UnknownElementTypePlugin', // TODO: Generics?
+        //'HasPHPDocPlugin',          // TODO: Have to design it only for public method
     ],
 
     'file_list'      => [],
