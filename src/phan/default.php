@@ -90,10 +90,10 @@ return [
         'RedundantAssignmentPlugin',
         'PossiblyStaticMethodPlugin',
         'PHPDocToRealTypesPlugin',
-        'NotFullyQualifiedUsagePlugin',
         'UnusedSuppressionPlugin',
-        //'UnknownElementTypePlugin', // TODO: Generics?
-        //'HasPHPDocPlugin',          // TODO: Have to design it only for public method
+        //'UnknownElementTypePlugin',       // TODO: Generics?
+        //'HasPHPDocPlugin',                // TODO: Have to design it only for public method
+        //'NotFullyQualifiedUsagePlugin',   // TODO: Comnig soon
     ],
 
     'file_list'      => [],
