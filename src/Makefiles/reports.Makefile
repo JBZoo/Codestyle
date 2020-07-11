@@ -61,18 +61,13 @@ report-composer-graph: ##@Reports Build composer graph of dependencies
         --composer-json=`pwd`/composer.json              \
         --composer-lock=`pwd`/composer.lock              \
         --output=$(PATH_BUILD)/composer-graph-full.html  \
-        --link-version=false                             \
-        --no-php                                         \
-        --no-ext                                         \
+        --show-lib-versions                              \
+        --show-dev                                       \
         -vvv
 	@php `pwd`/vendor/bin/jbzoo-composer-graph           \
         --composer-json=`pwd`/composer.json              \
         --composer-lock=`pwd`/composer.lock              \
         --output=$(PATH_BUILD)/composer-graph.html       \
-        --link-version=false                             \
-        --no-php                                         \
-        --no-ext                                         \
-        --no-dev                                         \
         -vvv
 
 

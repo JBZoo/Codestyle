@@ -93,7 +93,7 @@ return [
         'UnusedSuppressionPlugin',
         //'UnknownElementTypePlugin',       // TODO: Generics?
         //'HasPHPDocPlugin',                // TODO: Have to design it only for public method
-        //'NotFullyQualifiedUsagePlugin',   // TODO: Comnig soon
+        //'NotFullyQualifiedUsagePlugin',   // TODO: Coming soon
     ],
 
     'file_list'      => [],
