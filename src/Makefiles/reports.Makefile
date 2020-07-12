@@ -57,18 +57,35 @@ update-extend: ##@Reports Check new compatible versions of 3rd party libraries
 
 report-composer-graph: ##@Reports Build composer graph of dependencies
 	$(call title,"Build composer graph of dependencies")
-	@php `pwd`/vendor/bin/jbzoo-composer-graph           \
-        --composer-json=`pwd`/composer.json              \
-        --composer-lock=`pwd`/composer.lock              \
-        --output=$(PATH_BUILD)/composer-graph-full.html  \
-        --show-lib-versions                              \
-        --show-dev                                       \
+	@php `pwd`/vendor/bin/composer-graph                          \
+        --output="$(PATH_BUILD)/composer-graph.html"              \
         -vvv
-	@php `pwd`/vendor/bin/jbzoo-composer-graph           \
-        --composer-json=`pwd`/composer.json              \
-        --composer-lock=`pwd`/composer.lock              \
-        --output=$(PATH_BUILD)/composer-graph.html       \
+	@php `pwd`/vendor/bin/composer-graph                          \
+        --output="$(PATH_BUILD)/composer-graph-extensions.html"   \
+        --show-ext                                                \
         -vvv
+	@php `pwd`/vendor/bin/composer-graph                          \
+        --output="$(PATH_BUILD)/composer-graph-versions.html"     \
+        --show-link-versions                                      \
+        --show-package-versions                                   \
+        -vvv
+	@php `pwd`/vendor/bin/composer-graph                          \
+        --output="$(PATH_BUILD)/composer-graph-suggests.html"     \
+        --show-suggests                                           \
+        -vvv
+	@php `pwd`/vendor/bin/composer-graph                          \
+        --output="$(PATH_BUILD)/composer-graph-dev.html"          \
+        --show-dev                                                \
+        -vvv
+	@php `pwd`/vendor/bin/composer-graph                          \
+        --output="$(PATH_BUILD)/composer-graph-full.html"         \
+        --show-ext                                                \
+        --show-dev                                                \
+        --show-suggests                                           \
+        --show-link-versions                                      \
+        --show-package-versions                                   \
+        -vvv
+
 
 
 report-performance: ##@Reports Build performance summary report
