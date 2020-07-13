@@ -25,30 +25,37 @@ Usage:
 Reports:
   report-phpqa                  PHPqa - Build user-friendly code reports
   report-coveralls              Send coverage report to coveralls.io
+  report-merge-coverage         Merge all coverage reports in one clover file
   report-composer-diff          What has changed after a composer update
+  update-extend                 Checks new compatible versions of 3rd party libraries
   report-composer-graph         Build composer graph of dependencies
+  report-performance            Build performance summary report
                                 
 Project:
-  install                       Install all 3rd party dependencies
-  update                        Update all 3rd party dependencies
-  test-all                      Run all test
-  clean-build                   Cleanup build directory
+  update                        Install/Update all 3rd party dependencies
+  test-all                      Run all project tests at once
+  clean-build                   Cleanup only build directory
+  clean                         Cleanup all
   autoload                      Dump optimized autoload file for PHP
                                 
 Tests:
-  test                          Run unit-tests (alias "test-phpunit")
-  codestyle                     Run all codestyle linters at once
-  test-composer                 Validate composer.json and composer.lock
+  test                          Runs unit-tests (alias "test-phpunit-manual")
+  test-phpunit-teamcity         Runs unit-tests with TeamCity output
+  codestyle                     Runs all codestyle linters at once
+  test-composer                 Validates composer.json and composer.lock
+  test-composer-reqs            Checks composer.json the defined dependencies against your code
   test-phpcs                    PHPcs - Checking PHP Codestyle (PSR-12 + PHP Compatibility)
   test-phpmd                    PHPmd - Mess Detector Checker
   test-phpmd-strict             PHPmd - Mess Detector Checker (strict mode)
   test-phpmnd                   PHPmnd - Magic Number Detector
-  test-phplint                  PHP Linter - Checking syntax of PHP
   test-phpcpd                   PHPcpd - Find obvious Copy&Paste
   test-phpstan                  PHPStan - Static Analysis Tool
   test-psalm                    Psalm - static analysis tool for PHP
+  test-psalm-no-info            Psalm - static analysis tool for PHP (INFO is hidden manually)
   test-phan                     Phan - super strict static analyzer for PHP
   test-phploc                   PHPloc - Show code stats
+  test-performance              Run benchmarks and performance tests
+  test-performance-travis       Travis wrapper for benchmarks
                                 
 Misc:
   help                          Show this text

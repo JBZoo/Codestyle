@@ -13,7 +13,7 @@
 
 PHPUNIT_PRETTY_PRINT_PROGRESS ?= true
 
-test: test-phpunit ##@Tests Run unit-tests (alias "test-phpunit-manual")
+test: test-phpunit ##@Tests Runs unit-tests (alias "test-phpunit-manual")
 test-phpunit:
 	$(call title,"PHPUnit - Running all tests \(Default and Travis CI\)")
 	@echo "Config: $(JBZOO_CONFIG_PHPUNIT)"
@@ -25,7 +25,7 @@ test-phpunit:
         --verbose
 
 
-test-phpunit-teamcity: ##@Tests Run unit-tests with TeamCity output
+test-phpunit-teamcity: ##@Tests Runs unit-tests with TeamCity output
 	$(call title,"PHPUnit - Running all tests \(TeamCity\)")
 	@echo "Config: $(JBZOO_CONFIG_PHPUNIT)"
 	@php `pwd`/vendor/bin/phpunit                                  \
@@ -36,7 +36,7 @@ test-phpunit-teamcity: ##@Tests Run unit-tests with TeamCity output
         --verbose
 
 
-codestyle: ##@Tests Run all codestyle linters at once
+codestyle: ##@Tests Runs all codestyle linters at once
 	@make test-phpcs
 	@make test-phpmd
 	@make test-phpmnd
@@ -49,7 +49,7 @@ codestyle: ##@Tests Run all codestyle linters at once
 	@-make test-composer-reqs
 
 
-test-composer: ##@Tests Validate composer.json and composer.lock
+test-composer: ##@Tests Validates composer.json and composer.lock
 	$(call title,"Composer - Checking common issue")
 	@-composer diagnose
 	$(call title,"Composer - Validate system requirements")
@@ -61,7 +61,7 @@ test-composer: ##@Tests Validate composer.json and composer.lock
 	@php `pwd`/vendor/bin/security-checker security:check
 
 
-test-composer-reqs: ##@Tests Check composer.json the defined dependencies against your code
+test-composer-reqs: ##@Tests Checks composer.json the defined dependencies against your code
 	$(call title,Composer - Check the defined dependencies against your code)
 	@echo "Config: $(JBZOO_CONFIG_COMPOSER_REQ_CHECKER)"
 	@php `pwd`/vendor/bin/composer-require-checker check   \
@@ -71,7 +71,7 @@ test-composer-reqs: ##@Tests Check composer.json the defined dependencies agains
 
 
 test-phpcs: ##@Tests PHPcs - Checking PHP Codestyle (PSR-12 + PHP Compatibility)
-	$(call title,"PHPcs - Checking PHP Codestyle \(PSR-12 + PHP Compatibility\)")
+	$(call title,"PHPcs - Checks PHP Codestyle \(PSR-12 + PHP Compatibility\)")
 	@echo "Config: $(JBZOO_CONFIG_PHPCS)"
 	@php `pwd`/vendor/bin/phpcs "$(PATH_SRC)"  \
             --standard="$(JBZOO_CONFIG_PHPCS)" \
