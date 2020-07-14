@@ -96,7 +96,6 @@ test-phpmnd: ##@Tests PHPmnd - Magic Number Detector
 	$(call title,"PHPmnd - Magic Number Detector")
 	@php `pwd`/vendor/bin/phpmnd \
         --progress               \
-        --hint                   \
         "$(PATH_SRC)"
 
 

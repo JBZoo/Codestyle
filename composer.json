@@ -17,7 +17,7 @@
         "php"                                : ">=7.2",
 
         "vimeo/psalm"                        : "^3.12.1",
-        "phpstan/phpstan"                    : "^0.12.32",
+        "phpstan/phpstan"                    : "^0.12.32||^0.13||^0.14",
         "nette/neon"                         : "^3.1.2",
 
         "phploc/phploc"                      : "^5.0||^6.0",
@@ -37,7 +37,7 @@
 
     "require-dev"       : {
         "phpbench/phpbench"    : "^0.17.1",
-        "jbzoo/phpunit"        : "^4.0.0",
+        "jbzoo/phpunit"        : "^4.1.0",
         "jbzoo/utils"          : "^4.0.0",
         "jbzoo/composer-graph" : "^1.0.0",
         "jbzoo/composer-diff"  : "^1.0.0"
@@ -52,7 +52,7 @@
 
     "extra"             : {
         "branch-alias" : {
-            "dev-master" : "2.0.x-dev"
+            "dev-master" : "2.x-dev"
         }
     }
 }
