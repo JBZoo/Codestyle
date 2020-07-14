@@ -30,17 +30,17 @@
         "phpcompatibility/php-compatibility" : "^9.3.5",
 
         "sensiolabs/security-checker"        : "^6.0.3",
+        "roave/security-advisories"          : "dev-master",
         "maglnet/composer-require-checker"   : "^2.0.0",
         "php-coveralls/php-coveralls"        : "^2.2.0"
     },
 
     "require-dev"       : {
-        "phpbench/phpbench"         : "^0.17.1",
-        "roave/security-advisories" : "dev-master",
-        "jbzoo/phpunit"             : "4.0.x-dev",
-        "jbzoo/utils"               : "4.0.x-dev",
-        "jbzoo/composer-graph"      : "1.0.x-dev",
-        "jbzoo/composer-diff"       : "1.0.x-dev"
+        "phpbench/phpbench"    : "^0.17.1",
+        "jbzoo/phpunit"        : "^4.0.0",
+        "jbzoo/utils"          : "^4.0.0",
+        "jbzoo/composer-graph" : "^1.0.0",
+        "jbzoo/composer-diff"  : "^1.0.0"
     },
 
     "minimum-stability" : "dev",
