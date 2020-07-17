@@ -120,17 +120,15 @@ test-psalm: ##@Tests Psalm - static analysis tool for PHP
 	@echo "Config: $(JBZOO_CONFIG_PSALM)"
 	@php `pwd`/vendor/bin/psalm          \
         --config="$(JBZOO_CONFIG_PSALM)" \
-        --output-format=compact          \
+        --output-format=console          \
+        --report-show-info=true          \
         --show-info=true                 \
         --show-snippet=true              \
         --find-unused-psalm-suppress     \
+        --taint-analysis                 \
         --long-progress                  \
         --shepherd                       \
         --stats
-
-
-test-psalm-no-info: ##@Tests Psalm - static analysis tool for PHP (INFO is hidden manually)
-	@make test-psalm | grep "INFO" -v | grep "+" -v | grep "SEVERITY" -v
 
 
 test-phan: ##@Tests Phan - super strict static analyzer for PHP
