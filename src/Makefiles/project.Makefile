@@ -11,16 +11,16 @@
 # @link       https://github.com/JBZoo/Codestyle
 #
 
-clean-build: ##@Project Cleanup only build directory
+clean: ##@Project Cleanup only build directory
 	$(call title,"Cleanup build directory")
 	@rm    -fr `pwd`/build
 	@mkdir -pv `pwd`/build
 	@touch     `pwd`/build/.gitkeep
 
 
-clean: ##@Project Cleanup all
+clean-vendor: ##@Project Cleanup all
 	$(call title,"Cleanup build directory")
-	@make clean-build
+	@make clean
 	@rm -fr `pwd`/vendor
 	@rm -fr `pwd`/composer.lock
 

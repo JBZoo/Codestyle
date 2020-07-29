@@ -13,6 +13,8 @@
 
 PHPUNIT_PRETTY_PRINT_PROGRESS ?= true
 
+#### General Tests #####################################################################################################
+
 test: test-phpunit ##@Tests Runs unit-tests (alias "test-phpunit-manual")
 test-phpunit:
 	$(call title,"PHPUnit - Running all tests")
@@ -34,7 +36,20 @@ test-phpunit:
     fi;
 
 
+#### All Coding Standards ##############################################################################################
+
 codestyle: ##@Tests Runs all codestyle linters at once
+	@if [[ -z "${TEAMCITY_VERSION}" ]]; then  \
+        make codestyle-local;                 \
+    else                                      \
+        make codestyle-teamcity;              \
+    fi;
+	@make test-phploc
+	@make test-composer
+	@-make test-composer-reqs
+
+
+codestyle-local: ##@Tests Runs all codestyle linters at once (Internal - Regular Mode)
 	@make test-phpcs
 	@make test-phpmd
 	@make test-phpmnd
@@ -42,10 +57,21 @@ codestyle: ##@Tests Runs all codestyle linters at once
 	@make test-phpstan
 	@make test-psalm
 	@make test-phan
-	@make test-phploc
-	@make test-composer
-	@-make test-composer-reqs
 
+
+codestyle-teamcity: ##@Tests Runs all codestyle linters at once (Internal - Teamcity Mode)
+	@echo "##teamcity[blockOpened name='codestyle-teamcity: Checking Coding Standards']"
+	@make test-phpcs-teamcity
+	@make test-phpmd-teamcity
+	@make test-phpmnd-teamcity
+	@make test-phpcpd-teamcity
+	@make test-phpstan-teamcity
+	@make test-psalm-teamcity
+	@make test-phan-teamcity
+	@echo "##teamcity[blockClosed name='codestyle-teamcity: Checking Coding Standards']"
+
+
+#### Composer ##########################################################################################################
 
 test-composer: ##@Tests Validates composer.json and composer.lock
 	$(call title,"Composer - Checking common issue")
@@ -68,6 +94,8 @@ test-composer-reqs: ##@Tests Checks composer.json the defined dependencies again
         $(PATH_ROOT)/composer.json
 
 
+#### PHP Code Sniffer ##################################################################################################
+
 test-phpcs: ##@Tests PHPcs - Checking PHP Codestyle (PSR-12 + PHP Compatibility)
 	$(call title,"PHPcs - Checks PHP Codestyle \(PSR-12 + PHP Compatibility\)")
 	@echo "Config: $(JBZOO_CONFIG_PHPCS)"
@@ -77,6 +105,25 @@ test-phpcs: ##@Tests PHPcs - Checking PHP Codestyle (PSR-12 + PHP Compatibility)
             --colors                           \
             -p -s
 
+
+test-phpcs-teamcity:
+	@rm -f "$(PATH_BUILD)/phpcs-checkstyle.xml"
+	@-php `pwd`/vendor/bin/phpcs "$(PATH_SRC)"                  \
+            --standard="$(JBZOO_CONFIG_PHPCS)"                  \
+            --report=checkstyle                                 \
+            --report-file="$(PATH_BUILD)/phpcs-checkstyle.xml"  \
+            --no-cache                                          \
+            --no-colors                                         \
+            -s
+	@php `pwd`/vendor/bin/toolbox-ci convert                    \
+        --input-format="checkstyle"                             \
+        --output-format="tc-tests"                              \
+        --suite-name="PHPcs"                                    \
+        --root-path="`pwd`"                                     \
+        --input-file="$(PATH_BUILD)/phpcs-checkstyle.xml"
+
+
+#### PHP Mess Detector #################################################################################################
 
 test-phpmd: ##@Tests PHPmd - Mess Detector Checker
 	$(call title,"PHPmd - Mess Detector Checker")
@@ -90,19 +137,43 @@ test-phpmd-strict: ##@Tests PHPmd - Mess Detector Checker (strict mode)
 	@php `pwd`/vendor/bin/phpmd "$(PATH_SRC)" ansi "$(JBZOO_CONFIG_PHPMD)" --verbose --strict
 
 
+test-phpmd-teamcity:
+	@rm -f "$(PATH_BUILD)/phpmd-json.json"
+	@-php `pwd`/vendor/bin/phpmd "$(PATH_SRC)" json "$(JBZOO_CONFIG_PHPMD)" > "$(PATH_BUILD)/phpmd-json.json"
+	@php `pwd`/vendor/bin/toolbox-ci convert                    \
+        --input-format="phpmd-json"                             \
+        --output-format="tc-tests"                              \
+        --suite-name="PHPmd"                                    \
+        --root-path="`pwd`"                                     \
+        --input-file="$(PATH_BUILD)/phpmd-json.json"
+
+
+#### PHP Magic Number Detector #########################################################################################
+
 test-phpmnd: ##@Tests PHPmnd - Magic Number Detector
 	$(call title,"PHPmnd - Magic Number Detector")
-	@php `pwd`/vendor/bin/phpmnd \
-        --progress               \
-        "$(PATH_SRC)"
+	@php `pwd`/vendor/bin/phpmnd "$(PATH_SRC)" --progress
 
+
+test-phpmnd-teamcity:
+	@php `pwd`/vendor/bin/phpmnd "$(PATH_SRC)" --quiet --xml-output="$(PATH_BUILD)/phpmnd.xml"
+
+
+#### PHP Copy@Paste Detector ###########################################################################################
 
 test-phpcpd: ##@Tests PHPcpd - Find obvious Copy&Paste
 	$(call title,"PHPcpd - Find obvious Copy\&Paste")
-	@php `pwd`/vendor/bin/phpcpd "$(PATH_SRC)" \
-        --verbose                              \
-        --progress
+	@php `pwd`/vendor/bin/phpcpd "$(PATH_SRC)" --verbose --progress
 
+
+test-phpcpd-teamcity:
+	@php `pwd`/vendor/bin/phpcpd $(PATH_SRC)       \
+        --log-pmd="$(PATH_BUILD)/phpcpd.xml"       \
+        --quiet                                    || true
+	@echo "##teamcity[importData type='pmdCpd' path='$(PATH_BUILD)/phpcpd.xml' verbose='true']"
+
+
+#### PHPstan - Static Analysis Tool ####################################################################################
 
 test-phpstan: ##@Tests PHPStan - Static Analysis Tool
 	$(call title,"PHPStan - Static Analysis Tool")
@@ -112,6 +183,23 @@ test-phpstan: ##@Tests PHPStan - Static Analysis Tool
         --error-format=table                      \
         "$(PATH_SRC)"
 
+
+test-phpstan-teamcity:
+	@rm -f "$(PATH_BUILD)/phpstan-checkstyle.xml"
+	@-php `pwd`/vendor/bin/phpstan analyse                      \
+        --configuration="$(JBZOO_CONFIG_PHPSTAN)"               \
+        --error-format=checkstyle                               \
+        --no-progress                                           \
+        "$(PATH_SRC)" > "$(PATH_BUILD)/phpstan-checkstyle.xml"
+	@php `pwd`/vendor/bin/toolbox-ci convert                    \
+        --input-format="checkstyle"                             \
+        --output-format="tc-tests"                              \
+        --suite-name="PHPstan"                                  \
+        --root-path="`pwd`"                                     \
+        --input-file="$(PATH_BUILD)/phpstan-checkstyle.xml"
+
+
+#### Psalm - Static Analysis Tool ######################################################################################
 
 test-psalm: ##@Tests Psalm - static analysis tool for PHP
 	$(call title,"Psalm - static analysis tool for PHP")
@@ -124,6 +212,24 @@ test-psalm: ##@Tests Psalm - static analysis tool for PHP
         --long-progress                  \
         --shepherd
 
+
+test-psalm-teamcity:
+	@rm -f "$(PATH_BUILD)/psalm-checkstyle.json"
+	@-php `pwd`/vendor/bin/psalm                                \
+        --config="$(JBZOO_CONFIG_PSALM)"                        \
+        --output-format=json                                    \
+        --report-show-info=true                                 \
+        --show-snippet=true                                     \
+        --no-progress                                           \
+        --monochrome > "$(PATH_BUILD)/psalm-checkstyle.json"
+	@php `pwd`/vendor/bin/toolbox-ci convert                    \
+        --input-format="psalm-json"                             \
+        --output-format="tc-tests"                              \
+        --suite-name="Psalm"                                    \
+        --root-path="`pwd`"                                     \
+        --input-file="$(PATH_BUILD)/psalm-checkstyle.json"
+
+#### Phan - Static Analysis Tool #######################################################################################
 
 test-phan: ##@Tests Phan - super strict static analyzer for PHP
 	$(call title,"Phan - super strict static analyzer for PHP")
@@ -141,10 +247,35 @@ test-phan: ##@Tests Phan - super strict static analyzer for PHP
         --color
 
 
+test-phan-teamcity:
+	@rm -f "$(PATH_BUILD)/phan-checkstyle.xml"
+	@-php `pwd`/vendor/bin/phan                                 \
+        --config-file="$(JBZOO_CONFIG_PHAN)"                    \
+        --output-mode="checkstyle"                              \
+        --output="$(PATH_BUILD)/phan-checkstyle.xml"            \
+        --no-progress-bar                                       \
+        --backward-compatibility-checks                         \
+        --markdown-issue-messages                               \
+        --allow-polyfill-parser                                 \
+        --strict-type-checking                                  \
+        --analyze-twice	                                        \
+        --no-color
+	@php `pwd`/vendor/bin/toolbox-ci convert                    \
+        --input-format="checkstyle"                             \
+        --output-format="tc-tests"                              \
+        --suite-name="Phan"                                     \
+        --root-path="`pwd`"                                     \
+        --input-file="$(PATH_BUILD)/phan-checkstyle.xml"
+
+
+#### PHPloc - Summary Codebase Info ####################################################################################
+
 test-phploc: ##@Tests PHPloc - Show code stats
 	$(call title,"PHPloc - Show code stats")
 	@php `pwd`/vendor/bin/phploc "$(PATH_SRC)" --verbose
 
+
+#### Testing Permformance ##############################################################################################
 
 test-performance: ##@Tests Run benchmarks and performance tests
 	$(call title,"Run benchmarks and performance tests")
