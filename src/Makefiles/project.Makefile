@@ -12,14 +12,14 @@
 #
 
 clean: ##@Project Cleanup only build directory
-	$(call title,"Cleanup build directory")
+	$(call title,"Cleanup only build directory")
 	@rm    -fr `pwd`/build
 	@mkdir -pv `pwd`/build
 	@touch     `pwd`/build/.gitkeep
 
 
 clean-vendor: ##@Project Cleanup all
-	$(call title,"Cleanup build directory")
+	$(call title,"Cleanup build and vendor directories")
 	@make clean
 	@rm -fr `pwd`/vendor
 	@rm -fr `pwd`/composer.lock

@@ -170,6 +170,7 @@ test-phpcpd-teamcity:
 	@php `pwd`/vendor/bin/phpcpd $(PATH_SRC)       \
         --log-pmd="$(PATH_BUILD)/phpcpd.xml"       \
         --quiet                                    || true
+	@echo ""
 	@echo "##teamcity[importData type='pmdCpd' path='$(PATH_BUILD)/phpcpd.xml' verbose='true']"
 
 
