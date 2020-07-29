@@ -15,25 +15,23 @@ PHPUNIT_PRETTY_PRINT_PROGRESS ?= true
 
 test: test-phpunit ##@Tests Runs unit-tests (alias "test-phpunit-manual")
 test-phpunit:
-	$(call title,"PHPUnit - Running all tests \(Default and Travis CI\)")
+	$(call title,"PHPUnit - Running all tests")
 	@echo "Config: $(JBZOO_CONFIG_PHPUNIT)"
-	@php `pwd`/vendor/bin/phpunit                                  \
-        --configuration="$(JBZOO_CONFIG_PHPUNIT)"                  \
-        --printer=Codedungeon\\PHPUnitPrettyResultPrinter\\Printer \
-        --order-by=random                                          \
-        --colors=always                                            \
-        --verbose
-
-
-test-phpunit-teamcity: ##@Tests Runs unit-tests with TeamCity output
-	$(call title,"PHPUnit - Running all tests \(TeamCity\)")
-	@echo "Config: $(JBZOO_CONFIG_PHPUNIT)"
-	@php `pwd`/vendor/bin/phpunit                                  \
-        --configuration="$(JBZOO_CONFIG_PHPUNIT)"                  \
-        --teamcity                                                 \
-        --order-by=random                                          \
-        --colors=always                                            \
-        --verbose
+	@if [[ -z "${TEAMCITY_VERSION}" ]]; then                           \
+        php `pwd`/vendor/bin/phpunit                                   \
+            --configuration="$(JBZOO_CONFIG_PHPUNIT)"                  \
+            --printer=Codedungeon\\PHPUnitPrettyResultPrinter\\Printer \
+            --order-by=random                                          \
+            --colors=always                                            \
+            --verbose;                                                 \
+    else                                                               \
+        php `pwd`/vendor/bin/phpunit                                   \
+            --configuration="$(JBZOO_CONFIG_PHPUNIT)"                  \
+            --order-by=random                                          \
+            --colors=always                                            \
+            --teamcity                                                 \
+            --verbose;                                                 \
+    fi;
 
 
 codestyle: ##@Tests Runs all codestyle linters at once
@@ -120,14 +118,11 @@ test-psalm: ##@Tests Psalm - static analysis tool for PHP
 	@echo "Config: $(JBZOO_CONFIG_PSALM)"
 	@php `pwd`/vendor/bin/psalm          \
         --config="$(JBZOO_CONFIG_PSALM)" \
-        --output-format=console          \
-        --report-show-info=true          \
+        --output-format=compact          \
         --show-info=true                 \
         --show-snippet=true              \
-        --taint-analysis                 \
         --long-progress                  \
-        --shepherd                       \
-        --stats
+        --shepherd
 
 
 test-phan: ##@Tests Phan - super strict static analyzer for PHP
