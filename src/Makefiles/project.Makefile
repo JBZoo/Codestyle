@@ -11,6 +11,7 @@
 # @link       https://github.com/JBZoo/Codestyle
 #
 
+clean-build: clean
 clean: ##@Project Cleanup only build directory
 	$(call title,"Cleanup only build directory")
 	@rm    -fr `pwd`/build
