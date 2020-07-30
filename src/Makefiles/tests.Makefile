@@ -19,7 +19,7 @@ test: test-phpunit ##@Tests Runs unit-tests (alias "test-phpunit-manual")
 test-phpunit:
 	$(call title,"PHPUnit - Running all tests")
 	@echo "Config: $(JBZOO_CONFIG_PHPUNIT)"
-	@if [[ -z "${TEAMCITY_VERSION}" ]]; then                           \
+	@if [[ -z "$(TEAMCITY_VERSION)" ]]; then                           \
         php `pwd`/vendor/bin/phpunit                                   \
             --configuration="$(JBZOO_CONFIG_PHPUNIT)"                  \
             --printer=Codedungeon\\PHPUnitPrettyResultPrinter\\Printer \
@@ -39,7 +39,7 @@ test-phpunit:
 #### All Coding Standards ##############################################################################################
 
 codestyle: ##@Tests Runs all codestyle linters at once
-	@if [[ -z "${TEAMCITY_VERSION}" ]]; then  \
+	@if [[ -z "$(TEAMCITY_VERSION)" ]]; then  \
         make codestyle-local;                 \
     else                                      \
         make codestyle-teamcity;              \
