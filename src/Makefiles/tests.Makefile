@@ -19,7 +19,7 @@ test: test-phpunit ##@Tests Runs unit-tests (alias "test-phpunit-manual")
 test-phpunit:
 	$(call title,"PHPUnit - Running all tests")
 	@echo "Config: $(JBZOO_CONFIG_PHPUNIT)"
-	@if [[ -z "$(TEAMCITY_VERSION)" ]]; then                           \
+	@if [ -z "$(TEAMCITY_VERSION)" ]; then                             \
         php `pwd`/vendor/bin/phpunit                                   \
             --configuration="$(JBZOO_CONFIG_PHPUNIT)"                  \
             --printer=Codedungeon\\PHPUnitPrettyResultPrinter\\Printer \
@@ -39,7 +39,7 @@ test-phpunit:
 #### All Coding Standards ##############################################################################################
 
 codestyle: ##@Tests Runs all codestyle linters at once
-	@if [[ -z "$(TEAMCITY_VERSION)" ]]; then  \
+	@if [ -z "$(TEAMCITY_VERSION)" ]; then    \
         make codestyle-local;                 \
     else                                      \
         make codestyle-teamcity;              \
@@ -209,7 +209,6 @@ test-psalm: ##@Tests Psalm - static analysis tool for PHP
         --config="$(JBZOO_CONFIG_PSALM)" \
         --output-format=compact          \
         --show-info=true                 \
-        --show-snippet=true              \
         --long-progress                  \
         --shepherd
 
@@ -220,7 +219,6 @@ test-psalm-teamcity:
         --config="$(JBZOO_CONFIG_PSALM)"                        \
         --output-format=json                                    \
         --report-show-info=true                                 \
-        --show-snippet=true                                     \
         --no-progress                                           \
         --monochrome > "$(PATH_BUILD)/psalm-checkstyle.json"
 	@php `pwd`/vendor/bin/toolbox-ci convert                    \
@@ -229,6 +227,7 @@ test-psalm-teamcity:
         --suite-name="Psalm"                                    \
         --root-path="`pwd`"                                     \
         --input-file="$(PATH_BUILD)/psalm-checkstyle.json"
+
 
 #### Phan - Static Analysis Tool #######################################################################################
 

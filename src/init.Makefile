@@ -14,7 +14,7 @@
 # General Makefile configuration
 .PHONY: app bin build src  tests vendor help list test tests
 .DEFAULT_GOAL := help
-SHELL    = /bin/bash
+SHELL    = /bin/sh
 
 
 .EXPORT_ALL_VARIABLES:
