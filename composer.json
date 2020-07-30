@@ -35,8 +35,7 @@
         "sensiolabs/security-checker"        : "^6.0.3",
         "roave/security-advisories"          : "dev-master",
 
-        "php-coveralls/php-coveralls"        : "^2.2.0",
-        "jbzoo/toolbox-ci"                   : "^1.0.0"
+        "php-coveralls/php-coveralls"        : "^2.2.0"
     },
 
     "require-dev"       : {
@@ -44,7 +43,8 @@
         "jbzoo/phpunit"        : "^4.1.1",
         "jbzoo/utils"          : "^4.1.0",
         "jbzoo/composer-graph" : "^1.0.1",
-        "jbzoo/composer-diff"  : "^1.1.0"
+        "jbzoo/composer-diff"  : "^1.1.0",
+        "jbzoo/toolbox-ci"     : "^1.0.0"
     },
 
     "minimum-stability" : "dev",

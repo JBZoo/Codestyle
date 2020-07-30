@@ -11,14 +11,159 @@
     @copyright  Copyright (C) JBZoo.com, All rights reserved.
     @link       https://github.com/JBZoo/Codestyle
 -->
-<ruleset name="JBZoo">
-    <description>JBZoo code style rules for PHPmd</description>
+<ruleset
+        name="JBZoo"
+        xmlns="http://pmd.sf.net/ruleset/1.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0 http://pmd.sf.net/ruleset_xml_schema.xsd"
+        xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd"
+>
+    <description>JBZoo code style ruleset for PHPmd</description>
 
-    <rule ref="rulesets/unusedcode.xml"/>
-    <rule ref="rulesets/codesize.xml"/>
-    <rule ref="rulesets/controversial.xml"/>
-    <rule ref="rulesets/design.xml"/>
-    <rule ref="rulesets/naming.xml"/>
+
+    <!-- Clean Code Rules
+         The Clean Code ruleset contains rules that enforce a clean code base. This includes rules from SOLID and object calisthenics.
+         https://phpmd.org/rules/cleancode.html
+     -->
     <rule ref="rulesets/unusedcode.xml"/>
 
+
+    <!-- Code Size Rules
+         The Code Size Ruleset contains a collection of rules that find code size related problems.
+         https://phpmd.org/rules/codesize.html
+    -->
+    <rule ref="rulesets/codesize.xml">
+        <exclude name="ExcessiveClassComplexity"/>
+        <exclude name="CyclomaticComplexity"/>
+        <exclude name="TooManyPublicMethods"/>
+        <exclude name="NPathComplexity"/>
+        <exclude name="ExcessiveMethodLength"/>
+        <exclude name="ExcessivePublicCount"/>
+        <exclude name="TooManyFields"/>
+        <exclude name="TooManyMethods"/>
+    </rule>
+    <rule ref="rulesets/codesize.xml/ExcessiveClassComplexity">
+        <properties>
+            <property name="maximum" value="150"/><!-- default:50 -->
+        </properties>
+    </rule>
+    <rule ref="rulesets/codesize.xml/CyclomaticComplexity">
+        <properties>
+            <property name="reportLevel" value="30"/><!-- default:10 -->
+        </properties>
+    </rule>
+    <rule ref="rulesets/codesize.xml/TooManyPublicMethods">
+        <properties>
+            <property name="maxmethods" value="30"/><!-- default:10 -->
+        </properties>
+    </rule>
+    <rule ref="rulesets/codesize.xml/NPathComplexity">
+        <properties>
+            <property name="minimum" value="300"/><!-- default:20 -->
+        </properties>
+    </rule>
+    <rule ref="rulesets/codesize.xml/ExcessiveMethodLength">
+        <properties>
+            <property name="minimum" value="120"/>
+            <property name="ignore-whitespace" value="true"/>
+        </properties>
+    </rule>
+    <rule ref="rulesets/codesize.xml/ExcessivePublicCount">
+        <properties>
+            <property name="minimum" value="100"/><!-- default:45 -->
+        </properties>
+    </rule>
+    <rule ref="rulesets/codesize.xml/TooManyFields">
+        <properties>
+            <property name="maxfields" value="100"/><!-- default:15 -->
+        </properties>
+    </rule>
+    <rule ref="rulesets/codesize.xml/TooManyMethods">
+        <properties>
+            <property name="maxmethods" value="100"/><!-- default:25 -->
+        </properties>
+    </rule>
+
+
+    <!-- Controversial Rules
+         This ruleset contains a collection of controversial rules.
+         https://phpmd.org/rules/controversial.html
+    -->
+    <rule ref="rulesets/controversial.xml">
+        <exclude name="CamelCasePropertyName"/>
+    </rule>
+
+
+    <!-- Design Rules
+         This ruleset contains a collection of controversial rules.
+         https://phpmd.org/rules/design.html
+    -->
+    <rule ref="rulesets/design.xml">
+        <exclude name="NumberOfChildren"/>
+        <exclude name="DepthOfInheritance"/>
+        <exclude name="CouplingBetweenObjects"/>
+        <exclude name="DevelopmentCodeFragment"/>
+        <exclude name="EmptyCatchBlock"/>
+    </rule>
+    <rule ref="rulesets/design.xml/NumberOfChildren">
+        <properties>
+            <property name="minimum" value="50"/><!-- default:15 -->
+        </properties>
+    </rule>
+    <rule ref="rulesets/design.xml/DepthOfInheritance">
+        <properties>
+            <property name="minimum" value="8"/><!-- default:6 -->
+        </properties>
+    </rule>
+    <rule ref="rulesets/design.xml/CouplingBetweenObjects">
+        <properties>
+            <property name="maximum" value="50"/><!-- default:13 -->
+        </properties>
+    </rule>
+    <rule ref="rulesets/design.xml/DevelopmentCodeFragment">
+        <properties>
+            <property name="unwanted-functions"
+                      value="var_dump,print_r,debug_zval_dump,debug_print_backtrace,jbdump,dump,toLog,dumpSql"/>
+            <property name="ignore-namespaces" value="true"/>
+        </properties>
+        <priority>1</priority>
+    </rule>
+
+
+    <!-- Naming Rules
+         The Naming Ruleset contains a collection of rules about names - too long, too short, and so forth.
+         https://phpmd.org/rules/naming.html
+    -->
+    <rule ref="rulesets/naming.xml">
+        <exclude name="ShortVariable"/>
+        <exclude name="LongVariable"/>
+        <exclude name="ShortMethodName"/>
+    </rule>
+    <rule ref="rulesets/naming.xml/ShortVariable">
+        <properties>
+            <property name="exceptions" value="di,id"/>
+            <property name="minimum" value="3"/>
+        </properties>
+    </rule>
+    <rule ref="rulesets/naming.xml/LongVariable">
+        <properties>
+            <property name="maximum" value="30"/><!-- default:20 -->
+        </properties>
+    </rule>
+    <rule ref="rulesets/naming.xml/ShortMethodName">
+        <properties>
+            <property name="minimum" value="3"/>
+            <property name="exceptions" value="_"/>
+        </properties>
+    </rule>
+
+
+    <!-- Unused Code Rules
+         The Unused Code Ruleset contains a collection of rules that find unused code.
+         https://phpmd.org/rules/unusedcode.html
+    -->
+    <rule ref="rulesets/unusedcode.xml">
+        <exclude name="UnusedPrivateField"/>
+        <exclude name="UnusedFormalParameter"/>
+    </rule>
 </ruleset>
