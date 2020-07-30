@@ -14,11 +14,12 @@
 # General Makefile configuration
 .PHONY: app bin build src  tests vendor help list test tests
 .DEFAULT_GOAL := help
-SHELL    = /bin/sh
+
+SHELL = /bin/sh
 
 
 .EXPORT_ALL_VARIABLES:
-COLUMNS                  ?= 120
+COLUMNS                  ?= 160
 JBZOO_MAKEFILE           ?= 1
 PHAN_ALLOW_XDEBUG        ?= 1
 PHAN_DISABLE_XDEBUG_WARN ?= 1

@@ -54,6 +54,13 @@ else
 endif
 
 
+ifneq (, $(wildcard ./psalm-baseline.xml))
+    JBZOO_CONFIG_PSALM_BASELINE ?= `pwd`/psalm-baseline.xml
+else
+    JBZOO_CONFIG_PSALM_BASELINE ?= `pwd`/vendor/jbzoo/codestyle/psalm-baseline.xml
+endif
+
+
 ifneq (, $(wildcard ./.phan/config.php))
     JBZOO_CONFIG_PHAN ?= `pwd`/.phan/config.php
 else

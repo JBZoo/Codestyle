@@ -167,9 +167,7 @@ test-phpcpd: ##@Tests PHPcpd - Find obvious Copy&Paste
 
 
 test-phpcpd-teamcity:
-	@php `pwd`/vendor/bin/phpcpd $(PATH_SRC)       \
-        --log-pmd="$(PATH_BUILD)/phpcpd.xml"       \
-        --quiet                                    || true
+	@-php `pwd`/vendor/bin/phpcpd $(PATH_SRC) --log-pmd="$(PATH_BUILD)/phpcpd.xml" --quiet
 	@echo ""
 	@echo "##teamcity[importData type='pmdCpd' path='$(PATH_BUILD)/phpcpd.xml' verbose='true']"
 
@@ -204,12 +202,18 @@ test-phpstan-teamcity:
 
 test-psalm: ##@Tests Psalm - static analysis tool for PHP
 	$(call title,"Psalm - static analysis tool for PHP")
-	@echo "Config: $(JBZOO_CONFIG_PSALM)"
-	@php `pwd`/vendor/bin/psalm          \
-        --config="$(JBZOO_CONFIG_PSALM)" \
-        --output-format=compact          \
-        --show-info=true                 \
-        --long-progress                  \
+	@echo "Config:   $(JBZOO_CONFIG_PSALM)"
+	@echo "Baseline: $(JBZOO_CONFIG_PSALM_BASELINE)"
+	@php `pwd`/vendor/bin/psalm                                 \
+        --config="$(JBZOO_CONFIG_PSALM)"                        \
+        --use-baseline="$(JBZOO_CONFIG_PSALM_BASELINE)"         \
+        --show-info=true                                        \
+        --show-snippet=true                                     \
+        --report-show-info=true                                 \
+        --find-unused-psalm-suppress                            \
+        --no-cache                                              \
+        --output-format=compact                                 \
+        --long-progress                                         \
         --shepherd
 
 
@@ -217,8 +221,13 @@ test-psalm-teamcity:
 	@rm -f "$(PATH_BUILD)/psalm-checkstyle.json"
 	@-php `pwd`/vendor/bin/psalm                                \
         --config="$(JBZOO_CONFIG_PSALM)"                        \
-        --output-format=json                                    \
+        --use-baseline="$(JBZOO_CONFIG_PSALM_BASELINE)"         \
+        --show-info=true                                        \
+        --show-snippet=true                                     \
         --report-show-info=true                                 \
+        --find-unused-psalm-suppress                            \
+        --no-cache                                              \
+        --output-format=json                                    \
         --no-progress                                           \
         --monochrome > "$(PATH_BUILD)/psalm-checkstyle.json"
 	@php `pwd`/vendor/bin/toolbox-ci convert                    \
