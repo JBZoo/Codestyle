@@ -27,12 +27,14 @@ test-phpunit:
             --colors=always                                            \
             --verbose;                                                 \
     else                                                               \
+        echo "##teamcity[blockOpened name='PHPUnit Tests']";           \
         php `pwd`/vendor/bin/phpunit                                   \
             --configuration="$(JBZOO_CONFIG_PHPUNIT)"                  \
             --order-by=random                                          \
             --colors=always                                            \
             --teamcity                                                 \
             --verbose;                                                 \
+        echo "##teamcity[blockClosed name='PHPUnit Tests']";           \
     fi;
 
 
@@ -60,7 +62,7 @@ codestyle-local: ##@Tests Runs all codestyle linters at once (Internal - Regular
 
 
 codestyle-teamcity: ##@Tests Runs all codestyle linters at once (Internal - Teamcity Mode)
-	@echo "##teamcity[blockOpened name='codestyle-teamcity: Checking Coding Standards']"
+	@echo "##teamcity[blockOpened name='Checking Coding Standards']"
 	@make test-phpcs-teamcity
 	@make test-phpmd-teamcity
 	@make test-phpmnd-teamcity
@@ -68,7 +70,7 @@ codestyle-teamcity: ##@Tests Runs all codestyle linters at once (Internal - Team
 	@make test-phpstan-teamcity
 	@make test-psalm-teamcity
 	@make test-phan-teamcity
-	@echo "##teamcity[blockClosed name='codestyle-teamcity: Checking Coding Standards']"
+	@echo "##teamcity[blockClosed name='Checking Coding Standards']"
 
 
 #### Composer ##########################################################################################################
@@ -207,7 +209,6 @@ test-psalm: ##@Tests Psalm - static analysis tool for PHP
 	@php `pwd`/vendor/bin/psalm                                 \
         --config="$(JBZOO_CONFIG_PSALM)"                        \
         --use-baseline="$(JBZOO_CONFIG_PSALM_BASELINE)"         \
-        --show-info=true                                        \
         --show-snippet=true                                     \
         --report-show-info=true                                 \
         --find-unused-psalm-suppress                            \
@@ -222,7 +223,6 @@ test-psalm-teamcity:
 	@-php `pwd`/vendor/bin/psalm                                \
         --config="$(JBZOO_CONFIG_PSALM)"                        \
         --use-baseline="$(JBZOO_CONFIG_PSALM_BASELINE)"         \
-        --show-info=true                                        \
         --show-snippet=true                                     \
         --report-show-info=true                                 \
         --find-unused-psalm-suppress                            \
