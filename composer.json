@@ -16,10 +16,10 @@
     "require"           : {
         "php"                                : ">=7.2",
 
-        "vimeo/psalm"                        : "^3.12.2",
+        "vimeo/psalm"                        : "^3.13.1",
 
         "phpstan/phpstan"                    : ">=0.12.34",
-        "phpstan/phpstan-strict-rules"       : ">=0.12.3",
+        "phpstan/phpstan-strict-rules"       : ">=0.12.4",
         "nette/neon"                         : ">=3.1.2",
 
         "phploc/phploc"                      : "^5.0||^6.0",
@@ -41,9 +41,9 @@
     "require-dev"       : {
         "phpbench/phpbench"    : ">=0.17.1",
         "jbzoo/phpunit"        : "^4.3.0",
-        "jbzoo/utils"          : "^4.2.0",
-        "jbzoo/composer-graph" : "^1.0.1",
-        "jbzoo/composer-diff"  : "^1.1.0",
+        "jbzoo/utils"          : "^4.2.1",
+        "jbzoo/composer-graph" : "^1.0.2",
+        "jbzoo/composer-diff"  : "^1.1.1",
         "jbzoo/toolbox-ci"     : "^1.1.0"
     },
 
