@@ -17,7 +17,6 @@
 use Phan\Issue;
 
 // See for details ./vendor/phan/phan/src/Phan/Config.php
-// @codeCoverageIgnore
 
 return [
     'target_php_version'         => null,
