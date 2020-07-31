@@ -17,8 +17,8 @@
 /**
  * Class PhpHashFunctions
  * @BeforeMethods({"init"})
- * @Revs(100000)
- * @Iterations(10)
+ * @Revs(10000)
+ * @Iterations(5)
  */
 class PhpHashFunctions
 {
@@ -31,7 +31,6 @@ class PhpHashFunctions
     {
         $this->string = str_repeat(random_int(0, 9), 1024);
     }
-
 
     /**
      * @Groups({"md5", "Native"})
@@ -48,7 +47,6 @@ class PhpHashFunctions
     {
         hash('md5', $this->string);
     }
-
 
     /**
      * @Groups({"sha1", "Native"})

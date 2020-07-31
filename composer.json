@@ -14,17 +14,17 @@
     ],
 
     "require"           : {
-        "php"                                : "^7.2",
+        "php"                                : ">=7.2",
 
         "vimeo/psalm"                        : "^3.12.2",
 
-        "phpstan/phpstan"                    : ">=0.12.32",
+        "phpstan/phpstan"                    : ">=0.12.34",
         "phpstan/phpstan-strict-rules"       : ">=0.12.3",
         "nette/neon"                         : ">=3.1.2",
 
         "phploc/phploc"                      : "^5.0||^6.0",
         "phpmd/phpmd"                        : "^2.8.2",
-        "povils/phpmnd"                      : "^2.2.0",
+        "povils/phpmnd"                      : "^2.3.0",
         "sebastian/phpcpd"                   : "^4.1||^5.0",
         "phan/phan"                          : "^3.1.0",
         "maglnet/composer-require-checker"   : "^2.0.0",
@@ -39,12 +39,12 @@
     },
 
     "require-dev"       : {
-        "phpbench/phpbench"    : "^0.17.1",
-        "jbzoo/phpunit"        : "^4.1.1",
-        "jbzoo/utils"          : "^4.1.0",
+        "phpbench/phpbench"    : ">=0.17.1",
+        "jbzoo/phpunit"        : "^4.3.0",
+        "jbzoo/utils"          : "^4.2.0",
         "jbzoo/composer-graph" : "^1.0.1",
         "jbzoo/composer-diff"  : "^1.1.0",
-        "jbzoo/toolbox-ci"     : "^1.0.0"
+        "jbzoo/toolbox-ci"     : "^1.1.0"
     },
 
     "minimum-stability" : "dev",

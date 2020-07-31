@@ -27,14 +27,14 @@ test-phpunit:
             --colors=always                                            \
             --verbose;                                                 \
     else                                                               \
-        echo "##teamcity[blockOpened name='PHPUnit Tests']";           \
+        echo "##teamcity[progressStart 'PHPUnit Tests']";              \
         php `pwd`/vendor/bin/phpunit                                   \
             --configuration="$(JBZOO_CONFIG_PHPUNIT)"                  \
             --order-by=random                                          \
             --colors=always                                            \
             --teamcity                                                 \
             --verbose;                                                 \
-        echo "##teamcity[blockClosed name='PHPUnit Tests']";           \
+        echo "##teamcity[progressFinish 'PHPUnit Tests']";             \
     fi;
 
 
@@ -62,7 +62,7 @@ codestyle-local: ##@Tests Runs all codestyle linters at once (Internal - Regular
 
 
 codestyle-teamcity: ##@Tests Runs all codestyle linters at once (Internal - Teamcity Mode)
-	@echo "##teamcity[blockOpened name='Checking Coding Standards']"
+	@echo "##teamcity[progressStart 'Checking Coding Standards']"
 	@make test-phpcs-teamcity
 	@make test-phpmd-teamcity
 	@make test-phpmnd-teamcity
@@ -70,7 +70,7 @@ codestyle-teamcity: ##@Tests Runs all codestyle linters at once (Internal - Team
 	@make test-phpstan-teamcity
 	@make test-psalm-teamcity
 	@make test-phan-teamcity
-	@echo "##teamcity[blockClosed name='Checking Coding Standards']"
+	@echo "##teamcity[progressFinish 'Checking Coding Standards']"
 
 
 #### Composer ##########################################################################################################
@@ -116,7 +116,7 @@ test-phpcs-teamcity:
             --report-file="$(PATH_BUILD)/phpcs-checkstyle.xml"  \
             --no-cache                                          \
             --no-colors                                         \
-            -s
+            -s -q
 	@php `pwd`/vendor/bin/toolbox-ci convert                    \
         --input-format="checkstyle"                             \
         --output-format="tc-tests"                              \
