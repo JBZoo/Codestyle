@@ -28,5 +28,6 @@ help: ## Show this text
 	@echo ''
 
 
+autocomplete:list
 list: ## Full list of targets
 	@$(MAKE) -pRrq -f $(MAKEFILE_LIST) : 2>/dev/null | awk -v RS= -F: '/^# File/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}' | sort | egrep -v -e '^[^[:alnum:]]' -e '^$@$$'
