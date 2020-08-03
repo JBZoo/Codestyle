@@ -11,6 +11,17 @@
 # @link       https://github.com/JBZoo/Codestyle
 #
 
+#### All Reports  ######################################################################################################
+
+report-all: ##@Reports Build all reports
+	@make report-composer-diff
+	@make report-composer-graph
+	@make report-phpmetrics
+	@make report-phploc
+	@make report-pdepend
+	@make report-merge-coverage
+
+
 report-phpqa: ##@Reports PHPqa - Build user-friendly code reports
 	$(call title,"PHPqa - Build user-friendly code reports")
 	@echo "Config: $(JBZOO_CONFIG_PHPQA)"
@@ -109,3 +120,40 @@ report-performance: ##@Reports Build performance summary report
         --output=jbzoo-md                      \
         --precision=2
 	@cat $(PATH_BUILD)/phpbench/for-readme.md
+
+
+report-phpmetrics: ##@Reports Build PHP Metrics Report
+	$(call title,"PHP Metrics Reports")
+	@rm -fr   $(PATH_BUILD)/phpmetrics
+	@mkdir -p $(PATH_BUILD)/phpmetrics
+	@php `pwd`/vendor/bin/phpmetrics  "$(PATH_SRC)"        \
+        --report-html="$(PATH_BUILD)/phpmetrics"           \
+        --report-violations="$(PATH_BUILD)/phpmetrics.xml" \
+        --report-json="$(PATH_BUILD)/phpmetrics.json"      \
+        --junit="$(PATH_BUILD)/coverage_junit/main.xml"    \
+        --git=/usr/bin/git                                 \
+        --no-interaction                                   || true
+
+
+report-pdepend: ##@Reports Build PHP Depend Report
+	@php `pwd`/vendor/bin/pdepend                                \
+        --dependency-xml="$(PATH_BUILD)/pdepend-dependency.xml"  \
+        --jdepend-chart="$(PATH_BUILD)/pdepend-jdepend.svg"      \
+        --overview-pyramid="$(PATH_BUILD)/pdepend-pyramid.svg"   \
+        --summary-xml="$(PATH_BUILD)/pdepend-summary.xml"        \
+        --jdepend-xml="$(PATH_BUILD)/pdepend-jdepend.xml"        \
+        "$(PATH_SRC)"
+
+#### PHPloc - Summary Codebase Info ####################################################################################
+
+report-phploc: ##@Reports PHPloc - Show code stats
+	$(call title,"PHPloc - Show code stats")
+	@php `pwd`/vendor/bin/phploc "$(PATH_SRC)" --verbose
+
+
+report-phploc-teamcity:
+	@php `pwd`/vendor/bin/phploc "$(PATH_SRC)"           \
+        --log-json="$(PATH_BUILD)/phploc.json" --quiet
+	@php `pwd`/vendor/bin/toolbox-ci teamcity:stats      \
+        --input-format="phploc-json"                     \
+        --input-file="$(PATH_BUILD)/phploc.json";

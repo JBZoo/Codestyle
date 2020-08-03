@@ -61,7 +61,6 @@ codestyle-local: ##@Tests Runs all codestyle linters at once (Internal - Regular
 	@make test-phpstan
 	@make test-psalm
 	@make test-phan
-	@make test-phploc
 
 
 codestyle-teamcity: ##@Tests Runs all codestyle linters at once (Internal - Teamcity Mode)
@@ -73,7 +72,7 @@ codestyle-teamcity: ##@Tests Runs all codestyle linters at once (Internal - Team
 	@make test-phpstan-teamcity
 	@make test-psalm-teamcity
 	@make test-phan-teamcity
-	@make test-phploc-teamcity
+	@make report-phploc-teamcity
 	@echo "##teamcity[progressFinish 'Checking Coding Standards']"
 
 
@@ -279,20 +278,6 @@ test-phan-teamcity:
         --suite-name="Phan"                                     \
         --root-path="`pwd`"                                     \
         --input-file="$(PATH_BUILD)/phan-checkstyle.xml"
-
-
-#### PHPloc - Summary Codebase Info ####################################################################################
-
-test-phploc: ##@Tests PHPloc - Show code stats
-	$(call title,"PHPloc - Show code stats")
-	@php `pwd`/vendor/bin/phploc "$(PATH_SRC)" --verbose
-
-
-test-phploc-teamcity:
-	@php `pwd`/vendor/bin/phploc "$(PATH_SRC)" --log-json="$(PATH_BUILD)/phploc.json" --quiet
-	@php `pwd`/vendor/bin/toolbox-ci teamcity:stats   \
-        --input-format="phploc-json"                  \
-        --input-file="$(PATH_BUILD)/phploc.json";
 
 
 #### Testing Permformance ##############################################################################################
