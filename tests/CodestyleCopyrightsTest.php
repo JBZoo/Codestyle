@@ -20,6 +20,7 @@ namespace JBZoo\PHPUnit;
  * Class CodestyleCopyrightsTest
  * @package JBZoo\PHPUnit
  */
-class CodestyleCopyrightsTest extends AbstractCodestyleTest
+class CodestyleCopyrightsTest extends AbstractCopyrightTest
 {
+    protected $packageName = "Codestyle";
 }

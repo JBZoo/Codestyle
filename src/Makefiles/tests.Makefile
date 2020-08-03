@@ -34,6 +34,9 @@ test-phpunit:
             --colors=always                                            \
             --teamcity                                                 \
             --verbose;                                                 \
+        php `pwd`/vendor/bin/toolbox-ci teamcity:stats                 \
+            --input-format="phpunit-clover-xml"                        \
+            --input-file="$(PATH_BUILD)/coverage_xml/main.xml";        \
         echo "##teamcity[progressFinish 'PHPUnit Tests']";             \
     fi;
 
@@ -46,7 +49,6 @@ codestyle: ##@Tests Runs all codestyle linters at once
     else                                      \
         make codestyle-teamcity;              \
     fi;
-	@make test-phploc
 	@make test-composer
 	@-make test-composer-reqs
 
@@ -59,6 +61,7 @@ codestyle-local: ##@Tests Runs all codestyle linters at once (Internal - Regular
 	@make test-phpstan
 	@make test-psalm
 	@make test-phan
+	@make test-phploc
 
 
 codestyle-teamcity: ##@Tests Runs all codestyle linters at once (Internal - Teamcity Mode)
@@ -70,6 +73,7 @@ codestyle-teamcity: ##@Tests Runs all codestyle linters at once (Internal - Team
 	@make test-phpstan-teamcity
 	@make test-psalm-teamcity
 	@make test-phan-teamcity
+	@make test-phploc-teamcity
 	@echo "##teamcity[progressFinish 'Checking Coding Standards']"
 
 
@@ -116,7 +120,7 @@ test-phpcs-teamcity:
             --report-file="$(PATH_BUILD)/phpcs-checkstyle.xml"  \
             --no-cache                                          \
             --no-colors                                         \
-            -s -q
+            -s -q > /dev/null
 	@php `pwd`/vendor/bin/toolbox-ci convert                    \
         --input-format="checkstyle"                             \
         --output-format="tc-tests"                              \
@@ -282,6 +286,13 @@ test-phan-teamcity:
 test-phploc: ##@Tests PHPloc - Show code stats
 	$(call title,"PHPloc - Show code stats")
 	@php `pwd`/vendor/bin/phploc "$(PATH_SRC)" --verbose
+
+
+test-phploc-teamcity:
+	@php `pwd`/vendor/bin/phploc "$(PATH_SRC)" --log-json="$(PATH_BUILD)/phploc.json" --quiet
+	@php `pwd`/vendor/bin/toolbox-ci teamcity:stats   \
+        --input-format="phploc-json"                  \
+        --input-file="$(PATH_BUILD)/phploc.json";
 
 
 #### Testing Permformance ##############################################################################################
