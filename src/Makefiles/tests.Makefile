@@ -36,7 +36,7 @@ test-phpunit:
             --verbose;                                                 \
         php `pwd`/vendor/bin/toolbox-ci teamcity:stats                 \
             --input-format="phpunit-clover-xml"                        \
-            --input-file="$(PATH_BUILD)/coverage_xml/main.xml";        \
+            --input-file="$(PATH_BUILD)/coverage_junit/main.xml";      \
         echo "##teamcity[progressFinish 'PHPUnit Tests']";             \
     fi;
 
