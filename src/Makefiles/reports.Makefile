@@ -11,9 +11,7 @@
 # @link       https://github.com/JBZoo/Codestyle
 #
 
-#### All Reports  ######################################################################################################
-
-report-all: ##@Reports Build all reports
+report-all: ##@Reports Build all reports at once
 	@-make report-composer-diff
 	@-make report-composer-graph
 	@-make report-phpmetrics
@@ -72,6 +70,7 @@ report-composer-graph: ##@Reports Build composer graph of dependencies
 	@php `pwd`/vendor/bin/composer-graph                          \
         --output="$(PATH_BUILD)/composer-graph.html"              \
         -vvv
+	@echo "##teamcity[publishArtifacts '$(PATH_BUILD)/composer-graph.html']"
 	@php `pwd`/vendor/bin/composer-graph                          \
         --output="$(PATH_BUILD)/composer-graph-extensions.html"   \
         --show-ext                                                \
