@@ -12,14 +12,12 @@
 #
 
 report-all: ##@Reports Build all reports at once
-	@echo "##teamcity[compilationStarted compiler='Reports']"
 	@-make report-composer-diff
 	@-make report-composer-graph
 	@-make report-phpmetrics
 	@-make report-phploc
 	@-make report-pdepend
 	@-make report-performance
-	@echo "##teamcity[compilationFinished compiler='Reports']"
 
 
 report-phpqa: ##@Reports PHPqa - Build user-friendly code reports
