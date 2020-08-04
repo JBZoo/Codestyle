@@ -18,7 +18,6 @@ report-all: ##@Reports Build all reports at once
 	@-make report-phpmetrics
 	@-make report-phploc
 	@-make report-pdepend
-	@-make report-merge-coverage
 	@-make report-performance
 	@echo "##teamcity[compilationFinished compiler='Reports']"
 
