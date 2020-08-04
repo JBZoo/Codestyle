@@ -72,7 +72,7 @@ codestyle-teamcity: ##@Tests Runs all codestyle linters at once (Internal - Team
 	@make test-phpstan-teamcity
 	@make test-psalm-teamcity
 	@make test-phan-teamcity
-	@make report-phploc-teamcity
+	@make report-phploc
 	@echo "##teamcity[progressFinish 'Checking Coding Standards']"
 
 

@@ -75,10 +75,10 @@ else
 endif
 
 
-ifneq (, $(wildcard ./phpunit.xml.dist))
-    JBZOO_CONFIG_PHPUNIT ?= `pwd`/phpunit.xml.dist
+ifneq (, $(wildcard ./phpunit.xml))
+    JBZOO_CONFIG_PHPUNIT ?= `pwd`/phpunit.xml
 else
-    JBZOO_CONFIG_PHPUNIT ?= `pwd`/vendor/jbzoo/codestyle/src/phpunit/phpunit.xml.dist
+    JBZOO_CONFIG_PHPUNIT ?= `pwd`/phpunit.xml.dist
 endif
 
 
