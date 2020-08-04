@@ -42,7 +42,7 @@ test-phpunit:
 
 
 test-phpunit-x:
-	$(call title,"PHPUnit - Run all tests (with xDebug)")
+	$(call title,"PHPUnit - Run all tests \(with xDebug\)")
 	@echo "Config: $(JBZOO_CONFIG_PHPUNIT)"
 	@if [ -z "$(TEAMCITY_VERSION)" ]; then                             \
         php-x `pwd`/vendor/bin/phpunit                                 \
