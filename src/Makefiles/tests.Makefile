@@ -17,7 +17,7 @@ PHPUNIT_PRETTY_PRINT_PROGRESS ?= true
 
 test: test-phpunit ##@Tests Runs unit-tests (alias "test-phpunit-manual")
 test-phpunit:
-	$(call title,"PHPUnit - Running all tests")
+	$(call title,"PHPUnit - Run all tests")
 	@echo "Config: $(JBZOO_CONFIG_PHPUNIT)"
 	@if [ -z "$(TEAMCITY_VERSION)" ]; then                             \
         php `pwd`/vendor/bin/phpunit                                   \
@@ -29,6 +29,31 @@ test-phpunit:
     else                                                               \
         echo "##teamcity[progressStart 'PHPUnit Tests']";              \
         php `pwd`/vendor/bin/phpunit                                   \
+            --configuration="$(JBZOO_CONFIG_PHPUNIT)"                  \
+            --order-by=random                                          \
+            --colors=always                                            \
+            --teamcity                                                 \
+            --verbose;                                                 \
+        php `pwd`/vendor/bin/toolbox-ci teamcity:stats                 \
+            --input-format="phpunit-clover-xml"                        \
+            --input-file="$(PATH_BUILD)/coverage_junit/main.xml";      \
+        echo "##teamcity[progressFinish 'PHPUnit Tests']";             \
+    fi;
+
+
+test-phpunit-x:
+	$(call title,"PHPUnit - Run all tests (with xDebug)")
+	@echo "Config: $(JBZOO_CONFIG_PHPUNIT)"
+	@if [ -z "$(TEAMCITY_VERSION)" ]; then                             \
+        php-x `pwd`/vendor/bin/phpunit                                 \
+            --configuration="$(JBZOO_CONFIG_PHPUNIT)"                  \
+            --printer=Codedungeon\\PHPUnitPrettyResultPrinter\\Printer \
+            --order-by=random                                          \
+            --colors=always                                            \
+            --verbose;                                                 \
+    else                                                               \
+        echo "##teamcity[progressStart 'PHPUnit Tests']";              \
+        php-x `pwd`/vendor/bin/phpunit                                 \
             --configuration="$(JBZOO_CONFIG_PHPUNIT)"                  \
             --order-by=random                                          \
             --colors=always                                            \
