@@ -14,12 +14,13 @@
 #### All Reports  ######################################################################################################
 
 report-all: ##@Reports Build all reports
-	@make report-composer-diff
-	@make report-composer-graph
-	@make report-phpmetrics
-	@make report-phploc
-	@make report-pdepend
-	@make report-merge-coverage
+	@-make report-composer-diff
+	@-make report-composer-graph
+	@-make report-phpmetrics
+	@-make report-phploc
+	@-make report-pdepend
+	@-make report-merge-coverage
+	@-make report-performance
 
 
 report-phpqa: ##@Reports PHPqa - Build user-friendly code reports
@@ -144,16 +145,15 @@ report-pdepend: ##@Reports Build PHP Depend Report
         --jdepend-xml="$(PATH_BUILD)/pdepend-jdepend.xml"        \
         "$(PATH_SRC)"
 
-#### PHPloc - Summary Codebase Info ####################################################################################
 
 report-phploc: ##@Reports PHPloc - Show code stats
 	$(call title,"PHPloc - Show code stats")
-	@php `pwd`/vendor/bin/phploc "$(PATH_SRC)" --verbose
-
-
-report-phploc-teamcity:
-	@php `pwd`/vendor/bin/phploc "$(PATH_SRC)"           \
-        --log-json="$(PATH_BUILD)/phploc.json" --quiet
-	@php `pwd`/vendor/bin/toolbox-ci teamcity:stats      \
-        --input-format="phploc-json"                     \
-        --input-file="$(PATH_BUILD)/phploc.json";
+	@if [ -z "$(TEAMCITY_VERSION)" ]; then                       \
+        php `pwd`/vendor/bin/phploc "$(PATH_SRC)" --verbose;     \
+    else                                                         \
+        php `pwd`/vendor/bin/phploc "$(PATH_SRC)"                \
+            --log-json="$(PATH_BUILD)/phploc.json" --quiet;      \
+        php `pwd`/vendor/bin/toolbox-ci teamcity:stats           \
+            --input-format="phploc-json"                         \
+            --input-file="$(PATH_BUILD)/phploc.json";            \
+    fi;                                                          \
