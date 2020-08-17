@@ -25,6 +25,7 @@ PATH_BIN   ?= $(PATH_ROOT)/bin
 PATH_BUILD ?= $(PATH_ROOT)/build
 PATH_TESTS ?= $(PATH_ROOT)/tests
 XDEBUG_OFF ?= no
+TC_REPORT  ?= tc-tests
 
 ifneq (, $(wildcard ./src/phpcs/ruleset.xml))
     JBZOO_CONFIG_PHPCS ?= `pwd`/src/phpcs/ruleset.xml

@@ -36,7 +36,10 @@ test-phpunit:
             --verbose;                                                 \
         php `pwd`/vendor/bin/toolbox-ci teamcity:stats                 \
             --input-format="phpunit-clover-xml"                        \
-            --input-file="$(PATH_BUILD)/coverage_junit/main.xml";      \
+            --input-file="$(PATH_BUILD)/coverage_xml/main.xml";        \
+        php `pwd`/vendor/bin/toolbox-ci teamcity:stats                 \
+                --input-format="junit-xml"                             \
+                --input-file="$(PATH_BUILD)/coverage_junit/main.xml";  \
         echo "##teamcity[progressFinish 'PHPUnit Tests']";             \
     fi;
 
@@ -61,7 +64,10 @@ test-phpunit-x:
             --verbose;                                                 \
         php `pwd`/vendor/bin/toolbox-ci teamcity:stats                 \
             --input-format="phpunit-clover-xml"                        \
-            --input-file="$(PATH_BUILD)/coverage_junit/main.xml";      \
+            --input-file="$(PATH_BUILD)/coverage_xml/main.xml";        \
+        php `pwd`/vendor/bin/toolbox-ci teamcity:stats                 \
+                --input-format="junit-xml"                             \
+                --input-file="$(PATH_BUILD)/coverage_junit/main.xml";  \
         echo "##teamcity[progressFinish 'PHPUnit Tests']";             \
     fi;
 
@@ -97,6 +103,7 @@ codestyle-teamcity: ##@Tests Runs all codestyle linters at once (Internal - Team
 	@make test-phpstan-teamcity
 	@make test-psalm-teamcity
 	@make test-phan-teamcity
+	@make report-pdepend
 	@make report-phploc
 	@echo "##teamcity[progressFinish 'Checking Coding Standards']"
 
@@ -147,7 +154,7 @@ test-phpcs-teamcity:
             -s -q > /dev/null
 	@php `pwd`/vendor/bin/toolbox-ci convert                    \
         --input-format="checkstyle"                             \
-        --output-format="tc-tests"                              \
+        --output-format="$(TC_REPORT)"                          \
         --suite-name="PHPcs"                                    \
         --root-path="`pwd`"                                     \
         --input-file="$(PATH_BUILD)/phpcs-checkstyle.xml"
@@ -172,7 +179,7 @@ test-phpmd-teamcity:
 	@-php `pwd`/vendor/bin/phpmd "$(PATH_SRC)" json "$(JBZOO_CONFIG_PHPMD)" > "$(PATH_BUILD)/phpmd-json.json"
 	@php `pwd`/vendor/bin/toolbox-ci convert                    \
         --input-format="phpmd-json"                             \
-        --output-format="tc-tests"                              \
+        --output-format="$(TC_REPORT)"                          \
         --suite-name="PHPmd"                                    \
         --root-path="`pwd`"                                     \
         --input-file="$(PATH_BUILD)/phpmd-json.json"
@@ -193,7 +200,9 @@ test-phpmnd-teamcity:
 
 test-phpcpd: ##@Tests PHPcpd - Find obvious Copy&Paste
 	$(call title,"PHPcpd - Find obvious Copy\&Paste")
-	@php `pwd`/vendor/bin/phpcpd "$(PATH_SRC)" --verbose --progress
+	@php `pwd`/vendor/bin/phpcpd "$(PATH_SRC)"          \
+        --verbose                                       \
+        --progress
 
 
 test-phpcpd-teamcity:
@@ -222,7 +231,7 @@ test-phpstan-teamcity:
         "$(PATH_SRC)" > "$(PATH_BUILD)/phpstan-checkstyle.xml"
 	@php `pwd`/vendor/bin/toolbox-ci convert                    \
         --input-format="checkstyle"                             \
-        --output-format="tc-tests"                              \
+        --output-format="$(TC_REPORT)"                          \
         --suite-name="PHPstan"                                  \
         --root-path="`pwd`"                                     \
         --input-file="$(PATH_BUILD)/phpstan-checkstyle.xml"
@@ -260,7 +269,7 @@ test-psalm-teamcity:
         --monochrome > "$(PATH_BUILD)/psalm-checkstyle.json"
 	@php `pwd`/vendor/bin/toolbox-ci convert                    \
         --input-format="psalm-json"                             \
-        --output-format="tc-tests"                              \
+        --output-format="$(TC_REPORT)"                          \
         --suite-name="Psalm"                                    \
         --root-path="`pwd`"                                     \
         --input-file="$(PATH_BUILD)/psalm-checkstyle.json"
@@ -271,16 +280,16 @@ test-psalm-teamcity:
 test-phan: ##@Tests Phan - super strict static analyzer for PHP
 	$(call title,"Phan - super strict static analyzer for PHP")
 	@echo "Config: $(JBZOO_CONFIG_PHAN)"
-	@php `pwd`/vendor/bin/phan                             \
-        --config-file="$(JBZOO_CONFIG_PHAN)"               \
-        --color-scheme=light                               \
-        --progress-bar                                     \
-        --backward-compatibility-checks                    \
-        --print-memory-usage-summary                       \
-        --markdown-issue-messages                          \
-        --allow-polyfill-parser                            \
-        --strict-type-checking                             \
-        --analyze-twice	                                   \
+	@php `pwd`/vendor/bin/phan                                  \
+        --config-file="$(JBZOO_CONFIG_PHAN)"                    \
+        --color-scheme=light                                    \
+        --progress-bar                                          \
+        --backward-compatibility-checks                         \
+        --print-memory-usage-summary                            \
+        --markdown-issue-messages                               \
+        --allow-polyfill-parser                                 \
+        --strict-type-checking                                  \
+        --analyze-twice	                                        \
         --color
 
 
@@ -299,7 +308,7 @@ test-phan-teamcity:
         --no-color
 	@php `pwd`/vendor/bin/toolbox-ci convert                    \
         --input-format="checkstyle"                             \
-        --output-format="tc-tests"                              \
+        --output-format="$(TC_REPORT)"                          \
         --suite-name="Phan"                                     \
         --root-path="`pwd`"                                     \
         --input-file="$(PATH_BUILD)/phan-checkstyle.xml"
@@ -312,19 +321,19 @@ test-performance: ##@Tests Run benchmarks and performance tests
 	@echo "Config: $(JBZOO_CONFIG_PHPBENCH)"
 	@rm    -fr "$(PATH_BUILD)/phpbench"
 	@mkdir -pv "$(PATH_BUILD)/phpbench"
-	@php `pwd`/vendor/bin/phpbench run         \
-        --config="$(JBZOO_CONFIG_PHPBENCH)"    \
-        --tag=jbzoo                            \
-        --warmup=2                             \
-        --store                                \
+	@php `pwd`/vendor/bin/phpbench run                          \
+        --config="$(JBZOO_CONFIG_PHPBENCH)"                     \
+        --tag=jbzoo                                             \
+        --warmup=2                                              \
+        --store                                                 \
         --stop-on-error
 	@make report-performance
 
 
 test-performance-travis: ##@Tests Travis wrapper for benchmarks
 	$(call title,"Run benchmark tests \(Travis Mode\)")
-	@if [ $(XDEBUG_OFF) = "yes" ]; then                      \
-       make test-performance;                                \
-    else                                                     \
-       echo "Performance test works only if XDEBUG_OFF=yes"; \
+	@if [ $(XDEBUG_OFF) = "yes" ]; then                         \
+       make test-performance;                                   \
+    else                                                        \
+       echo "Performance test works only if XDEBUG_OFF=yes";    \
     fi;
