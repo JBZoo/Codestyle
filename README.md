@@ -42,6 +42,7 @@ Project:
   autoload                      Dump optimized autoload file for PHP
 
 Reports:
+  report-all                    Build all reports at once
   report-phpqa                  PHPqa - Build user-friendly code reports
   report-coveralls              Send coverage report to coveralls.io
   report-merge-coverage         Merge all coverage reports in one clover file
@@ -49,6 +50,9 @@ Reports:
   update-extend                 Checks new compatible versions of 3rd party libraries
   report-composer-graph         Build composer graph of dependencies
   report-performance            Build performance summary report
+  report-phpmetrics             Build PHP Metrics Report
+  report-pdepend                Build PHP Depend Report
+  report-phploc                 PHPloc - Show code stats
 
 Tests:
   test                          Runs unit-tests (alias "test-phpunit-manual")
@@ -65,13 +69,12 @@ Tests:
   test-phpstan                  PHPStan - Static Analysis Tool
   test-psalm                    Psalm - static analysis tool for PHP
   test-phan                     Phan - super strict static analyzer for PHP
-  test-phploc                   PHPloc - Show code stats
   test-performance              Run benchmarks and performance tests
   test-performance-travis       Travis wrapper for benchmarks
                                 
 Misc:
   help                          Show this text
   list                          Full list of targets
-                                
+
 Trick: Add into your "~/.bash_aliases" the line "complete -W "\`make list\`" make" to use TAB
 ```
