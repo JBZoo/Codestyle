@@ -66,35 +66,35 @@ update-extend: ##@Reports Checks new compatible versions of 3rd party libraries
 
 report-composer-graph: ##@Reports Build composer graph of dependencies
 	$(call title,"Build composer graph of dependencies")
+	@mkdir -p "$(PATH_BUILD)/composer-graph"
 	@php `pwd`/vendor/bin/composer-graph                          \
-        --output="$(PATH_BUILD)/composer-graph.html"              \
+        --output="$(PATH_BUILD)/composer-graph/mini.html"         \
         -vvv
 	@php `pwd`/vendor/bin/composer-graph                          \
-        --output="$(PATH_BUILD)/composer-graph-extensions.html"   \
+        --output="$(PATH_BUILD)/composer-graph/extensions.html"   \
         --show-ext                                                \
         -vvv
 	@php `pwd`/vendor/bin/composer-graph                          \
-        --output="$(PATH_BUILD)/composer-graph-versions.html"     \
+        --output="$(PATH_BUILD)/composer-graph/versions.html"     \
         --show-link-versions                                      \
         --show-package-versions                                   \
         -vvv
 	@php `pwd`/vendor/bin/composer-graph                          \
-        --output="$(PATH_BUILD)/composer-graph-suggests.html"     \
+        --output="$(PATH_BUILD)/composer-graph/suggests.html"     \
         --show-suggests                                           \
         -vvv
 	@php `pwd`/vendor/bin/composer-graph                          \
-        --output="$(PATH_BUILD)/composer-graph-dev.html"          \
+        --output="$(PATH_BUILD)/composer-graph/dev.html"          \
         --show-dev                                                \
         -vvv
 	@php `pwd`/vendor/bin/composer-graph                          \
-        --output="$(PATH_BUILD)/composer-graph-full.html"         \
+        --output="$(PATH_BUILD)/composer-graph/full.html"         \
         --show-ext                                                \
         --show-dev                                                \
         --show-suggests                                           \
         --show-link-versions                                      \
         --show-package-versions                                   \
         -vvv
-
 
 
 report-performance: ##@Reports Build performance summary report
