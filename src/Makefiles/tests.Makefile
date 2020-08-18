@@ -193,7 +193,13 @@ test-phpmnd: ##@Tests PHPmnd - Magic Number Detector
 
 
 test-phpmnd-teamcity:
-	@php `pwd`/vendor/bin/phpmnd "$(PATH_SRC)" --quiet --xml-output="$(PATH_BUILD)/phpmnd.xml"
+	@php `pwd`/vendor/bin/phpmnd "$(PATH_SRC)" --quiet --hint --xml-output="$(PATH_BUILD)/phpmnd.xml"
+	@php `pwd`/vendor/bin/toolbox-ci convert                    \
+        --input-format="phpmnd"                                 \
+        --output-format="tc-inspections"                        \
+        --suite-name="PHP Magic Numbers"                        \
+        --root-path="`pwd`"                                     \
+        --input-file="$(PATH_BUILD)/phpmnd.xml"
 
 
 #### PHP Copy@Paste Detector ###########################################################################################

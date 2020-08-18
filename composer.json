@@ -46,7 +46,7 @@
         "jbzoo/utils"          : "^4.2.1",
         "jbzoo/composer-graph" : "^1.0.2",
         "jbzoo/composer-diff"  : "^1.1.1",
-        "jbzoo/toolbox-ci"     : "^1.3.1"
+        "jbzoo/toolbox-ci"     : "^1.3.2"
     },
 
     "minimum-stability" : "dev",
