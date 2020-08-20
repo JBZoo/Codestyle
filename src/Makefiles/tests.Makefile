@@ -175,14 +175,14 @@ test-phpmd-strict: ##@Tests PHPmd - Mess Detector Checker (strict mode)
 
 
 test-phpmd-teamcity:
-	@rm -f "$(PATH_BUILD)/phpmd-json.json"
-	@-php `pwd`/vendor/bin/phpmd "$(PATH_SRC)" json "$(JBZOO_CONFIG_PHPMD)" > "$(PATH_BUILD)/phpmd-json.json"
+	@rm -f "$(PATH_BUILD)/phpmd.json"
+	@-php `pwd`/vendor/bin/phpmd "$(PATH_SRC)" json "$(JBZOO_CONFIG_PHPMD)" > "$(PATH_BUILD)/phpmd.json"
 	@php `pwd`/vendor/bin/toolbox-ci convert                    \
         --input-format="phpmd-json"                             \
         --output-format="$(TC_REPORT)"                          \
         --suite-name="PHPmd"                                    \
         --root-path="`pwd`"                                     \
-        --input-file="$(PATH_BUILD)/phpmd-json.json"
+        --input-file="$(PATH_BUILD)/phpmd.json"
 
 
 #### PHP Magic Number Detector #########################################################################################
@@ -196,7 +196,7 @@ test-phpmnd-teamcity:
 	@php `pwd`/vendor/bin/phpmnd "$(PATH_SRC)" --quiet --hint --xml-output="$(PATH_BUILD)/phpmnd.xml"
 	@php `pwd`/vendor/bin/toolbox-ci convert                    \
         --input-format="phpmnd"                                 \
-        --output-format="tc-inspections"                        \
+        --output-format="$(TC_REPORT_MND)"                      \
         --suite-name="PHP Magic Numbers"                        \
         --root-path="`pwd`"                                     \
         --input-file="$(PATH_BUILD)/phpmnd.xml"

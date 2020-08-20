@@ -19,13 +19,16 @@ C_BACK  = \033[0;33m
 C_TITLE = \033[0;30;46m
 
 # Paths
-PATH_ROOT  ?= `pwd`
-PATH_SRC   ?= $(PATH_ROOT)/src
-PATH_BIN   ?= $(PATH_ROOT)/bin
-PATH_BUILD ?= $(PATH_ROOT)/build
-PATH_TESTS ?= $(PATH_ROOT)/tests
-XDEBUG_OFF ?= no
-TC_REPORT  ?= tc-tests
+PATH_ROOT      ?= `pwd`
+PATH_SRC       ?= $(PATH_ROOT)/src
+PATH_BIN       ?= $(PATH_ROOT)/bin
+PATH_BUILD     ?= $(PATH_ROOT)/build
+PATH_TESTS     ?= $(PATH_ROOT)/tests
+
+XDEBUG_OFF     ?= no
+
+TC_REPORT      ?= tc-tests
+TC_REPORT_MND  ?= tc-inspections
 
 ifneq (, $(wildcard ./src/phpcs/ruleset.xml))
     JBZOO_CONFIG_PHPCS ?= `pwd`/src/phpcs/ruleset.xml
