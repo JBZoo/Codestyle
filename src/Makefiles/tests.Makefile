@@ -198,7 +198,7 @@ test-phpmnd-teamcity:
         --input-format="phpmnd"                                 \
         --output-format="$(TC_REPORT_MND)"                      \
         --suite-name="PHP Magic Numbers"                        \
-        --root-path="`pwd`"                                     \
+        --root-path="$(PATH_SRC)"                               \
         --input-file="$(PATH_BUILD)/phpmnd.xml"
 
 
