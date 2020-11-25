@@ -37,7 +37,9 @@
 
         "php-coveralls/php-coveralls"        : "^2.4.2",
         "phpmetrics/phpmetrics"              : "^2.7.4",
-        "pdepend/pdepend"                    : "^2.8.0"
+        "pdepend/pdepend"                    : "^2.8.0",
+
+        "beberlei/assert"                    : "3.2.7"
     },
 
     "require-dev"       : {
