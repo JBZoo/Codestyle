@@ -16,7 +16,7 @@
     "require"           : {
         "php"                                : ">=7.2",
 
-        "vimeo/psalm"                        : ">=4.3.0",
+        "vimeo/psalm"                        : "~4.2.1",
 
         "phpstan/phpstan"                    : ">=0.12.58",
         "phpstan/phpstan-strict-rules"       : ">=0.12.5",
