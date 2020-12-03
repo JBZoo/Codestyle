@@ -30,6 +30,8 @@ XDEBUG_OFF     ?= no
 TC_REPORT      ?= tc-tests
 TC_REPORT_MND  ?= tc-inspections
 
+PHP_BIN ?= php
+
 ifneq (, $(wildcard ./src/phpcs/ruleset.xml))
     JBZOO_CONFIG_PHPCS ?= `pwd`/src/phpcs/ruleset.xml
 else
