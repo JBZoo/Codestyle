@@ -20,7 +20,7 @@ test-phpunit:
 	$(call title,"PHPUnit - Run all tests")
 	@echo "Config: $(JBZOO_CONFIG_PHPUNIT)"
 	@if [ -z "$(TEAMCITY_VERSION)" ]; then                             \
-        $(PHP_BIN) `pwd`/vendor/bin/phpunit                            \
+        XDEBUG_MODE=coverage $(PHP_BIN) `pwd`/vendor/bin/phpunit       \
             --configuration="$(JBZOO_CONFIG_PHPUNIT)"                  \
             --printer=Codedungeon\\PHPUnitPrettyResultPrinter\\Printer \
             --order-by=random                                          \
@@ -28,7 +28,7 @@ test-phpunit:
             --verbose;                                                 \
     else                                                               \
         echo "##teamcity[progressStart 'PHPUnit Tests']";              \
-        $(PHP_BIN) `pwd`/vendor/bin/phpunit                            \
+        XDEBUG_MODE=coverage $(PHP_BIN) `pwd`/vendor/bin/phpunit       \
             --configuration="$(JBZOO_CONFIG_PHPUNIT)"                  \
             --order-by=random                                          \
             --colors=always                                            \
