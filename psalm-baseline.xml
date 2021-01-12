@@ -26,4 +26,9 @@
             <code>;</code>
         </ParseError>
     </file>
+    <file src="vendor/symfony/polyfill-mbstring/bootstrap80.php">
+        <ParseError occurrences="1">
+            <code>=</code>
+        </ParseError>
+    </file>
 </files>

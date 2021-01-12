@@ -39,8 +39,7 @@
         "phpmetrics/phpmetrics"              : "^2.7.4",
         "pdepend/pdepend"                    : "^2.8.0",
 
-        "beberlei/assert"                    : "3.2.7",
-        "symfony/polyfill-mbstring"          : "1.20"
+        "beberlei/assert"                    : "3.2.7"
     },
 
     "require-dev"       : {
