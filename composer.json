@@ -51,6 +51,12 @@
         "jbzoo/toolbox-ci"     : "^1.3.4"
     },
 
+    "autoload"          : {
+        "files" : [
+            "src/php/compatibility.php"
+        ]
+    },
+
     "minimum-stability" : "dev",
     "prefer-stable"     : true,
 
