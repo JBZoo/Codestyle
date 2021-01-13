@@ -29,7 +29,7 @@ return array_merge($default, [
         'vendor/phan/phan/src'
     ],
 
-    'exclude_analysis_directory_list' => [
+    'exclude_file_list' => [
         'src/php/compatibility.php'
     ],
 ]);
