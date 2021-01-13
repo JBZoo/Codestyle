@@ -17,6 +17,7 @@ if (\extension_loaded('xdebug')) {
     if (!function_exists('xdebug_enable')) {
         /**
          * Enable showing stack traces on error conditions.
+         * @phan-suppress PhanRedefineFunctionInternal
          * @return void
          */
         function xdebug_enable(): void
@@ -27,6 +28,7 @@ if (\extension_loaded('xdebug')) {
     if (!function_exists('xdebug_disable')) {
         /**
          * Disable showing stack traces on error conditions.
+         * @phan-suppress PhanRedefineFunctionInternal
          * @return void
          */
         function xdebug_disable(): void

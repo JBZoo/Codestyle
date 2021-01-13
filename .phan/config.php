@@ -27,5 +27,9 @@ return array_merge($default, [
 
         // 3rd party libs
         'vendor/phan/phan/src'
-    ]
+    ],
+
+    'exclude_analysis_directory_list' => [
+        'src/php/compatibility.php'
+    ],
 ]);
