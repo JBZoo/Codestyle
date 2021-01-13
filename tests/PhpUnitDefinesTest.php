@@ -107,7 +107,9 @@ class PhpUnitDefinesTest extends PHPUnit
                 'vendor/phan/phan/src',
             ],
             'exclude_file_regex'                                => '@^vendor/.*/(tests?|Tests?)/@',
-            'exclude_file_list'                                 => [],
+            'exclude_file_list'                                 => [
+                'src/php/compatibility.php'
+            ],
             'exclude_analysis_directory_list'                   => [
                 'vendor/',
                 'tests/',
