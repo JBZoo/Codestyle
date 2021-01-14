@@ -31,6 +31,7 @@ TC_REPORT      ?= tc-tests
 TC_REPORT_MND  ?= tc-inspections
 
 PHP_BIN ?= php
+PHP_VERSION_ALIAS ?= `$(PHP_BIN) --version | head -n 1 | cut -d " " -f 2 | cut -c 1,3`
 
 ifneq (, $(wildcard ./src/phpcs/ruleset.xml))
     JBZOO_CONFIG_PHPCS ?= `pwd`/src/phpcs/ruleset.xml

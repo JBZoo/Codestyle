@@ -51,9 +51,7 @@
     },
 
     "autoload"          : {
-        "files" : [
-            "src/php/compatibility.php"
-        ]
+        "files" : ["src/php/compatibility.php"]
     },
 
     "minimum-stability" : "dev",
@@ -61,11 +59,6 @@
 
     "config"            : {
         "optimize-autoloader" : true
-    },
-
-    "scripts"           : {
-        "post-update-cmd"  : "wget https://phar.phpunit.de/phpcpd.phar --directory-prefix=./vendor/bin",
-        "post-install-cmd" : "wget https://phar.phpunit.de/phpcpd.phar --directory-prefix=./vendor/bin"
     },
 
     "extra"             : {
