@@ -64,9 +64,8 @@
     },
 
     "scripts"           : {
-        "post-update-cmd" : [
-            "wget https://phar.phpunit.de/phpcpd.phar --directory-prefix=./vendor/bin"
-        ]
+        "post-update-cmd"  : "wget https://phar.phpunit.de/phpcpd.phar --directory-prefix=./vendor/bin",
+        "post-install-cmd" : "wget https://phar.phpunit.de/phpcpd.phar --directory-prefix=./vendor/bin"
     },
 
     "extra"             : {
