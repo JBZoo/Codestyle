@@ -206,9 +206,7 @@ test-phpmnd-teamcity:
 
 test-phpcpd: ##@Tests PHPcpd - Find obvious Copy&Paste
 	$(call title,"PHPcpd - Find obvious Copy\&Paste")
-	@-XDEBUG_MODE=off $(PHP_BIN) `pwd`/vendor/bin/phpcpd.phar "$(PATH_SRC)"   \
-        --verbose                                       \
-        --progress
+	@-XDEBUG_MODE=off $(PHP_BIN) `pwd`/vendor/bin/phpcpd.phar "$(PATH_SRC)" --verbose                                       \
 
 
 test-phpcpd-teamcity:
