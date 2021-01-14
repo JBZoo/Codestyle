@@ -13,8 +13,9 @@
 
 PHPUNIT_PRETTY_PRINT_PROGRESS ?= true
 
-PHPCPD_VERSION := 4.1.0
-ifeq "$(PHP_VERSION_ALIAS)" "72"
+ifeq ($(strip $(PHP_VERSION_ALIAS)),72)
+	PHPCPD_VERSION := 4.1.0
+else
 	PHPCPD_VERSION := 6.0.3
 endif
 
@@ -211,13 +212,13 @@ test-phpmnd-teamcity:
 #### PHP Copy@Paste Detector ###########################################################################################
 
 test-phpcpd: ##@Tests PHPcpd v$(PHPCPD_VERSION) - Find obvious Copy&Paste
-	$(call title,"PHPcpd v$(PHPCPD_VERSION) - Find obvious Copy\&Paste")
-	@wget https://phar.phpunit.de/phpcpd-$(PHPCPD_VERSION).phar --output-document="vendor/bin/phpcpd.phar" --quiet
+	$(call title,"PHPcpd v$(PHPCPD_VERSION)  : $(PHP_VERSION_ALIAS) - Find obvious Copy\&Paste")
+	@wget https://phar.phpunit.de/phpcpd-$(PHPCPD_VERSION).phar --output-document="$(PATH_ROOT)/vendor/bin/phpcpd.phar" --quiet
 	@-XDEBUG_MODE=off $(PHP_BIN) `pwd`/vendor/bin/phpcpd.phar "$(PATH_SRC)"
 
 
 test-phpcpd-teamcity:
-	@wget https://phar.phpunit.de/phpcpd-$(PHPCPD_VERSION).phar --output-document="vendor/bin/phpcpd.phar" --quiet
+	@wget https://phar.phpunit.de/phpcpd-$(PHPCPD_VERSION).phar --output-document="$(PATH_ROOT)/vendor/bin/phpcpd.phar" --quiet
 	@-XDEBUG_MODE=off $(PHP_BIN) `pwd`/vendor/bin/phpcpd.phar $(PATH_SRC) --log-pmd="$(PATH_BUILD)/phpcpd.xml"
 	@echo ""
 	@echo "##teamcity[importData type='pmdCpd' path='$(PATH_BUILD)/phpcpd.xml' verbose='true']"
