@@ -206,13 +206,13 @@ test-phpmnd-teamcity:
 
 test-phpcpd: ##@Tests PHPcpd - Find obvious Copy&Paste
 	$(call title,"PHPcpd - Find obvious Copy\&Paste")
-	@XDEBUG_MODE=off $(PHP_BIN) `pwd`/vendor/bin/phpcpd "$(PATH_SRC)"   \
+	@-XDEBUG_MODE=off $(PHP_BIN) `pwd`/vendor/bin/phpcpd.phar "$(PATH_SRC)"   \
         --verbose                                       \
         --progress
 
 
 test-phpcpd-teamcity:
-	@-XDEBUG_MODE=off $(PHP_BIN) `pwd`/vendor/bin/phpcpd $(PATH_SRC) --log-pmd="$(PATH_BUILD)/phpcpd.xml" --quiet
+	@-XDEBUG_MODE=off $(PHP_BIN) `pwd`/vendor/bin/phpcpd.phar $(PATH_SRC) --log-pmd="$(PATH_BUILD)/phpcpd.xml" --quiet
 	@echo ""
 	@echo "##teamcity[importData type='pmdCpd' path='$(PATH_BUILD)/phpcpd.xml' verbose='true']"
 
