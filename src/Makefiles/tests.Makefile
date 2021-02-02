@@ -125,8 +125,6 @@ test-composer: ##@Tests Validates composer.json and composer.lock
 	@composer check-platform-reqs
 	$(call title,"Composer - List of outdated packages")
 	@composer outdated --verbose
-	$(call title,Composer - Checking dependencies with known security vulnerabilities)
-	@$(PHP_BIN) `pwd`/vendor/bin/security-checker security:check
 
 
 test-composer-reqs: ##@Tests Checks composer.json the defined dependencies against your code
