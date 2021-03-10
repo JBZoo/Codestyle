@@ -211,12 +211,12 @@ test-phpmnd-teamcity:
 
 test-phpcpd: ##@Tests PHPcpd - Find obvious Copy&Paste
 	$(call title,"PHPcpd - Find obvious Copy\&Paste")
-	@wget https://phar.phpunit.de/$(PHPCPD_VERSION) --output-document="$(PATH_ROOT)/vendor/bin/phpcpd.phar" --quiet
+	@wget https://phar.phpunit.de/$(PHPCPD_VERSION) --output-document="$(PATH_ROOT)/vendor/bin/phpcpd.phar" --quiet --no-check-certificate
 	@-XDEBUG_MODE=off $(PHP_BIN) `pwd`/vendor/bin/phpcpd.phar "$(PATH_SRC)"
 
 
 test-phpcpd-teamcity:
-	@wget https://phar.phpunit.de/$(PHPCPD_VERSION) --output-document="$(PATH_ROOT)/vendor/bin/phpcpd.phar" --quiet
+	@wget https://phar.phpunit.de/$(PHPCPD_VERSION) --output-document="$(PATH_ROOT)/vendor/bin/phpcpd.phar" --quiet --no-check-certificate
 	@-XDEBUG_MODE=off $(PHP_BIN) `pwd`/vendor/bin/phpcpd.phar $(PATH_SRC) --log-pmd="$(PATH_BUILD)/phpcpd.xml"
 	@echo ""
 	@echo "##teamcity[importData type='pmdCpd' path='$(PATH_BUILD)/phpcpd.xml' verbose='true']"
