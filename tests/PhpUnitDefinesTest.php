@@ -11,8 +11,9 @@
  * @license    MIT
  * @copyright  Copyright (C) JBZoo.com, All rights reserved.
  * @link       https://github.com/JBZoo/Codestyle
- * @author     Denis Smetannikov <denis@jbzoo.com>
  */
+
+declare(strict_types=1);
 
 namespace JBZoo\PHPUnit;
 
@@ -22,7 +23,7 @@ namespace JBZoo\PHPUnit;
  */
 class PhpUnitDefinesTest extends PHPUnit
 {
-    public function testDefines()
+    public function testDefines(): void
     {
         isSame(realpath(__DIR__ . '/..'), PROJECT_ROOT);
         isSame(realpath(__DIR__ . '/../src'), PROJECT_SRC);
@@ -35,7 +36,7 @@ class PhpUnitDefinesTest extends PHPUnit
         isSame("\n", PHP_EOL);
     }
 
-    public function testPhanConfig()
+    public function testPhanConfig(): void
     {
         $configs = include PROJECT_ROOT . '/.phan/config.php';
         isSame([

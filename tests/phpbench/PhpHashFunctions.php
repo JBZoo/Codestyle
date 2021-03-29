@@ -11,8 +11,9 @@
  * @license    MIT
  * @copyright  Copyright (C) JBZoo.com, All rights reserved.
  * @link       https://github.com/JBZoo/Codestyle
- * @author     Denis Smetannikov <denis@jbzoo.com>
  */
+
+declare(strict_types=1);
 
 /**
  * Class PhpHashFunctions
@@ -29,55 +30,55 @@ class PhpHashFunctions
 
     public function init(): void
     {
-        $this->string = str_repeat(random_int(0, 9), 1024);
+        $this->string = \str_repeat((string)\random_int(0, 9), 1024);
     }
 
     /**
      * @Groups({"md5", "Native"})
      */
-    public function benchMd5Native()
+    public function benchMd5Native(): void
     {
-        md5($this->string);
+        \md5($this->string);
     }
 
     /**
      * @Groups({"md5", "hash()"})
      */
-    public function benchMd5()
+    public function benchMd5(): void
     {
-        hash('md5', $this->string);
+        \hash('md5', $this->string);
     }
 
     /**
      * @Groups({"sha1", "Native"})
      */
-    public function benchSha1Native()
+    public function benchSha1Native(): void
     {
-        sha1($this->string);
+        \sha1($this->string);
     }
 
     /**
      * @Groups({"sha1", "hash()"})
      */
-    public function benchSha1()
+    public function benchSha1(): void
     {
-        hash('sha1', $this->string);
+        \hash('sha1', $this->string);
     }
 
 
     /**
      * @Groups({"crc32", "Native"})
      */
-    public function benchCrc32Native()
+    public function benchCrc32Native(): void
     {
-        crc32($this->string);
+        \crc32($this->string);
     }
 
     /**
      * @Groups({"crc32", "hash()"})
      */
-    public function benchCrc32()
+    public function benchCrc32(): void
     {
-        hash('crc32', $this->string);
+        \hash('crc32', $this->string);
     }
 }

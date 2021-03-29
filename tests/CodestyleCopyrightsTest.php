@@ -11,8 +11,9 @@
  * @license    MIT
  * @copyright  Copyright (C) JBZoo.com, All rights reserved.
  * @link       https://github.com/JBZoo/Codestyle
- * @author     Denis Smetannikov <denis@jbzoo.com>
  */
+
+declare(strict_types=1);
 
 namespace JBZoo\PHPUnit;
 
@@ -22,5 +23,6 @@ namespace JBZoo\PHPUnit;
  */
 class CodestyleCopyrightsTest extends AbstractCopyrightTest
 {
-    protected $packageName = "Codestyle";
+    protected $packageName     = "Codestyle";
+    protected $isPhpStrictType = true;
 }

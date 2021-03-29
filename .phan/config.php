@@ -11,8 +11,9 @@
  * @license    MIT
  * @copyright  Copyright (C) JBZoo.com, All rights reserved.
  * @link       https://github.com/JBZoo/Codestyle
- * @author     Denis Smetannikov <denis@jbzoo.com>
  */
+
+declare(strict_types=1);
 
 // Example for depended projects
 // $default = include __DIR__ . '/../vendor/jbzoo/codestyle/src/phan/default.php';

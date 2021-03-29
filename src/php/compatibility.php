@@ -13,6 +13,8 @@
  * @link       https://github.com/JBZoo/Codestyle
  */
 
+declare(strict_types=1);
+
 if (\extension_loaded('xdebug')) {
     if (!function_exists('xdebug_enable')) {
         /**
