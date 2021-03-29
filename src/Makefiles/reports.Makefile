@@ -136,6 +136,7 @@ report-phpmetrics: ##@Reports Build PHP Metrics Report
 
 
 report-pdepend: ##@Reports Build PHP Depend Report
+	$(call download_phar,$(PDEPEND_PHAR),"pdepend")
 	@if [ -z "$(TEAMCITY_VERSION)" ]; then                           \
         $(PHP_BIN) `pwd`/vendor/bin/pdepend.phar                     \
             --dependency-xml="$(PATH_BUILD)/pdepend-dependency.xml"  \

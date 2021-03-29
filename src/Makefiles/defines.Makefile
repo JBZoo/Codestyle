@@ -47,6 +47,7 @@ endif
 PHPMD_PHAR         = https://phpmd.org/static/latest/phpmd.phar
 PHAN_PHAR          = https://github.com/phan/phan/releases/latest/download/phan.phar
 PHP_COVERALLS_PHAR = https://github.com/php-coveralls/php-coveralls/releases/download/v2.4.3/php-coveralls.phar
+PDEPEND_PHAR       = https://github.com/pdepend/pdepend/releases/download/2.9.0/pdepend.phar
 
 ifneq (, $(wildcard ./src/phpcs/ruleset.xml))
     JBZOO_CONFIG_PHPCS ?= `pwd`/src/phpcs/ruleset.xml
