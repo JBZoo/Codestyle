@@ -26,7 +26,10 @@
         "phpcompatibility/php-compatibility" : ">=9.3.5",
         "phpmetrics/phpmetrics"              : ">=2.7.4",
         "roave/security-advisories"          : "dev-master",
-        "symfony/yaml"                       : ">=4.4.21"
+
+        "symfony/yaml"                       : ">=4.4.21",
+        "symfony/console"                    : ">=4.4.21",
+        "nikic/php-parser"                   : ">=4.10.4"
     },
 
     "require-dev"       : {
