@@ -104,7 +104,6 @@ class PhpUnitDefinesTest extends PHPUnit
             'directory_list'                                    => [
                 'src',
                 '.phan',
-                'vendor/phan/phan/src',
             ],
             'exclude_file_regex'                                => '@^vendor/.*/(tests?|Tests?)/@',
             'exclude_file_list'                                 => [

@@ -14,8 +14,6 @@
  * @author     Denis Smetannikov <denis@jbzoo.com>
  */
 
-use Phan\Issue;
-
 // See for details ./vendor/phan/phan/src/Phan/Config.php
 
 return [
@@ -53,7 +51,7 @@ return [
 
     'globals_type_map'     => [],
     'suppress_issue_types' => [],
-    'minimum_severity'     => Issue::SEVERITY_LOW,
+    'minimum_severity'     => 0, //Issue::SEVERITY_LOW,
 
     'analyzed_file_extensions'               => ['php'],
     'autoload_internal_extension_signatures' => [],

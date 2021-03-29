@@ -24,9 +24,6 @@ return array_merge($default, [
         // project
         'src',
         '.phan',
-
-        // 3rd party libs
-        'vendor/phan/phan/src'
     ],
 
     'exclude_file_list' => [

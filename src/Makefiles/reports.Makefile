@@ -32,7 +32,9 @@ report-phpqa: ##@Reports PHPqa - Build user-friendly code reports
 
 report-coveralls: ##@Reports Send coverage report to coveralls.io
 	$(call title,"Send coverage to coveralls.io")
-	@$(PHP_BIN) `pwd`/vendor/bin/php-coveralls               \
+	$(call download_phar,$(PHP_COVERALLS_PHAR),"php-coveralls")
+	@$(PHP_BIN) `pwd`/vendor/bin/php-coveralls.phar --version
+	@$(PHP_BIN) `pwd`/vendor/bin/php-coveralls.phar          \
         --coverage_clover="$(PATH_BUILD)/coverage_xml/*.xml" \
         --json_path="$(PATH_BUILD)/coveralls.json"           \
         --root_dir="$(PATH_ROOT)"                            \
@@ -135,14 +137,14 @@ report-phpmetrics: ##@Reports Build PHP Metrics Report
 
 report-pdepend: ##@Reports Build PHP Depend Report
 	@if [ -z "$(TEAMCITY_VERSION)" ]; then                           \
-        $(PHP_BIN) `pwd`/vendor/bin/pdepend                          \
+        $(PHP_BIN) `pwd`/vendor/bin/pdepend.phar                     \
             --dependency-xml="$(PATH_BUILD)/pdepend-dependency.xml"  \
             --jdepend-chart="$(PATH_BUILD)/pdepend-jdepend.svg"      \
             --overview-pyramid="$(PATH_BUILD)/pdepend-pyramid.svg"   \
             --summary-xml="$(PATH_BUILD)/pdepend-summary.xml"        \
             "$(PATH_SRC)";                                           \
     else                                                             \
-        $(PHP_BIN) `pwd`/vendor/bin/pdepend                          \
+        $(PHP_BIN) `pwd`/vendor/bin/pdepend.phar                     \
             --dependency-xml="$(PATH_BUILD)/pdepend-dependency.xml"  \
             --jdepend-chart="$(PATH_BUILD)/pdepend-jdepend.svg"      \
             --overview-pyramid="$(PATH_BUILD)/pdepend-pyramid.svg"   \
@@ -158,12 +160,13 @@ report-pdepend: ##@Reports Build PHP Depend Report
 
 report-phploc: ##@Reports PHPloc - Show code stats
 	$(call title,"PHPloc - Show code stats")
-	@if [ -z "$(TEAMCITY_VERSION)" ]; then                           \
-        $(PHP_BIN) `pwd`/vendor/bin/phploc "$(PATH_SRC)" --verbose;  \
-    else                                                             \
-        $(PHP_BIN) `pwd`/vendor/bin/phploc "$(PATH_SRC)"             \
-            --log-json="$(PATH_BUILD)/phploc.json" --quiet;          \
-        $(PHP_BIN) `pwd`/vendor/bin/toolbox-ci teamcity:stats        \
-            --input-format="phploc-json"                             \
-            --input-file="$(PATH_BUILD)/phploc.json";                \
-    fi;                                                              \
+	$(call download_phar,$(PHPLOC_PHAR),"phploc")
+	@if [ -z "$(TEAMCITY_VERSION)" ]; then                                \
+        $(PHP_BIN) `pwd`/vendor/bin/phploc.phar "$(PATH_SRC)" --verbose;  \
+    else                                                                  \
+        $(PHP_BIN) `pwd`/vendor/bin/phploc.phar "$(PATH_SRC)"             \
+            --log-json="$(PATH_BUILD)/phploc.json" --quiet;               \
+        $(PHP_BIN) `pwd`/vendor/bin/toolbox-ci teamcity:stats             \
+            --input-format="phploc-json"                                  \
+            --input-file="$(PATH_BUILD)/phploc.json";                     \
+    fi;                                                                   \

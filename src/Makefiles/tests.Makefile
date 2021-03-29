@@ -11,15 +11,6 @@
 # @link       https://github.com/JBZoo/Codestyle
 #
 
-PHPUNIT_PRETTY_PRINT_PROGRESS ?= true
-
-ifeq ($(strip $(PHP_VERSION_ALIAS)),72)
-	PHPCPD_VERSION := phpcpd-4.1.0.phar
-else
-	PHPCPD_VERSION := phpcpd.phar
-endif
-
-
 #### General Tests #####################################################################################################
 
 test: test-phpunit ##@Tests Runs unit-tests (alias "test-phpunit-manual")
@@ -170,18 +161,23 @@ test-phpcs-teamcity:
 test-phpmd: ##@Tests PHPmd - Mess Detector Checker
 	$(call title,"PHPmd - Mess Detector Checker")
 	@echo "Config: $(JBZOO_CONFIG_PHPMD)"
-	@$(PHP_BIN) `pwd`/vendor/bin/phpmd "$(PATH_SRC)" ansi "$(JBZOO_CONFIG_PHPMD)" --verbose
+	$(call download_phar,$(PHPMD_PHAR),"phpmd")
+	@$(PHP_BIN) `pwd`/vendor/bin/phpmd.phar --version
+	@$(PHP_BIN) `pwd`/vendor/bin/phpmd.phar "$(PATH_SRC)" ansi "$(JBZOO_CONFIG_PHPMD)" --verbose
 
 
 test-phpmd-strict: ##@Tests PHPmd - Mess Detector Checker (strict mode)
 	$(call title,"PHPmd - Mess Detector Checker")
 	@echo "Config: $(JBZOO_CONFIG_PHPMD)"
-	@$(PHP_BIN) `pwd`/vendor/bin/phpmd "$(PATH_SRC)" ansi "$(JBZOO_CONFIG_PHPMD)" --verbose --strict
+	$(call download_phar,$(PHPMD_PHAR),"phpmd")
+	@$(PHP_BIN) `pwd`/vendor/bin/phpmd.phar --version
+	@$(PHP_BIN) `pwd`/vendor/bin/phpmd.phar "$(PATH_SRC)" ansi "$(JBZOO_CONFIG_PHPMD)" --verbose --strict
 
 
 test-phpmd-teamcity:
 	@rm -f "$(PATH_BUILD)/phpmd.json"
-	@-$(PHP_BIN) `pwd`/vendor/bin/phpmd "$(PATH_SRC)" json "$(JBZOO_CONFIG_PHPMD)" > "$(PATH_BUILD)/phpmd.json"
+	$(call download_phar,$(PHPMD_PHAR),"phpmd")
+	@-$(PHP_BIN) `pwd`/vendor/bin/phpmd.phar "$(PATH_SRC)" json "$(JBZOO_CONFIG_PHPMD)" > "$(PATH_BUILD)/phpmd.json"
 	@$(PHP_BIN) `pwd`/vendor/bin/toolbox-ci convert             \
         --input-format="phpmd-json"                             \
         --output-format="$(TC_REPORT)"                          \
@@ -211,12 +207,12 @@ test-phpmnd-teamcity:
 
 test-phpcpd: ##@Tests PHPcpd - Find obvious Copy&Paste
 	$(call title,"PHPcpd - Find obvious Copy\&Paste")
-	@wget https://phar.phpunit.de/$(PHPCPD_VERSION) --output-document="$(PATH_ROOT)/vendor/bin/phpcpd.phar" --quiet --no-check-certificate
+	$(call download_phar,$(PHPCPD_PHAR),"phpcpd")
 	@-XDEBUG_MODE=off $(PHP_BIN) `pwd`/vendor/bin/phpcpd.phar "$(PATH_SRC)"
 
 
 test-phpcpd-teamcity:
-	@wget https://phar.phpunit.de/$(PHPCPD_VERSION) --output-document="$(PATH_ROOT)/vendor/bin/phpcpd.phar" --quiet --no-check-certificate
+	$(call download_phar,$(PHPCPD_PHAR),"phpcpd")
 	@-XDEBUG_MODE=off $(PHP_BIN) `pwd`/vendor/bin/phpcpd.phar $(PATH_SRC) --log-pmd="$(PATH_BUILD)/phpcpd.xml"
 	@echo ""
 	@echo "##teamcity[importData type='pmdCpd' path='$(PATH_BUILD)/phpcpd.xml' verbose='true']"
@@ -254,7 +250,8 @@ test-psalm: ##@Tests Psalm - static analysis tool for PHP
 	$(call title,"Psalm - static analysis tool for PHP")
 	@echo "Config:   $(JBZOO_CONFIG_PSALM)"
 	@echo "Baseline: $(JBZOO_CONFIG_PSALM_BASELINE)"
-	@$(PHP_BIN) `pwd`/vendor/bin/psalm                          \
+	@$(PHP_BIN) `pwd`/vendor/bin/psalm.phar --version
+	@$(PHP_BIN) `pwd`/vendor/bin/psalm.phar                     \
         --config="$(JBZOO_CONFIG_PSALM)"                        \
         --use-baseline="$(JBZOO_CONFIG_PSALM_BASELINE)"         \
         --show-snippet=true                                     \
@@ -268,7 +265,7 @@ test-psalm: ##@Tests Psalm - static analysis tool for PHP
 
 test-psalm-teamcity:
 	@rm -f "$(PATH_BUILD)/psalm-checkstyle.json"
-	@-$(PHP_BIN) `pwd`/vendor/bin/psalm                         \
+	@-$(PHP_BIN) `pwd`/vendor/bin/psalm.phar                    \
         --config="$(JBZOO_CONFIG_PSALM)"                        \
         --use-baseline="$(JBZOO_CONFIG_PSALM_BASELINE)"         \
         --show-snippet=true                                     \
@@ -290,9 +287,12 @@ test-psalm-teamcity:
 
 test-phan: ##@Tests Phan - super strict static analyzer for PHP
 	$(call title,"Phan - super strict static analyzer for PHP")
+	$(call download_phar,$(PHAN_PHAR),"phan")
 	@echo "Config: $(JBZOO_CONFIG_PHAN)"
-	@$(PHP_BIN) `pwd`/vendor/bin/phan                           \
+	@$(PHP_BIN) `pwd`/vendor/bin/phan.phar --version
+	@$(PHP_BIN) `pwd`/vendor/bin/phan.phar                      \
         --config-file="$(JBZOO_CONFIG_PHAN)"                    \
+        --project-root-directory="`pwd`"                        \
         --color-scheme=light                                    \
         --progress-bar                                          \
         --backward-compatibility-checks                         \
@@ -305,9 +305,11 @@ test-phan: ##@Tests Phan - super strict static analyzer for PHP
 
 
 test-phan-teamcity:
+	$(call download_phar,$(PHAN_PHAR),"phan")
 	@rm -f "$(PATH_BUILD)/phan-checkstyle.xml"
-	@-$(PHP_BIN) `pwd`/vendor/bin/phan                          \
+	@-$(PHP_BIN) `pwd`/vendor/bin/phan.phar                     \
         --config-file="$(JBZOO_CONFIG_PHAN)"                    \
+        --project-root-directory="`pwd`"                        \
         --output-mode="checkstyle"                              \
         --output="$(PATH_BUILD)/phan-checkstyle.xml"            \
         --no-progress-bar                                       \
@@ -325,7 +327,7 @@ test-phan-teamcity:
         --input-file="$(PATH_BUILD)/phan-checkstyle.xml"
 
 
-#### Testing Permformance ##############################################################################################
+#### Testing Performance ###############################################################################################
 
 test-performance: ##@Tests Run benchmarks and performance tests
 	$(call title,"Run benchmarks and performance tests")
