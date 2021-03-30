@@ -27,8 +27,8 @@
         "phpmetrics/phpmetrics"              : ">=2.7.4",
         "roave/security-advisories"          : "dev-master",
 
-        "symfony/yaml"                       : ">=4.4.21",
-        "symfony/console"                    : ">=4.4.21",
+        "symfony/yaml"                       : ">=4.4.16",
+        "symfony/console"                    : ">=4.4.16",
         "nikic/php-parser"                   : ">=4.10.4"
     },
 
