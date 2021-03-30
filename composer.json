@@ -33,7 +33,7 @@
     },
 
     "require-dev"       : {
-        "phpbench/phpbench"    : "^0.17.1",
+        "phpbench/phpbench"    : ">=0.17.1",
         "jbzoo/phpunit"        : "^4.5.0",
         "jbzoo/utils"          : "^4.2.3",
         "jbzoo/composer-graph" : "^1.0.4",
