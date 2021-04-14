@@ -30,16 +30,20 @@ XDEBUG_OFF     ?= no
 TC_REPORT      ?= tc-tests
 TC_REPORT_MND  ?= tc-inspections
 
-PHP_BIN ?= php
+PHP_BIN           ?= php
 PHP_VERSION_ALIAS ?= $(shell $(PHP_BIN) --version | head -n 1 | cut -d " " -f 2 | cut -c 1,3)
+PROJECT_ALIAS     ?= $(shell basename `git rev-parse --show-toplevel` | sed 's/-//g')
 
 PHPUNIT_PRETTY_PRINT_PROGRESS ?= true
 
+
 #### Phar files
 ifeq ($(strip $(PHP_VERSION_ALIAS)),72)
+	BOX_PHAR    = https://github.com/box-project/box/releases/download/3.9.1/box.phar
 	PHPCPD_PHAR = https://phar.phpunit.de/phpcpd-4.1.0.phar
 	PHPLOC_PHAR = https://phar.phpunit.de/phploc-5.0.0.phar
 else
+	BOX_PHAR    = https://github.com/box-project/box/releases/download/3.11.1/box.phar
 	PHPCPD_PHAR = https://phar.phpunit.de/phpcpd.phar
 	PHPLOC_PHAR = https://phar.phpunit.de/phploc.phar
 endif

@@ -29,3 +29,12 @@ clean-vendor: ##@Project Cleanup all
 autoload: ##@Project Dump optimized autoload file for PHP
 	$(call title,"Composer - Dump optimized autoload file for PHP")
 	@composer dump-autoload --optimize
+
+
+build-phar: ##@Project Compile phar file
+	$(call download_phar,$(BOX_PHAR),"box")
+	@$(PHP_BIN) `pwd`/vendor/bin/box.phar --version
+	@$(PHP_BIN) `pwd`/vendor/bin/box.phar validate      -vvv
+	@composer config autoloader-suffix $(PROJECT_ALIAS) -v
+	@$(PHAR_BOX) compile --working-dir="`pwd`"          -v
+	@composer config autoloader-suffix --unset          -v
