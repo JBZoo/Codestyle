@@ -25,5 +25,28 @@ namespace JBZoo\PHPUnit;
 class CodestyleReadmeTest extends AbstractReadmeTest
 {
     protected $packageName = 'Codestyle';
-    protected $codacyId    = '2da2dd592c1640d7b2a536a59dd728ad';
+
+    /**
+     * @inheritDoc
+     */
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->params['scrutinizer'] = true;
+        $this->params['codefactor'] = true;
+        $this->params['strict_types'] = true;
+    }
+
+    /**
+     * @return string|null
+     */
+    protected function checkBadgeTravis(): ?string
+    {
+        return $this->getPreparedBadge($this->getBadge(
+            'Build Status',
+            'https://travis-ci.org/__VENDOR_ORIG__/__PACKAGE_ORIG__.svg?branch=master',
+            'https://travis-ci.org/__VENDOR_ORIG__/__PACKAGE_ORIG__'
+        ));
+    }
 }
