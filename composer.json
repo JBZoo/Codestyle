@@ -25,7 +25,6 @@
         "squizlabs/php_codesniffer"          : ">=3.6.0",
         "phpcompatibility/php-compatibility" : ">=9.3.5",
         "phpmetrics/phpmetrics"              : ">=2.7.4",
-        "roave/security-advisories"          : "dev-master",
 
         "symfony/yaml"                       : ">=4.4.16",
         "symfony/console"                    : ">=4.4.16",
@@ -34,7 +33,7 @@
 
     "require-dev"       : {
         "phpbench/phpbench"    : "^0.17.1",
-        "jbzoo/phpunit"        : "^4.6.0",
+        "jbzoo/phpunit"        : "^4.6.2",
         "jbzoo/utils"          : "^4.2.3",
         "jbzoo/composer-graph" : "^1.0.4",
         "jbzoo/composer-diff"  : "^1.1.2",
@@ -44,9 +43,6 @@
     "autoload"          : {
         "files" : ["src/php/compatibility.php"]
     },
-
-    "minimum-stability" : "dev",
-    "prefer-stable"     : true,
 
     "config"            : {
         "optimize-autoloader" : true
