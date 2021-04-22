@@ -59,14 +59,18 @@ report-composer-diff: ##@Reports What has changed after a composer update
 
 update-extend: ##@Reports Checks new compatible versions of 3rd party libraries
 	$(call download_phar,$(CO_DIFF_PHAR),"composer-diff")
-	@composer outdated
+	@composer outdated --direct --verbose
 	@cp -f `pwd`/composer.lock `pwd`/build/composer.lock
 	@make update
 	@-$(PHP_BIN) `pwd`/vendor/bin/composer-diff.phar  \
         --source="`pwd`/build/composer.lock"          \
+        --target="`pwd`/composer.lock"
+	@-$(PHP_BIN) `pwd`/vendor/bin/composer-diff.phar  \
+        --source="`pwd`/build/composer.lock"          \
         --target="`pwd`/composer.lock"                \
-        -v
-	@rm  `pwd`/build/composer.lock
+        --output=markdown --no-ansi                   > `pwd`/build/composer-upgrade-log.md
+	@echo 'Markdown text: "cat ./build/composer-upgrade-log.md"'
+	@rm `pwd`/build/composer.lock
 
 
 report-composer-graph: ##@Reports Build composer graph of dependencies

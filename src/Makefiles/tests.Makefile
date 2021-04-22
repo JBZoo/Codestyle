@@ -115,7 +115,7 @@ test-composer: ##@Tests Validates composer.json and composer.lock
 	@composer validate --verbose
 	@composer check-platform-reqs
 	$(call title,"Composer - List of outdated packages")
-	@composer outdated --verbose
+	@composer outdated --direct --verbose
 
 
 test-composer-reqs: ##@Tests Checks composer.json the defined dependencies against your code

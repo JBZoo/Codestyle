@@ -54,7 +54,7 @@ PHP_COVERALLS_PHAR = https://github.com/php-coveralls/php-coveralls/releases/lat
 PDEPEND_PHAR       = https://github.com/pdepend/pdepend/releases/download/2.9.0/pdepend.phar
 CO_DIFF_PHAR       = https://github.com/JBZoo/Composer-Diff/releases/latest/download/composer-diff.phar
 CO_GRAPH_PHAR      = https://github.com/JBZoo/Composer-Graph/releases/latest/download/composer-graph.phar
-
+TOOLBOX_CI_PHAR    = https://github.com/JBZoo/Toolbox-CI/releases/latest/download/toolbox-ci.phar
 
 ifneq (, $(wildcard ./src/phpcs/ruleset.xml))
     JBZOO_CONFIG_PHPCS ?= `pwd`/src/phpcs/ruleset.xml
@@ -134,5 +134,6 @@ endef
 
 # Download phar file (if needs) and save it in ./vendor/bin
 define download_phar
-    @wget $(1) --output-document="$(PATH_ROOT)/vendor/bin/$(2).phar"  --no-clobber --no-check-certificate --quiet || true
+    @wget $(1) --output-document="$(PATH_ROOT)/vendor/bin/$(2).phar" -L --no-clobber --no-check-certificate --quiet || true
+    @chmod +x "$(PATH_ROOT)/vendor/bin/$(2).phar" || true
 endef
