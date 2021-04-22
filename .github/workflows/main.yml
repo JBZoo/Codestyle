@@ -23,14 +23,12 @@ on:
 
 jobs:
   phpunit:
+    name: PHPUnit v${{ matrix.php }} - ${{ matrix.xdebug }}
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
-        php: [7.2, 7.3, 7.4]
-        xdebug: [xdebug, none]
-
-    name: PHP ${{ matrix.php }} - ${{ matrix.xdebug }}
+        php: [ 7.2, 7.3, 7.4 ]
+        xdebug: [ xdebug, none ]
 
     steps:
       - name: Checkout code
@@ -49,14 +47,27 @@ jobs:
       - name: PHPUnit Tests
         run: make test --no-print-directory
 
-      - name: Monitor coverage
-        uses: slavcodev/coverage-monitor-action@1.2.0
-        if: ${{ always() }}
+
+  codestyle:
+    name: Codestyle - PHP ${{ matrix.php }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: [ 7.2, 7.3, 7.4 ]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP and composer
+        uses: shivammathur/setup-php@v2
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          clover_file: "build/coverage_xml/main.xml"
-          threshold_alert: 10
-          threshold_warning: 50
+          php-version: ${{ matrix.php }}
+          coverage: none
+          tools: composer:v2
+
+      - name: Build the Project
+        run: make update --no-print-directory
 
       - name: Code Quality
         run: make codestyle --no-print-directory
@@ -66,4 +77,31 @@ jobs:
 
       - name: Build All Reports at Once
         run: make report-all --no-print-directory
-#
+
+
+  reports:
+    name: Reports
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: [ 7.2, 7.3, 7.4 ]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP and composer
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+          tools: composer:v2
+
+      - name: Build the Project
+        run: make update --no-print-directory
+
+      - name: PHPBench - Performance Report
+        run: make test-performance-travis --no-print-directory
+
+      - name: Build All Reports at Once
+        run: make report-all --no-print-directory
