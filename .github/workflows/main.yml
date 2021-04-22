@@ -36,7 +36,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Setup PHP
+      - name: Setup PHP and composer
         uses: shivammathur/setup-php@v1
         with:
           php-version: ${{ matrix.php }}
