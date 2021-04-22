@@ -31,9 +31,7 @@ jobs:
         xdebug: [ xdebug, none ]
 
     steps:
-      - name: Ext IP
-        run: curl ifconfig.co
-
+      - run: printenv
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -52,16 +50,13 @@ jobs:
 
 
   codestyle:
-    name: Codestyle - PHP ${{ matrix.php }}
+    name: Codestyle v${{ matrix.php }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
         php: [ 7.2, 7.3, 7.4 ]
 
     steps:
-      - name: Ext IP
-        run: curl ifconfig.co
-
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -86,16 +81,16 @@ jobs:
 
 
   reports:
-    name: Reports
+    name: Reports v${{ matrix.php }}
+    needs:
+      - phpunit
+      - codestyle
     runs-on: ubuntu-latest
     strategy:
       matrix:
         php: [ 7.2, 7.3, 7.4 ]
 
     steps:
-      - name: Ext IP
-        run: curl ifconfig.co
-
       - name: Checkout code
         uses: actions/checkout@v2
 
