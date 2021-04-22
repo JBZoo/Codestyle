@@ -56,11 +56,12 @@ jobs:
           report_paths: 'build/coverage_junit/*.xml'
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
-#      - name: Code Quality
-#        run: make codestyle --no-print-directory
+      - name: Code Quality
+        run: make codestyle --no-print-directory
+
+      - name: PHPBench - Performance Report
+        run: make test-performance-travis --no-print-directory
+
+      - name: Build All Reports at Once
+        run: make report-all --no-print-directory
 #
-#      - name: PHPBench - Performance Report
-#        run: make test-performance-travis --no-print-directory
-#
-#      - name: Build All Reports at Once
-#        run: make report-all --no-print-directory

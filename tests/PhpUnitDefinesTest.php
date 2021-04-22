@@ -40,7 +40,7 @@ class PhpUnitDefinesTest extends PHPUnit
     {
         $configs = include PROJECT_ROOT . '/.phan/config.php';
         isSame([
-            '1target_php_version'                                => null,
+            'target_php_version'                                => null,
             'quick_mode'                                        => false,
             'enable_include_path_checks'                        => false,
             'processes'                                         => 1,
