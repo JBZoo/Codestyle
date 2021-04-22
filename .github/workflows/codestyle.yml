@@ -1,0 +1,49 @@
+#
+# JBZoo Toolbox - Codestyle
+#
+# This file is part of the JBZoo Toolbox project.
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+#
+# @package    Codestyle
+# @license    MIT
+# @copyright  Copyright (C) JBZoo.com, All rights reserved.
+# @link       https://github.com/JBZoo/Codestyle
+#
+
+name: Code Quality
+
+on:
+  pull_request:
+    branches:
+      - "*"
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  php-tests:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php: [ 7.2, 7.3, 7.4 ]
+
+    name: PHP ${{ matrix.php }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+          tools: composer:v2
+
+      - name: Install dependencies
+        run: make update
+
+      - name: Check Code Style
+        run: make codestyle

@@ -53,50 +53,54 @@ report-merge-coverage: ##@Reports Merge all coverage reports in one clover file
 
 report-composer-diff: ##@Reports What has changed after a composer update
 	$(call title,"What has changed after a composer update")
-	@$(PHP_BIN) `pwd`/vendor/bin/composer-diff
+	$(call download_phar,$(CO_DIFF_PHAR),"composer-diff")
+	@$(PHP_BIN) `pwd`/vendor/bin/composer-diff.phar
 
 
 update-extend: ##@Reports Checks new compatible versions of 3rd party libraries
+	$(call download_phar,$(CO_DIFF_PHAR),"composer-diff")
 	@composer outdated
 	@cp -f `pwd`/composer.lock `pwd`/build/composer.lock
 	@make update
-	@-$(PHP_BIN) `pwd`/vendor/bin/composer-diff       \
+	@-$(PHP_BIN) `pwd`/vendor/bin/composer-diff.phar  \
         --source="`pwd`/build/composer.lock"          \
-        --target="`pwd`/composer.lock"
+        --target="`pwd`/composer.lock"                \
+        -v
 	@rm  `pwd`/build/composer.lock
 
 
 report-composer-graph: ##@Reports Build composer graph of dependencies
 	$(call title,"Build composer graph of dependencies")
+	$(call download_phar,$(CO_GRAPH_PHAR),"composer-graph")
 	@mkdir -p "$(PATH_BUILD)/composer-graph"
-	@$(PHP_BIN) `pwd`/vendor/bin/composer-graph                   \
+	@$(PHP_BIN) `pwd`/vendor/bin/composer-graph.phar              \
         --output="$(PATH_BUILD)/composer-graph/mini.html"         \
-        -vvv
-	@$(PHP_BIN) `pwd`/vendor/bin/composer-graph                   \
+        -v
+	@$(PHP_BIN) `pwd`/vendor/bin/composer-graph.phar              \
         --output="$(PATH_BUILD)/composer-graph/extensions.html"   \
         --show-ext                                                \
-        -vvv
-	@$(PHP_BIN) `pwd`/vendor/bin/composer-graph                   \
+        -v
+	@$(PHP_BIN) `pwd`/vendor/bin/composer-graph.phar              \
         --output="$(PATH_BUILD)/composer-graph/versions.html"     \
         --show-link-versions                                      \
         --show-package-versions                                   \
-        -vvv
-	@$(PHP_BIN) `pwd`/vendor/bin/composer-graph                   \
+        -v
+	@$(PHP_BIN) `pwd`/vendor/bin/composer-graph.phar              \
         --output="$(PATH_BUILD)/composer-graph/suggests.html"     \
         --show-suggests                                           \
-        -vvv
-	@$(PHP_BIN) `pwd`/vendor/bin/composer-graph                   \
+        -v
+	@$(PHP_BIN) `pwd`/vendor/bin/composer-graph.phar              \
         --output="$(PATH_BUILD)/composer-graph/dev.html"          \
         --show-dev                                                \
-        -vvv
-	@$(PHP_BIN) `pwd`/vendor/bin/composer-graph                   \
+        -v
+	@$(PHP_BIN) `pwd`/vendor/bin/composer-graph.phar              \
         --output="$(PATH_BUILD)/composer-graph/full.html"         \
         --show-ext                                                \
         --show-dev                                                \
         --show-suggests                                           \
         --show-link-versions                                      \
         --show-package-versions                                   \
-        -vvv
+        -v
 
 
 report-performance: ##@Reports Build performance summary report

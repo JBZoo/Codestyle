@@ -35,8 +35,6 @@
         "phpbench/phpbench"    : "^0.17.1",
         "jbzoo/phpunit"        : "^4.8.0",
         "jbzoo/utils"          : "^4.3.0",
-        "jbzoo/composer-graph" : "^1.2.0",
-        "jbzoo/composer-diff"  : "^1.4.0",
         "jbzoo/toolbox-ci"     : "^1.4.0"
     },
 
