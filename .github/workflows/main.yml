@@ -31,7 +31,6 @@ jobs:
         xdebug: [ xdebug, none ]
 
     steps:
-      - run: printenv
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -45,7 +44,7 @@ jobs:
       - name: Build the Project
         run: make update --no-print-directory
 
-      - name: 📝 PHPUnit Tests
+      - name: ➡️ PHPUnit Tests
         run: make test --no-print-directory
 
 
@@ -70,7 +69,7 @@ jobs:
       - name: Build the Project
         run: make update --no-print-directory
 
-      - name: 📝 Code Quality
+      - name: ➡️ Code Quality
         run: make codestyle --no-print-directory
 
 
@@ -98,8 +97,10 @@ jobs:
       - name: Build the Project
         run: make update --no-print-directory
 
-      - name: 📝 PHPBench - Performance Report
+      - name: ➡️ PHPBench - Performance Report
         run: make test-performance-travis --no-print-directory
+        env:
+          XDEBUG_OFF: yes
 
-      - name: Build All Reports at Once
+      - name: ➡️ Build All Reports at Once
         run: make report-all --no-print-directory
