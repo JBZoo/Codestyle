@@ -22,7 +22,7 @@ on:
       - '*'
 
 jobs:
-  php-tests:
+  phpunit:
     runs-on: ubuntu-latest
 
     strategy:
@@ -49,12 +49,14 @@ jobs:
       - name: PHPUnit Tests
         run: make test --no-print-directory
 
-      - name: Publish Test Report
+      - name: Monitor coverage
+        uses: slavcodev/coverage-monitor-action@1.2.0
         if: ${{ always() }}
-        uses: mikepenz/action-junit-report@v2
         with:
-          report_paths: 'build/coverage_junit/*.xml'
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          clover_file: "build/coverage_xml/main.xml"
+          threshold_alert: 10
+          threshold_warning: 50
 
       - name: Code Quality
         run: make codestyle --no-print-directory
