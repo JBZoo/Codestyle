@@ -28,7 +28,7 @@ jobs:
     strategy:
       matrix:
         php: [7.2, 7.3, 7.4]
-        xdebug: [xdebug2, none]
+        xdebug: [xdebug, none]
 
     name: PHP ${{ matrix.php }} - ${{ matrix.xdebug }}
 
