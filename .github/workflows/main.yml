@@ -19,11 +19,11 @@ on:
       - "*"
   push:
     branches:
-      - '*'
+      - 'master'
 
 jobs:
   phpunit:
-    name: PHPUnit v${{ matrix.php }} - ${{ matrix.xdebug }}
+    name: PHPUnit
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -45,12 +45,12 @@ jobs:
       - name: Build the Project
         run: make update --no-print-directory
 
-      - name: PHPUnit Tests
+      - name: 📝 PHPUnit Tests
         run: make test --no-print-directory
 
 
   codestyle:
-    name: Codestyle v${{ matrix.php }}
+    name: Codestyle
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -70,18 +70,12 @@ jobs:
       - name: Build the Project
         run: make update --no-print-directory
 
-      - name: Code Quality
+      - name: 📝 Code Quality
         run: make codestyle --no-print-directory
-
-      - name: PHPBench - Performance Report
-        run: make test-performance-travis --no-print-directory
-
-      - name: Build All Reports at Once
-        run: make report-all --no-print-directory
 
 
   reports:
-    name: Reports v${{ matrix.php }}
+    name: Reports
     needs:
       - phpunit
       - codestyle
@@ -104,7 +98,7 @@ jobs:
       - name: Build the Project
         run: make update --no-print-directory
 
-      - name: PHPBench - Performance Report
+      - name: 📝 PHPBench - Performance Report
         run: make test-performance-travis --no-print-directory
 
       - name: Build All Reports at Once
