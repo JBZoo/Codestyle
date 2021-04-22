@@ -19,7 +19,7 @@ on:
       - "*"
   push:
     branches:
-      - 'master'
+      - '*'
 
 jobs:
   php-tests:
