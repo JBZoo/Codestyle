@@ -28,7 +28,7 @@ jobs:
     strategy:
       matrix:
         php: [7.2, 7.3, 7.4]
-        xdebug: [xdebug, xdebug2, none]
+        xdebug: [xdebug, none]
 
     name: PHP ${{ matrix.php }} - ${{ matrix.xdebug }}
 
@@ -49,17 +49,18 @@ jobs:
       - name: PHPUnit Tests
         run: make test --no-print-directory
 
-      - name: Code Quality
-        run: make codestyle --no-print-directory
-
-      - name: PHPBench - Performance Report
-        run: make test-performance-travis --no-print-directory
-
-      - name: Build All Reports at Once
-        run: make report-all --no-print-directory
-
       - name: Publish Test Report
+        if: ${{ always() }}
         uses: mikepenz/action-junit-report@v2
         with:
           report_paths: 'build/coverage_junit/*.xml'
           github_token: ${{ secrets.GITHUB_TOKEN }}
+
+#      - name: Code Quality
+#        run: make codestyle --no-print-directory
+#
+#      - name: PHPBench - Performance Report
+#        run: make test-performance-travis --no-print-directory
+#
+#      - name: Build All Reports at Once
+#        run: make report-all --no-print-directory
