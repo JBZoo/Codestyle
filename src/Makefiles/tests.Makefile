@@ -140,10 +140,11 @@ test-composer-ga:
 
 test-composer-reqs: ##@Tests Checks composer.json the defined dependencies against your code
 	$(call title,Composer - Check the defined dependencies against your code)
+	$(call download_phar,$(CO_RC_PHAR),"composer-require-checker")
 	@echo "Config: $(JBZOO_CONFIG_COMPOSER_REQ_CHECKER)"
-	@$(PHP_BIN) `pwd`/vendor/bin/composer-require-checker check   \
-        --config-file=$(JBZOO_CONFIG_COMPOSER_REQ_CHECKER)        \
-        -vvv                                                      \
+	@$(PHP_BIN) `pwd`/vendor/bin/composer-require-checker.phar check   \
+        --config-file=$(JBZOO_CONFIG_COMPOSER_REQ_CHECKER)             \
+        -vvv                                                           \
         $(PATH_ROOT)/composer.json
 
 
