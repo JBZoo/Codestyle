@@ -80,8 +80,6 @@ codestyle: ##@Tests Runs all codestyle linters at once
     else                                      \
         make codestyle-local;                 \
     fi;
-	@make test-composer
-	@-make test-composer-reqs
 
 
 codestyle-local:
@@ -92,6 +90,9 @@ codestyle-local:
 	@make test-phpstan
 	@make test-psalm
 	@make test-phan
+	@make test-composer
+	@-make test-composer-reqs
+
 
 codestyle-ga:
 	@make test-phpcs-ga
@@ -101,6 +102,8 @@ codestyle-ga:
 	@make test-phpstan-ga
 	@make test-psalm-ga
 	@make test-phan-ga
+	@make test-composer-ga
+	@-make test-composer-reqs-ga
 
 
 codestyle-teamcity:
@@ -129,6 +132,12 @@ test-composer: ##@Tests Validates composer.json and composer.lock
 	@composer outdated --direct --verbose
 
 
+test-composer-ga:
+	@echo "::group::Composer Validate"
+	@make test-composer
+	@echo "::endgroup::"
+
+
 test-composer-reqs: ##@Tests Checks composer.json the defined dependencies against your code
 	$(call title,Composer - Check the defined dependencies against your code)
 	@echo "Config: $(JBZOO_CONFIG_COMPOSER_REQ_CHECKER)"
@@ -136,6 +145,12 @@ test-composer-reqs: ##@Tests Checks composer.json the defined dependencies again
         --config-file=$(JBZOO_CONFIG_COMPOSER_REQ_CHECKER)        \
         -vvv                                                      \
         $(PATH_ROOT)/composer.json
+
+
+test-composer-reqs-ga:
+	@echo "::group::Composer Require Checker"
+	@make test-composer-reqs
+	@echo "::endgroup::"
 
 
 #### PHP Code Sniffer ##################################################################################################
