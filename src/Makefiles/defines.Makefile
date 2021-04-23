@@ -31,6 +31,7 @@ TC_REPORT      ?= tc-tests
 TC_REPORT_MND  ?= tc-inspections
 
 PHP_BIN           ?= php
+COMPOSER_BIN      ?= $(PHP_BIN) `/usr/bin/which composer`
 PHP_VERSION_ALIAS ?= $(shell $(PHP_BIN) --version | head -n 1 | cut -d " " -f 2 | cut -c 1,3)
 PROJECT_ALIAS     ?= $(shell basename `git rev-parse --show-toplevel` | sed 's/-//g')
 

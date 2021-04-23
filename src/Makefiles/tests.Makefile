@@ -124,12 +124,12 @@ codestyle-teamcity:
 
 test-composer: ##@Tests Validates composer.json and composer.lock
 	$(call title,"Composer - Checking common issue")
-	@-composer diagnose
+	@-$(COMPOSER_BIN) diagnose
 	$(call title,"Composer - Validate system requirements")
-	@composer validate --verbose
+	@$(COMPOSER_BIN) validate --verbose
 	@composer check-platform-reqs
 	$(call title,"Composer - List of outdated packages")
-	@composer outdated --direct --verbose
+	@$(COMPOSER_BIN) outdated --direct --verbose
 
 
 test-composer-ga:
@@ -254,6 +254,8 @@ test-phpcpd: ##@Tests PHPcpd - Find obvious Copy&Paste
 	$(call download_phar,$(PHPCPD_PHAR),"phpcpd")
 	@-XDEBUG_MODE=off $(PHP_BIN) `pwd`/vendor/bin/phpcpd.phar "$(PATH_SRC)"
 
+co:
+	$(COMPOSER_BIN) diagnose
 
 test-phpcpd-teamcity:
 	$(call download_phar,$(PHPCPD_PHAR),"phpcpd")
