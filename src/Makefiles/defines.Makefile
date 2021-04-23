@@ -46,13 +46,15 @@ endif
 
 #### Phar files
 ifeq ($(strip $(PHP_VERSION_ALIAS)),72)
-	BOX_PHAR    = https://github.com/box-project/box/releases/download/3.9.1/box.phar
 	PHPCPD_PHAR = https://phar.phpunit.de/phpcpd-4.1.0.phar
 	PHPLOC_PHAR = https://phar.phpunit.de/phploc-5.0.0.phar
+	BOX_PHAR    = https://github.com/box-project/box/releases/download/3.9.1/box.phar
+	CO_RC_PHAR  = https://github.com/maglnet/ComposerRequireChecker/releases/download/2.1.0/composer-require-checker.phar
 else
-	BOX_PHAR    = https://github.com/box-project/box/releases/latest/download/box.phar
 	PHPCPD_PHAR = https://phar.phpunit.de/phpcpd.phar
 	PHPLOC_PHAR = https://phar.phpunit.de/phploc.phar
+	BOX_PHAR    = https://github.com/box-project/box/releases/latest/download/box.phar
+	CO_RC_PHAR  = https://github.com/maglnet/ComposerRequireChecker/releases/latest/download/composer-require-checker.phar
 endif
 
 PHPMD_PHAR         = https://github.com/phpmd/phpmd/releases/latest/download/phpmd.phar
