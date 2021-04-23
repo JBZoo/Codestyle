@@ -32,14 +32,14 @@ jobs:
     continue-on-error: ${{ matrix.experimental }}
     strategy:
       matrix:
-        php-version: [ 7.2, 7.3, 7.4, 8.0, 8.1 ]
+        php-version: [ 7.2, 7.3, 7.4 ]
         xdebug: [ xdebug, none ]
         experimental: [ false ]
-        include:
-          - php-version: "8.0"
-            experimental: true
-          - php-version: "8.1"
-            experimental: true
+#        include:
+#          - php-version: "8.0"
+#            experimental: true
+#          - php-version: "8.1"
+#            experimental: true
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
