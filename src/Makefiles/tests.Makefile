@@ -127,7 +127,7 @@ test-composer: ##@Tests Validates composer.json and composer.lock
 	@-$(COMPOSER_BIN) diagnose
 	$(call title,"Composer - Validate system requirements")
 	@$(COMPOSER_BIN) validate --verbose
-	@composer check-platform-reqs
+	@$(COMPOSER_BIN) check-platform-reqs
 	$(call title,"Composer - List of outdated packages")
 	@$(COMPOSER_BIN) outdated --direct --verbose
 
