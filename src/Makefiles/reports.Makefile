@@ -59,7 +59,7 @@ report-composer-diff: ##@Reports What has changed after a composer update
 
 update-extend: ##@Reports Checks new compatible versions of 3rd party libraries
 	$(call download_phar,$(CO_DIFF_PHAR),"composer-diff")
-	@composer outdated --direct --verbose
+	@$(COMPOSER_BIN) outdated --direct --verbose
 	@cp -f `pwd`/composer.lock `pwd`/build/composer.lock
 	@make update
 	@-$(PHP_BIN) `pwd`/vendor/bin/composer-diff.phar  \

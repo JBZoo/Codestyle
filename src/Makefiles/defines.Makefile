@@ -31,10 +31,17 @@ TC_REPORT      ?= tc-tests
 TC_REPORT_MND  ?= tc-inspections
 
 PHP_BIN           ?= php
+COMPOSER_BIN      ?= $(shell if [ $(PHP_BIN) = "php" ]; then echo "composer"; else which composer fi;)
 PHP_VERSION_ALIAS ?= $(shell $(PHP_BIN) --version | head -n 1 | cut -d " " -f 2 | cut -c 1,3)
 PROJECT_ALIAS     ?= $(shell basename `git rev-parse --show-toplevel` | sed 's/-//g')
-
 PHPUNIT_PRETTY_PRINT_PROGRESS ?= true
+
+
+ifeq ($(strip $(PHP_BIN)),php)
+	COMPOSER_BIN = composer
+else
+	COMPOSER_BIN = $(PHP_BIN) $(shell which composer)
+endif
 
 
 #### Phar files
