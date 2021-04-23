@@ -183,7 +183,7 @@ test-phpcs-teamcity:
 
 
 test-phpcs-ga:
-	@echo "::group::PHPcs - Code Sniffer"
+	@echo "::group::PHPcs"
 	@make test-phpcs
 	@echo "::endgroup::"
 
@@ -219,7 +219,7 @@ test-phpmd-teamcity:
 
 
 test-phpmd-ga:
-	@echo "::group::PHPmd - Mess Detector"
+	@echo "::group::PHPmd"
 	@make test-phpmd
 	@echo "::endgroup::"
 
@@ -242,7 +242,7 @@ test-phpmnd-teamcity:
 
 
 test-phpmnd-ga:
-	@echo "::group::PHPmnd - Magic Number Detector"
+	@echo "::group::PHPmnd"
 	@make test-phpmnd
 	@echo "::endgroup::"
 
@@ -263,7 +263,7 @@ test-phpcpd-teamcity:
 
 
 test-phpcpd-ga:
-	@echo "::group::PHPcpd - Find obvious Copy&Paste"
+	@echo "::group::PHPcpd"
 	@make test-phpcpd
 	@echo "::endgroup::"
 
