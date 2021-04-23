@@ -11,7 +11,7 @@
 # @link       https://github.com/JBZoo/Codestyle
 #
 
-name: Tests
+name: Continuous Integration
 
 on:
   pull_request:
@@ -29,11 +29,17 @@ jobs:
   phpunit:
     name: PHPUnit
     runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.experimental }}
     strategy:
       matrix:
-        php: [ 7.2, 7.3, 7.4 ]
+        php-version: [ 7.2, 7.3, 7.4, 8.0, 8.1 ]
         xdebug: [ xdebug, none ]
-
+        experimental: [ false ]
+        include:
+          - php-version: "8.0"
+            experimental: true
+          - php-version: "8.1"
+            experimental: true
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -41,15 +47,18 @@ jobs:
       - name: Setup PHP and composer
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php }}
+          php-version: ${{ matrix.php-version }}
           coverage: ${{ matrix.xdebug }}
-          tools: composer:v2
+          tools: composer
 
       - name: Build the Project
         run: make update --no-print-directory
 
       - name: 🧪 PHPUnit Tests
         run: make test --no-print-directory
+
+      - name: Send coverage report to coveralls.io
+        run: make report-coveralls --no-print-directory
 
 
   codestyle:
@@ -58,7 +67,6 @@ jobs:
     strategy:
       matrix:
         php: [ 7.2, 7.3, 7.4 ]
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -86,7 +94,6 @@ jobs:
     strategy:
       matrix:
         php: [ 7.2, 7.3, 7.4 ]
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
