@@ -254,8 +254,6 @@ test-phpcpd: ##@Tests PHPcpd - Find obvious Copy&Paste
 	$(call download_phar,$(PHPCPD_PHAR),"phpcpd")
 	@-XDEBUG_MODE=off $(PHP_BIN) `pwd`/vendor/bin/phpcpd.phar "$(PATH_SRC)"
 
-co:
-	$(COMPOSER_BIN) diagnose
 
 test-phpcpd-teamcity:
 	$(call download_phar,$(PHPCPD_PHAR),"phpcpd")
