@@ -58,10 +58,7 @@ jobs:
         run: make test --no-print-directory
 
       - name: Coveralls
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: build/coverage_xml/*.xml
+        run: make report-coveralls --no-print-directory
 
 
   codestyle:
