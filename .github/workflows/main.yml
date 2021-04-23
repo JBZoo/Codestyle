@@ -33,7 +33,7 @@ jobs:
     strategy:
       matrix:
         php-version: [ 7.2, 7.3, 7.4 ]
-        xdebug: [ xdebug, none ]
+        xdebug: [ xdebug ]
         experimental: [ false ]
 #        include:
 #          - php-version: "8.0"
