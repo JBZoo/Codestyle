@@ -65,6 +65,12 @@ jobs:
     strategy:
       matrix:
         php: [ 7.2, 7.3, 7.4 ]
+        experimental: [ false ]
+        include:
+          - php-version: "8.0"
+            experimental: true
+          - php-version: "8.1"
+            experimental: true
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -81,17 +87,21 @@ jobs:
 
       - name: 👍 Code Quality
         run: make codestyle --no-print-directory
+        continue-on-error: ${{ matrix.experimental }}
 
 
   reports:
     name: Reports
-    needs:
-      - phpunit
-      - codestyle
     runs-on: ubuntu-latest
     strategy:
       matrix:
         php: [ 7.2, 7.3, 7.4 ]
+        experimental: [ false ]
+        include:
+          - php-version: "8.0"
+            experimental: true
+          - php-version: "8.1"
+            experimental: true
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -108,8 +118,10 @@ jobs:
 
       - name: 🔥 PHPBench - Performance Report
         run: make test-performance-travis --no-print-directory
+        continue-on-error: ${{ matrix.experimental }}
         env:
           XDEBUG_OFF: yes
 
       - name: 📝 Build All Reports at Once
         run: make report-all --no-print-directory
+        continue-on-error: ${{ matrix.experimental }}
