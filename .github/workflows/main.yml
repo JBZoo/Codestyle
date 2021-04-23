@@ -60,67 +60,9 @@ jobs:
         continue-on-error: ${{ matrix.experimental }}
         run: make test --no-print-directory
 
-
-  codestyle:
-    name: CodeStyle
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        php-version: [ 7.2, 7.3, 7.4 ]
-        xdebug: [ xdebug, none ]
-        experimental: [ false ]
-        include:
-          - php-version: "8.0"
-            experimental: true
-          - php-version: "8.1"
-            experimental: true
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup PHP and composer
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php-version }}
-          coverage: ${{ matrix.xdebug }}
-          tools: composer
-
-      - name: Build the Project
-        continue-on-error: ${{ matrix.experimental }}
-        run: make update --no-print-directory
-
       - name: 👍 Code Quality
         continue-on-error: ${{ matrix.experimental }}
         run: make codestyle --no-print-directory
-
-
-  reports:
-    name: Reports
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        php-version: [ 7.2, 7.3, 7.4 ]
-        xdebug: [ xdebug, none ]
-        experimental: [ false ]
-        include:
-          - php-version: "8.0"
-            experimental: true
-          - php-version: "8.1"
-            experimental: true
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup PHP and composer
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php-version }}
-          coverage: ${{ matrix.xdebug }}
-          tools: composer
-
-      - name: Build the Project
-        continue-on-error: ${{ matrix.experimental }}
-        run: make update --no-print-directory
 
       - name: 🔥 PHPBench - Performance Report
         continue-on-error: ${{ matrix.experimental }}
