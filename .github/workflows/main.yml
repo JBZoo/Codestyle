@@ -11,7 +11,7 @@
 # @link       https://github.com/JBZoo/Codestyle
 #
 
-name: Tests
+name: Continuous Integration
 
 on:
   pull_request:
@@ -20,46 +20,54 @@ on:
   push:
     branches:
       - 'master'
+  schedule:
+    - cron: '15 */8 * * *'
+
+env:
+  COLUMNS: 120
+  TERM_PROGRAM: Hyper
 
 jobs:
-  php-tests:
+  phpunit:
+    name: PHPUnit
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
-        php: [7.2, 7.3, 7.4]
-        xdebug: [xdebug2, none]
-
-    name: PHP ${{ matrix.php }} - ${{ matrix.xdebug }}
-
+        php-version: [ 7.2, 7.3, 7.4 ]
+        xdebug: [ xdebug, none ]
+        experimental: [ false ]
+        include:
+          - php-version: "8.0"
+            experimental: true
+          - php-version: "8.1"
+            experimental: true
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Setup PHP
+      - name: Setup PHP and composer
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php }}
+          php-version: ${{ matrix.php-version }}
           coverage: ${{ matrix.xdebug }}
-          tools: composer:v2
+          tools: composer
 
       - name: Build the Project
+        continue-on-error: ${{ matrix.experimental }}
         run: make update --no-print-directory
 
-      - name: PHPUnit Tests
+      - name: 🧪 PHPUnit Tests
+        continue-on-error: ${{ matrix.experimental }}
         run: make test --no-print-directory
 
-      - name: Code Quality
+      - name: 👍 Code Quality
+        continue-on-error: ${{ matrix.experimental }}
         run: make codestyle --no-print-directory
 
-      - name: PHPBench - Performance Report
-        run: make test-performance-travis --no-print-directory
+      - name: 🔥 PHPBench - Performance Report
+        continue-on-error: ${{ matrix.experimental }}
+        run: XDEBUG_OFF=yes make test-performance-travis --no-print-directory
 
-      - name: Build All Reports at Once
+      - name: 📝 Build All Reports at Once
+        continue-on-error: ${{ matrix.experimental }}
         run: make report-all --no-print-directory
-
-      - name: Publish Test Report
-        uses: mikepenz/action-junit-report@v2
-        with:
-          report_paths: 'build/coverage_junit/*.xml'
-          github_token: ${{ secrets.GITHUB_TOKEN }}

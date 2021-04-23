@@ -15,6 +15,8 @@
 
 declare(strict_types=1);
 
+// @codeCoverageIgnore
+
 if (\extension_loaded('xdebug')) {
     if (!function_exists('xdebug_enable')) {
         /**

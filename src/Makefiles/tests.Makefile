@@ -73,16 +73,16 @@ test-phpunit-x:
 #### All Coding Standards ##############################################################################################
 
 codestyle: ##@Tests Runs all codestyle linters at once
-	@if [ -z "$(TEAMCITY_VERSION)" ]; then    \
-        make codestyle-local;                 \
-    else                                      \
+	@if [ -n "$(TEAMCITY_VERSION)" ]; then    \
         make codestyle-teamcity;              \
+    elif [ -n "$(GITHUB_ACTIONS)" ]; then     \
+        make codestyle-ga;                    \
+    else                                      \
+        make codestyle-local;                 \
     fi;
-	@make test-composer
-	@-make test-composer-reqs
 
 
-codestyle-local: ##@Tests Runs all codestyle linters at once (Internal - Regular Mode)
+codestyle-local:
 	@make test-phpcs
 	@make test-phpmd
 	@make test-phpmnd
@@ -90,9 +90,23 @@ codestyle-local: ##@Tests Runs all codestyle linters at once (Internal - Regular
 	@make test-phpstan
 	@make test-psalm
 	@make test-phan
+	@make test-composer
+	@-make test-composer-reqs
 
 
-codestyle-teamcity: ##@Tests Runs all codestyle linters at once (Internal - Teamcity Mode)
+codestyle-ga:
+	@make test-phpcs-ga
+	@make test-phpmd-ga
+	@make test-phpmnd-ga
+	@make test-phpcpd-ga
+	@make test-phpstan-ga
+	@make test-psalm-ga
+	@make test-phan-ga
+	@make test-composer-ga
+	@-make test-composer-reqs-ga
+
+
+codestyle-teamcity:
 	@echo "##teamcity[progressStart 'Checking Coding Standards']"
 	@make test-phpcs-teamcity
 	@make test-phpmd-teamcity
@@ -118,6 +132,12 @@ test-composer: ##@Tests Validates composer.json and composer.lock
 	@composer outdated --direct --verbose
 
 
+test-composer-ga:
+	@echo "::group::Composer Validate"
+	@make test-composer
+	@echo "::endgroup::"
+
+
 test-composer-reqs: ##@Tests Checks composer.json the defined dependencies against your code
 	$(call title,Composer - Check the defined dependencies against your code)
 	@echo "Config: $(JBZOO_CONFIG_COMPOSER_REQ_CHECKER)"
@@ -127,10 +147,16 @@ test-composer-reqs: ##@Tests Checks composer.json the defined dependencies again
         $(PATH_ROOT)/composer.json
 
 
+test-composer-reqs-ga:
+	@echo "::group::Composer Require Checker"
+	@make test-composer-reqs
+	@echo "::endgroup::"
+
+
 #### PHP Code Sniffer ##################################################################################################
 
-test-phpcs: ##@Tests PHPcs - Checking PHP Codestyle (PSR-12 + PHP Compatibility)
-	$(call title,"PHPcs - Checks PHP Codestyle \(PSR-12 + PHP Compatibility\)")
+test-phpcs: ##@Tests PHPcs - Checking PHP Code Sniffer (PSR-12 + PHP Compatibility)
+	$(call title,"PHPcs - Checks PHP Code Sniffer \(PSR-12 + PHP Compatibility\)")
 	@echo "Config: $(JBZOO_CONFIG_PHPCS)"
 	@$(PHP_BIN) `pwd`/vendor/bin/phpcs "$(PATH_SRC)"  \
             --standard="$(JBZOO_CONFIG_PHPCS)"        \
@@ -154,6 +180,12 @@ test-phpcs-teamcity:
         --suite-name="PHPcs"                                    \
         --root-path="`pwd`"                                     \
         --input-file="$(PATH_BUILD)/phpcs-checkstyle.xml"
+
+
+test-phpcs-ga:
+	@echo "::group::PHPcs"
+	@make test-phpcs
+	@echo "::endgroup::"
 
 
 #### PHP Mess Detector #################################################################################################
@@ -186,6 +218,12 @@ test-phpmd-teamcity:
         --input-file="$(PATH_BUILD)/phpmd.json"
 
 
+test-phpmd-ga:
+	@echo "::group::PHPmd"
+	@make test-phpmd
+	@echo "::endgroup::"
+
+
 #### PHP Magic Number Detector #########################################################################################
 
 test-phpmnd: ##@Tests PHPmnd - Magic Number Detector
@@ -203,6 +241,12 @@ test-phpmnd-teamcity:
         --input-file="$(PATH_BUILD)/phpmnd.xml"
 
 
+test-phpmnd-ga:
+	@echo "::group::PHPmnd"
+	@make test-phpmnd
+	@echo "::endgroup::"
+
+
 #### PHP Copy@Paste Detector ###########################################################################################
 
 test-phpcpd: ##@Tests PHPcpd - Find obvious Copy&Paste
@@ -216,6 +260,12 @@ test-phpcpd-teamcity:
 	@-XDEBUG_MODE=off $(PHP_BIN) `pwd`/vendor/bin/phpcpd.phar $(PATH_SRC) --log-pmd="$(PATH_BUILD)/phpcpd.xml"
 	@echo ""
 	@echo "##teamcity[importData type='pmdCpd' path='$(PATH_BUILD)/phpcpd.xml' verbose='true']"
+
+
+test-phpcpd-ga:
+	@echo "::group::PHPcpd"
+	@make test-phpcpd
+	@echo "::endgroup::"
 
 
 #### PHPstan - Static Analysis Tool ####################################################################################
@@ -242,6 +292,12 @@ test-phpstan-teamcity:
         --suite-name="PHPstan"                                  \
         --root-path="`pwd`"                                     \
         --input-file="$(PATH_BUILD)/phpstan-checkstyle.xml"
+
+
+test-phpstan-ga:
+	@echo "::group::PHPStan"
+	@make test-phpstan
+	@echo "::endgroup::"
 
 
 #### Psalm - Static Analysis Tool ######################################################################################
@@ -281,6 +337,12 @@ test-psalm-teamcity:
         --suite-name="Psalm"                                    \
         --root-path="`pwd`"                                     \
         --input-file="$(PATH_BUILD)/psalm-checkstyle.json"
+
+
+test-psalm-ga:
+	@echo "::group::Psalm"
+	@make test-psalm
+	@echo "::endgroup::"
 
 
 #### Phan - Static Analysis Tool #######################################################################################
@@ -325,6 +387,12 @@ test-phan-teamcity:
         --suite-name="Phan"                                     \
         --root-path="`pwd`"                                     \
         --input-file="$(PATH_BUILD)/phan-checkstyle.xml"
+
+
+test-phan-ga:
+	@echo "::group::Phan"
+	@make test-phan
+	@echo "::endgroup::"
 
 
 #### Testing Performance ###############################################################################################
