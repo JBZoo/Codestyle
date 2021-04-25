@@ -33,7 +33,7 @@
         "phpbench/phpbench"    : "^0.17.1",
         "jbzoo/phpunit"        : "^4.9.0",
         "jbzoo/utils"          : "^4.4.0",
-        "jbzoo/toolbox-ci"     : "^1.4.0"
+        "jbzoo/toolbox-ci"     : "^1.6.0"
     },
 
     "autoload"          : {

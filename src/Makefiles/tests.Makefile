@@ -185,7 +185,7 @@ test-phpcs-teamcity:
 
 test-phpcs-ga:
 	@echo "::group::PHPcs"
-	@make test-phpcs
+	@make TC_REPORT=github-cli test-phpcs-teamcity
 	@echo "::endgroup::"
 
 
@@ -221,7 +221,7 @@ test-phpmd-teamcity:
 
 test-phpmd-ga:
 	@echo "::group::PHPmd"
-	@make test-phpmd
+	@make TC_REPORT=github-cli test-phpmd-teamcity
 	@echo "::endgroup::"
 
 
@@ -244,7 +244,7 @@ test-phpmnd-teamcity:
 
 test-phpmnd-ga:
 	@echo "::group::PHPmnd"
-	@make test-phpmnd
+	@make TC_REPORT=github-cli test-phpmnd-teamcity
 	@echo "::endgroup::"
 
 
@@ -265,7 +265,7 @@ test-phpcpd-teamcity:
 
 test-phpcpd-ga:
 	@echo "::group::PHPcpd"
-	@make test-phpcpd
+	@make TC_REPORT=github-cli test-phpcpd-teamcity
 	@echo "::endgroup::"
 
 
@@ -297,7 +297,7 @@ test-phpstan-teamcity:
 
 test-phpstan-ga:
 	@echo "::group::PHPStan"
-	@make test-phpstan
+	@make TC_REPORT=github-cli test-phpstan-teamcity
 	@echo "::endgroup::"
 
 
@@ -342,7 +342,7 @@ test-psalm-teamcity:
 
 test-psalm-ga:
 	@echo "::group::Psalm"
-	@make test-psalm
+	@make TC_REPORT=github-cli test-psalm-teamcity
 	@echo "::endgroup::"
 
 
@@ -392,7 +392,7 @@ test-phan-teamcity:
 
 test-phan-ga:
 	@echo "::group::Phan"
-	@make test-phan
+	@make TC_REPORT=github-cli test-phan-teamcity
 	@echo "::endgroup::"
 
 
