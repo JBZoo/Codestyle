@@ -17,6 +17,8 @@ declare(strict_types=1);
 
 // See for details ./vendor/phan/phan/src/Phan/Config.php
 
+
+echo $sss;
 return [
     'target_php_version'         => null,
     'quick_mode'                 => false,
