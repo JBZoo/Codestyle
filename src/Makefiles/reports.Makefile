@@ -146,26 +146,26 @@ report-phpmetrics: ##@Reports Build PHP Metrics Report
 
 report-pdepend: ##@Reports Build PHP Depend Report
 	$(call download_phar,$(PDEPEND_PHAR),"pdepend")
-	@if [ -z "$(TEAMCITY_VERSION)" ]; then                           \
-        $(PHP_BIN) `pwd`/vendor/bin/pdepend.phar                     \
-            --dependency-xml="$(PATH_BUILD)/pdepend-dependency.xml"  \
-            --jdepend-chart="$(PATH_BUILD)/pdepend-jdepend.svg"      \
-            --overview-pyramid="$(PATH_BUILD)/pdepend-pyramid.svg"   \
-            --summary-xml="$(PATH_BUILD)/pdepend-summary.xml"        \
-            "$(PATH_SRC)";                                           \
-    else                                                             \
-        $(PHP_BIN) `pwd`/vendor/bin/pdepend.phar                     \
-            --dependency-xml="$(PATH_BUILD)/pdepend-dependency.xml"  \
-            --jdepend-chart="$(PATH_BUILD)/pdepend-jdepend.svg"      \
-            --overview-pyramid="$(PATH_BUILD)/pdepend-pyramid.svg"   \
-            --summary-xml="$(PATH_BUILD)/pdepend-summary.xml"        \
-            --quiet                                                  \
-            "$(PATH_SRC)";                                           \
-        $(PHP_BIN) `pwd`/vendor/bin/toolbox-ci teamcity:stats        \
-            --input-format="pdepend-xml"                             \
-            --tc-flow-id="$(FLOW_ID)"                                \
-            --input-file="$(PATH_BUILD)/pdepend-summary.xml";        \
-    fi;                                                              \
+	@if [ -z "$(TEAMCITY_VERSION)" ]; then                                \
+        $(PHP_BIN) `pwd`/vendor/bin/pdepend.phar                          \
+            --dependency-xml="$(PATH_BUILD)/pdepend-dependency.xml"       \
+            --jdepend-chart="$(PATH_BUILD)/pdepend-jdepend.svg"           \
+            --overview-pyramid="$(PATH_BUILD)/pdepend-pyramid.svg"        \
+            --summary-xml="$(PATH_BUILD)/pdepend-summary.xml"             \
+            "$(PATH_SRC)";                                                \
+    else                                                                  \
+        $(PHP_BIN) `pwd`/vendor/bin/pdepend.phar                          \
+            --dependency-xml="$(PATH_BUILD)/pdepend-dependency.xml"       \
+            --jdepend-chart="$(PATH_BUILD)/pdepend-jdepend.svg"           \
+            --overview-pyramid="$(PATH_BUILD)/pdepend-pyramid.svg"        \
+            --summary-xml="$(PATH_BUILD)/pdepend-summary.xml"             \
+            --quiet                                                       \
+            "$(PATH_SRC)";                                                \
+        $(PHP_BIN) `pwd`/vendor/bin/ci-report-converter teamcity:stats    \
+            --input-format="pdepend-xml"                                  \
+            --tc-flow-id="$(FLOW_ID)"                                     \
+            --input-file="$(PATH_BUILD)/pdepend-summary.xml";             \
+    fi;                                                                   \
 
 
 report-phploc: ##@Reports PHPloc - Show code stats
@@ -176,7 +176,7 @@ report-phploc: ##@Reports PHPloc - Show code stats
     else                                                                  \
         $(PHP_BIN) `pwd`/vendor/bin/phploc.phar "$(PATH_SRC)"             \
             --log-json="$(PATH_BUILD)/phploc.json" --quiet;               \
-        $(PHP_BIN) `pwd`/vendor/bin/toolbox-ci teamcity:stats             \
+        $(PHP_BIN) `pwd`/vendor/bin/ci-report-converter teamcity:stats    \
             --input-format="phploc-json"                                  \
             --input-file="$(PATH_BUILD)/phploc.json";                     \
     fi;                                                                   \

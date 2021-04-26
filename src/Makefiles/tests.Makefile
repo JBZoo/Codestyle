@@ -32,10 +32,10 @@ test-phpunit:
             --colors=always                                            \
             --teamcity                                                 \
             --verbose;                                                 \
-        $(PHP_BIN) `pwd`/vendor/bin/toolbox-ci teamcity:stats          \
+        $(PHP_BIN) `pwd`/vendor/bin/ci-report-converter teamcity:stats \
             --input-format="phpunit-clover-xml"                        \
             --input-file="$(PATH_BUILD)/coverage_xml/main.xml";        \
-        $(PHP_BIN) `pwd`/vendor/bin/toolbox-ci teamcity:stats          \
+        $(PHP_BIN) `pwd`/vendor/bin/ci-report-converter teamcity:stats \
                 --input-format="junit-xml"                             \
                 --input-file="$(PATH_BUILD)/coverage_junit/main.xml";  \
         echo "##teamcity[progressFinish 'PHPUnit Tests']";             \
@@ -60,10 +60,10 @@ test-phpunit-x:
             --colors=always                                            \
             --teamcity                                                 \
             --verbose;                                                 \
-        $(PHP_BIN) `pwd`/vendor/bin/toolbox-ci teamcity:stats          \
+        $(PHP_BIN) `pwd`/vendor/bin/ci-report-converter teamcity:stats \
             --input-format="phpunit-clover-xml"                        \
             --input-file="$(PATH_BUILD)/coverage_xml/main.xml";        \
-        $(PHP_BIN) `pwd`/vendor/bin/toolbox-ci teamcity:stats          \
+        $(PHP_BIN) `pwd`/vendor/bin/ci-report-converter teamcity:stats \
                 --input-format="junit-xml"                             \
                 --input-file="$(PATH_BUILD)/coverage_junit/main.xml";  \
         echo "##teamcity[progressFinish 'PHPUnit Tests']";             \
@@ -175,7 +175,7 @@ test-phpcs-teamcity:
             --no-cache                                          \
             --no-colors                                         \
             -s -q > /dev/null
-	@$(PHP_BIN) `pwd`/vendor/bin/toolbox-ci convert             \
+	@$(PHP_BIN) `pwd`/vendor/bin/ci-report-converter convert    \
         --input-format="checkstyle"                             \
         --output-format="$(TC_REPORT)"                          \
         --suite-name="PHPcs"                                    \
@@ -211,7 +211,7 @@ test-phpmd-teamcity:
 	@rm -f "$(PATH_BUILD)/phpmd.json"
 	$(call download_phar,$(PHPMD_PHAR),"phpmd")
 	@-$(PHP_BIN) `pwd`/vendor/bin/phpmd.phar "$(PATH_SRC)" json "$(JBZOO_CONFIG_PHPMD)" > "$(PATH_BUILD)/phpmd.json"
-	@$(PHP_BIN) `pwd`/vendor/bin/toolbox-ci convert             \
+	@$(PHP_BIN) `pwd`/vendor/bin/ci-report-converter convert    \
         --input-format="phpmd-json"                             \
         --output-format="$(TC_REPORT)"                          \
         --suite-name="PHPmd"                                    \
@@ -234,7 +234,7 @@ test-phpmnd: ##@Tests PHPmnd - Magic Number Detector
 
 test-phpmnd-teamcity:
 	@$(PHP_BIN) `pwd`/vendor/bin/phpmnd "$(PATH_SRC)" --quiet --hint --xml-output="$(PATH_BUILD)/phpmnd.xml"
-	@$(PHP_BIN) `pwd`/vendor/bin/toolbox-ci convert             \
+	@$(PHP_BIN) `pwd`/vendor/bin/ci-report-converter convert    \
         --input-format="phpmnd"                                 \
         --output-format="$(TC_REPORT_MND)"                      \
         --suite-name="PHP Magic Numbers"                        \
@@ -287,7 +287,7 @@ test-phpstan-teamcity:
         --error-format=checkstyle                               \
         --no-progress                                           \
         "$(PATH_SRC)" > "$(PATH_BUILD)/phpstan-checkstyle.xml"
-	@$(PHP_BIN) `pwd`/vendor/bin/toolbox-ci convert             \
+	@$(PHP_BIN) `pwd`/vendor/bin/ci-report-converter convert    \
         --input-format="checkstyle"                             \
         --output-format="$(TC_REPORT)"                          \
         --suite-name="PHPstan"                                  \
@@ -332,7 +332,7 @@ test-psalm-teamcity:
         --output-format=json                                    \
         --no-progress                                           \
         --monochrome > "$(PATH_BUILD)/psalm-checkstyle.json"
-	@$(PHP_BIN) `pwd`/vendor/bin/toolbox-ci convert             \
+	@$(PHP_BIN) `pwd`/vendor/bin/ci-report-converter convert    \
         --input-format="psalm-json"                             \
         --output-format="$(TC_REPORT)"                          \
         --suite-name="Psalm"                                    \
@@ -382,7 +382,7 @@ test-phan-teamcity:
         --strict-type-checking                                  \
         --analyze-twice	                                        \
         --no-color
-	@$(PHP_BIN) `pwd`/vendor/bin/toolbox-ci convert             \
+	@$(PHP_BIN) `pwd`/vendor/bin/ci-report-converter convert    \
         --input-format="checkstyle"                             \
         --output-format="$(TC_REPORT)"                          \
         --suite-name="Phan"                                     \

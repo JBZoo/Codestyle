@@ -1,11 +1,11 @@
 {
-    "name"              : "jbzoo/codestyle",
-    "type"              : "library",
-    "license"           : "MIT",
-    "description"       : "Collection of QA tools and JBZoo code standards",
-    "keywords"          : ["jbzoo", "php", "qa", "tests", "codestyle", "coding-standard"],
+    "name"        : "jbzoo/codestyle",
+    "type"        : "library",
+    "license"     : "MIT",
+    "description" : "Collection of QA tools and JBZoo code standards",
+    "keywords"    : ["jbzoo", "php", "qa", "tests", "codestyle", "coding-standard"],
 
-    "authors"           : [
+    "authors"     : [
         {
             "name"  : "Denis Smetannikov",
             "email" : "admin@jbzoo.com",
@@ -13,7 +13,7 @@
         }
     ],
 
-    "require"           : {
+    "require"     : {
         "php"                                : ">=7.2",
 
         "psalm/phar"                         : ">=4.7.0",
@@ -29,22 +29,22 @@
         "nikic/php-parser"                   : ">=4.10.4"
     },
 
-    "require-dev"       : {
-        "phpbench/phpbench"    : "^0.17.1",
-        "jbzoo/phpunit"        : "^4.9.0",
-        "jbzoo/utils"          : "^4.4.0",
-        "jbzoo/toolbox-ci"     : "^1.6.0"
+    "require-dev" : {
+        "phpbench/phpbench"         : "^0.17.1",
+        "jbzoo/phpunit"             : "^4.9.0",
+        "jbzoo/utils"               : "^4.4.0",
+        "jbzoo/ci-report-converter" : "^2.0.0"
     },
 
-    "autoload"          : {
+    "autoload"    : {
         "files" : ["src/php/compatibility.php"]
     },
 
-    "config"            : {
+    "config"      : {
         "optimize-autoloader" : true
     },
 
-    "extra"             : {
+    "extra"       : {
         "branch-alias" : {
             "dev-master" : "2.x-dev"
         }
