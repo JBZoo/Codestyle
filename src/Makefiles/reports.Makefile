@@ -53,7 +53,15 @@ report-merge-coverage: ##@Reports Merge all coverage reports in one clover file
 
 report-composer-diff: ##@Reports What has changed after a composer update
 	$(call title,"What has changed after a composer update")
-	@$(PHP_BIN) `pwd`/vendor/bin/composer-diff
+	@-$(PHP_BIN) `pwd`/vendor/bin/composer-diff       \
+        --source="master:composer.lock"               \
+        --target="`pwd`/composer.lock"
+	@-$(PHP_BIN) `pwd`/vendor/bin/composer-diff       \
+        --source="master:composer.lock"               \
+        --target="`pwd`/composer.lock"                \
+        --output=markdown --no-ansi                   > `pwd`/build/composer-upgrade-log.md
+	@rm `pwd`/build/composer.lock
+	@echo 'Markdown text: "cat ./build/composer-upgrade-log.md"'
 
 
 update-extend: ##@Reports Checks new compatible versions of 3rd party libraries
