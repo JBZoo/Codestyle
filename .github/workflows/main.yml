@@ -62,6 +62,11 @@ jobs:
         continue-on-error: ${{ matrix.experimental }}
         run: make test --no-print-directory
 
+      - uses: actions/upload-artifact@v2
+        with:
+          name: PHPUnit Artifact
+          path: build/
+
 
   linters:
     name: Linters
@@ -93,6 +98,11 @@ jobs:
         continue-on-error: ${{ matrix.experimental }}
         run: make codestyle --no-print-directory
 
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Linters Artifact
+          path: build/
+
 
   report:
     name: Reports
@@ -123,3 +133,8 @@ jobs:
       - name: 📝 Build Reports
         continue-on-error: ${{ matrix.experimental }}
         run: make report-all --no-print-directory
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Reports Artifact
+          path: build/
