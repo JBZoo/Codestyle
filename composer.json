@@ -17,6 +17,7 @@
         "php"                                  : ">=7.2",
 
         "psalm/phar"                           : ">=4.7.1",
+        "phpmd/phpmd"                          : ">=2.10.0",
         "phpstan/phpstan"                      : ">=0.12.85",
         "phpstan/phpstan-strict-rules"         : ">=0.12.9",
         "povils/phpmnd"                        : ">=2.4.0",
