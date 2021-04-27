@@ -53,20 +53,18 @@ report-merge-coverage: ##@Reports Merge all coverage reports in one clover file
 
 report-composer-diff: ##@Reports What has changed after a composer update
 	$(call title,"What has changed after a composer update")
-	$(call download_phar,$(CO_DIFF_PHAR),"composer-diff")
-	@$(PHP_BIN) `pwd`/vendor/bin/composer-diff.phar
+	@$(PHP_BIN) `pwd`/vendor/bin/composer-diff
 
 
 update-extend: ##@Reports Checks new compatible versions of 3rd party libraries
-	$(call download_phar,$(CO_DIFF_PHAR),"composer-diff")
 	@$(COMPOSER_BIN) outdated --direct --verbose
 	@cp -f `pwd`/composer.lock `pwd`/build/composer.lock
 	@echo "Composer flags: $(JBZOO_COMPOSER_UPDATE_FLAGS)"
 	@$(COMPOSER_BIN) update --no-progress $(JBZOO_COMPOSER_UPDATE_FLAGS)
-	@-$(PHP_BIN) `pwd`/vendor/bin/composer-diff.phar  \
+	@-$(PHP_BIN) `pwd`/vendor/bin/composer-diff       \
         --source="`pwd`/build/composer.lock"          \
         --target="`pwd`/composer.lock"
-	@-$(PHP_BIN) `pwd`/vendor/bin/composer-diff.phar  \
+	@-$(PHP_BIN) `pwd`/vendor/bin/composer-diff       \
         --source="`pwd`/build/composer.lock"          \
         --target="`pwd`/composer.lock"                \
         --output=markdown --no-ansi                   > `pwd`/build/composer-upgrade-log.md
@@ -76,29 +74,28 @@ update-extend: ##@Reports Checks new compatible versions of 3rd party libraries
 
 report-composer-graph: ##@Reports Build composer graph of dependencies
 	$(call title,"Build composer graph of dependencies")
-	$(call download_phar,$(CO_GRAPH_PHAR),"composer-graph")
 	@mkdir -p "$(PATH_BUILD)/composer-graph"
-	@$(PHP_BIN) `pwd`/vendor/bin/composer-graph.phar              \
+	@$(PHP_BIN) `pwd`/vendor/bin/composer-graph                   \
         --output="$(PATH_BUILD)/composer-graph/mini.html"         \
         -v
-	@$(PHP_BIN) `pwd`/vendor/bin/composer-graph.phar              \
+	@$(PHP_BIN) `pwd`/vendor/bin/composer-graph                   \
         --output="$(PATH_BUILD)/composer-graph/extensions.html"   \
         --show-ext                                                \
         -v
-	@$(PHP_BIN) `pwd`/vendor/bin/composer-graph.phar              \
+	@$(PHP_BIN) `pwd`/vendor/bin/composer-graph                   \
         --output="$(PATH_BUILD)/composer-graph/versions.html"     \
         --show-link-versions                                      \
         --show-package-versions                                   \
         -v
-	@$(PHP_BIN) `pwd`/vendor/bin/composer-graph.phar              \
+	@$(PHP_BIN) `pwd`/vendor/bin/composer-graph                   \
         --output="$(PATH_BUILD)/composer-graph/suggests.html"     \
         --show-suggests                                           \
         -v
-	@$(PHP_BIN) `pwd`/vendor/bin/composer-graph.phar              \
+	@$(PHP_BIN) `pwd`/vendor/bin/composer-graph                   \
         --output="$(PATH_BUILD)/composer-graph/dev.html"          \
         --show-dev                                                \
         -v
-	@$(PHP_BIN) `pwd`/vendor/bin/composer-graph.phar              \
+	@$(PHP_BIN) `pwd`/vendor/bin/composer-graph                   \
         --output="$(PATH_BUILD)/composer-graph/full.html"         \
         --show-ext                                                \
         --show-dev                                                \

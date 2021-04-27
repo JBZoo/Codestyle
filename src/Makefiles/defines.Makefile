@@ -27,6 +27,7 @@ PATH_TESTS     ?= $(PATH_ROOT)/tests
 
 XDEBUG_OFF     ?= no
 
+# TODO: Rename variables. Now it's not only about TeamCity
 TC_REPORT      ?= tc-tests
 TC_REPORT_MND  ?= tc-inspections
 
