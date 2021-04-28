@@ -349,7 +349,7 @@ test-phan: ##@Tests Phan - super strict static analyzer for PHP
         --config-file="$(JBZOO_CONFIG_PHAN)"                    \
         --project-root-directory="`pwd`"                        \
         --color-scheme=light                                    \
-        --progress-bar                                          \
+        --no-progress-bar                                       \
         --backward-compatibility-checks                         \
         --print-memory-usage-summary                            \
         --markdown-issue-messages                               \
