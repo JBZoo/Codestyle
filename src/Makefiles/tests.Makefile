@@ -186,7 +186,6 @@ test-phpcs-ga:
 test-phpmd: ##@Tests PHPmd - Mess Detector Checker
 	$(call title,"PHPmd - Mess Detector Checker")
 	@echo "Config: $(JBZOO_CONFIG_PHPMD)"
-	$(call download_phar,$(PHPMD_PHAR),"phpmd")
 	@$(PHP_BIN) `pwd`/vendor/bin/phpmd --version
 	@$(PHP_BIN) `pwd`/vendor/bin/phpmd "$(PATH_SRC)" ansi "$(JBZOO_CONFIG_PHPMD)" --verbose
 
@@ -194,14 +193,12 @@ test-phpmd: ##@Tests PHPmd - Mess Detector Checker
 test-phpmd-strict: ##@Tests PHPmd - Mess Detector Checker (strict mode)
 	$(call title,"PHPmd - Mess Detector Checker")
 	@echo "Config: $(JBZOO_CONFIG_PHPMD)"
-	$(call download_phar,$(PHPMD_PHAR),"phpmd")
 	@$(PHP_BIN) `pwd`/vendor/bin/phpmd --version
 	@$(PHP_BIN) `pwd`/vendor/bin/phpmd "$(PATH_SRC)" ansi "$(JBZOO_CONFIG_PHPMD)" --verbose --strict
 
 
 test-phpmd-teamcity:
 	@rm -f "$(PATH_BUILD)/phpmd.json"
-	$(call download_phar,$(PHPMD_PHAR),"phpmd")
 	@-$(PHP_BIN) `pwd`/vendor/bin/phpmd "$(PATH_SRC)" json "$(JBZOO_CONFIG_PHPMD)" > "$(PATH_BUILD)/phpmd.json"
 	@$(PHP_BIN) `pwd`/vendor/bin/ci-report-converter convert    \
         --input-format="phpmd-json"                             \
