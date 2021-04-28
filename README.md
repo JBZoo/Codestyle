@@ -40,6 +40,7 @@ Project:
   clean                         Cleanup only build directory
   clean-vendor                  Cleanup all
   autoload                      Dump optimized autoload file for PHP
+  build-phar                    Compile phar file
 
 Reports:
   report-all                    Build all reports at once
@@ -55,13 +56,12 @@ Reports:
   report-phploc                 PHPloc - Show code stats
 
 Tests:
-  test                          Runs unit-tests (alias "test-phpunit-manual")
+  test                          Runs unit-tests (alias "test-phpunit")
+  test-phpunit                  Runs all codestyle linters at once
   codestyle                     Runs all codestyle linters at once
-  codestyle-local               Runs all codestyle linters at once (Internal - Regular Mode)
-  codestyle-teamcity            Runs all codestyle linters at once (Internal - Teamcity Mode)
   test-composer                 Validates composer.json and composer.lock
   test-composer-reqs            Checks composer.json the defined dependencies against your code
-  test-phpcs                    PHPcs - Checking PHP Codestyle (PSR-12 + PHP Compatibility)
+  test-phpcs                    PHPcs - Checking PHP Code Sniffer (PSR-12 + PHP Compatibility)
   test-phpmd                    PHPmd - Mess Detector Checker
   test-phpmd-strict             PHPmd - Mess Detector Checker (strict mode)
   test-phpmnd                   PHPmnd - Magic Number Detector

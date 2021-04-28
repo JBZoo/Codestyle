@@ -27,6 +27,7 @@ PATH_TESTS     ?= $(PATH_ROOT)/tests
 
 XDEBUG_OFF     ?= no
 
+# TODO: Rename variables. Now it's not only about TeamCity
 TC_REPORT      ?= tc-tests
 TC_REPORT_MND  ?= tc-inspections
 
@@ -57,12 +58,12 @@ else
 	CO_RC_PHAR  = https://github.com/maglnet/ComposerRequireChecker/releases/latest/download/composer-require-checker.phar
 endif
 
-PHPMD_PHAR         = https://github.com/phpmd/phpmd/releases/latest/download/phpmd.phar
 PHAN_PHAR          = https://github.com/phan/phan/releases/latest/download/phan.phar
 PHP_COVERALLS_PHAR = https://github.com/php-coveralls/php-coveralls/releases/latest/download/php-coveralls.phar
 PDEPEND_PHAR       = https://github.com/pdepend/pdepend/releases/download/2.9.0/pdepend.phar
-CO_DIFF_PHAR       = https://github.com/JBZoo/Composer-Diff/releases/latest/download/composer-diff.phar
-CO_GRAPH_PHAR      = https://github.com/JBZoo/Composer-Graph/releases/latest/download/composer-graph.phar
+#PHPMD_PHAR        = https://github.com/phpmd/phpmd/releases/latest/download/phpmd.phar
+#CO_DIFF_PHAR      = https://github.com/JBZoo/Composer-Diff/releases/latest/download/composer-diff.phar
+#CO_GRAPH_PHAR     = https://github.com/JBZoo/Composer-Graph/releases/latest/download/composer-graph.phar
 
 ifneq (, $(wildcard ./src/phpcs/ruleset.xml))
     JBZOO_CONFIG_PHPCS ?= `pwd`/src/phpcs/ruleset.xml
@@ -99,7 +100,9 @@ else
 endif
 
 
-ifneq (, $(wildcard ./.phan/config.php))
+ifneq (, $(wildcard ./.phan.php))
+    JBZOO_CONFIG_PHAN ?= `pwd`/.phan.php
+else ifneq (, $(wildcard ./.phan/config.php))
     JBZOO_CONFIG_PHAN ?= `pwd`/.phan/config.php
 else
     JBZOO_CONFIG_PHAN ?= `pwd`/vendor/jbzoo/codestyle/.phan/config.php

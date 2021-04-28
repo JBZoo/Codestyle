@@ -14,60 +14,52 @@
 #### General Tests #####################################################################################################
 
 test: test-phpunit ##@Tests Runs unit-tests (alias "test-phpunit-manual")
-test-phpunit:
+
+test-phpunit: ##@Tests Runs all codestyle linters at once
 	$(call title,"PHPUnit - Run all tests")
 	@echo "Config: $(JBZOO_CONFIG_PHPUNIT)"
-	@if [ -z "$(TEAMCITY_VERSION)" ]; then                             \
-        XDEBUG_MODE=coverage $(PHP_BIN) `pwd`/vendor/bin/phpunit       \
-            --configuration="$(JBZOO_CONFIG_PHPUNIT)"                  \
-            --printer=Codedungeon\\PHPUnitPrettyResultPrinter\\Printer \
-            --order-by=random                                          \
-            --colors=always                                            \
-            --verbose;                                                 \
-    else                                                               \
-        echo "##teamcity[progressStart 'PHPUnit Tests']";              \
-        XDEBUG_MODE=coverage $(PHP_BIN) `pwd`/vendor/bin/phpunit       \
-            --configuration="$(JBZOO_CONFIG_PHPUNIT)"                  \
-            --order-by=random                                          \
-            --colors=always                                            \
-            --teamcity                                                 \
-            --verbose;                                                 \
-        $(PHP_BIN) `pwd`/vendor/bin/ci-report-converter teamcity:stats \
-            --input-format="phpunit-clover-xml"                        \
-            --input-file="$(PATH_BUILD)/coverage_xml/main.xml";        \
-        $(PHP_BIN) `pwd`/vendor/bin/ci-report-converter teamcity:stats \
-                --input-format="junit-xml"                             \
-                --input-file="$(PATH_BUILD)/coverage_junit/main.xml";  \
-        echo "##teamcity[progressFinish 'PHPUnit Tests']";             \
+	@if [ -n "$(TEAMCITY_VERSION)" ]; then    \
+        make test-phpunit-teamcity;           \
+    elif [ -n "$(GITHUB_ACTIONS)" ]; then     \
+        make test-phpunit-ga;                 \
+    else                                      \
+        make test-phpunit-local;              \
     fi;
 
 
-test-phpunit-x:
-	$(call title,"PHPUnit - Run all tests \(with xDebug\)")
-	@echo "Config: $(JBZOO_CONFIG_PHPUNIT)"
-	@if [ -z "$(TEAMCITY_VERSION)" ]; then                             \
-        php-x `pwd`/vendor/bin/phpunit                                 \
-            --configuration="$(JBZOO_CONFIG_PHPUNIT)"                  \
-            --printer=Codedungeon\\PHPUnitPrettyResultPrinter\\Printer \
-            --order-by=random                                          \
-            --colors=always                                            \
-            --verbose;                                                 \
-    else                                                               \
-        echo "##teamcity[progressStart 'PHPUnit Tests']";              \
-        php-x `pwd`/vendor/bin/phpunit                                 \
-            --configuration="$(JBZOO_CONFIG_PHPUNIT)"                  \
-            --order-by=random                                          \
-            --colors=always                                            \
-            --teamcity                                                 \
-            --verbose;                                                 \
-        $(PHP_BIN) `pwd`/vendor/bin/ci-report-converter teamcity:stats \
-            --input-format="phpunit-clover-xml"                        \
-            --input-file="$(PATH_BUILD)/coverage_xml/main.xml";        \
-        $(PHP_BIN) `pwd`/vendor/bin/ci-report-converter teamcity:stats \
-                --input-format="junit-xml"                             \
-                --input-file="$(PATH_BUILD)/coverage_junit/main.xml";  \
-        echo "##teamcity[progressFinish 'PHPUnit Tests']";             \
-    fi;
+test-phpunit-teamcity:
+	@echo "##teamcity[progressStart 'PHPUnit Tests']"
+	@XDEBUG_MODE=coverage $(PHP_BIN) `pwd`/vendor/bin/phpunit       \
+        --configuration="$(JBZOO_CONFIG_PHPUNIT)"                   \
+        --order-by=random                                           \
+        --colors=always                                             \
+        --teamcity                                                  \
+        --verbose
+	@$(PHP_BIN) `pwd`/vendor/bin/ci-report-converter teamcity:stats \
+        --input-format="phpunit-clover-xml"                         \
+        --input-file="$(PATH_BUILD)/coverage_xml/main.xml"
+	@$(PHP_BIN) `pwd`/vendor/bin/ci-report-converter teamcity:stats \
+            --input-format="junit-xml"                              \
+            --input-file="$(PATH_BUILD)/coverage_junit/main.xml"
+	@echo "##teamcity[progressFinish 'PHPUnit Tests']"
+
+
+test-phpunit-local:
+	@XDEBUG_MODE=coverage $(PHP_BIN) `pwd`/vendor/bin/phpunit       \
+        --configuration="$(JBZOO_CONFIG_PHPUNIT)"                   \
+        --printer=Codedungeon\\PHPUnitPrettyResultPrinter\\Printer  \
+        --order-by=random                                           \
+        --colors=always                                             \
+        --verbose
+
+
+test-phpunit-ga:
+	@XDEBUG_MODE=coverage $(PHP_BIN) `pwd`/vendor/bin/phpunit       \
+        --configuration="$(JBZOO_CONFIG_PHPUNIT)"                   \
+        --printer=mheap\\GithubActionsReporter\\Printer             \
+        --order-by=random                                           \
+        --colors=always                                             \
+        --verbose
 
 
 #### All Coding Standards ##############################################################################################
@@ -195,22 +187,22 @@ test-phpmd: ##@Tests PHPmd - Mess Detector Checker
 	$(call title,"PHPmd - Mess Detector Checker")
 	@echo "Config: $(JBZOO_CONFIG_PHPMD)"
 	$(call download_phar,$(PHPMD_PHAR),"phpmd")
-	@$(PHP_BIN) `pwd`/vendor/bin/phpmd.phar --version
-	@$(PHP_BIN) `pwd`/vendor/bin/phpmd.phar "$(PATH_SRC)" ansi "$(JBZOO_CONFIG_PHPMD)" --verbose
+	@$(PHP_BIN) `pwd`/vendor/bin/phpmd --version
+	@$(PHP_BIN) `pwd`/vendor/bin/phpmd "$(PATH_SRC)" ansi "$(JBZOO_CONFIG_PHPMD)" --verbose
 
 
 test-phpmd-strict: ##@Tests PHPmd - Mess Detector Checker (strict mode)
 	$(call title,"PHPmd - Mess Detector Checker")
 	@echo "Config: $(JBZOO_CONFIG_PHPMD)"
 	$(call download_phar,$(PHPMD_PHAR),"phpmd")
-	@$(PHP_BIN) `pwd`/vendor/bin/phpmd.phar --version
-	@$(PHP_BIN) `pwd`/vendor/bin/phpmd.phar "$(PATH_SRC)" ansi "$(JBZOO_CONFIG_PHPMD)" --verbose --strict
+	@$(PHP_BIN) `pwd`/vendor/bin/phpmd --version
+	@$(PHP_BIN) `pwd`/vendor/bin/phpmd "$(PATH_SRC)" ansi "$(JBZOO_CONFIG_PHPMD)" --verbose --strict
 
 
 test-phpmd-teamcity:
 	@rm -f "$(PATH_BUILD)/phpmd.json"
 	$(call download_phar,$(PHPMD_PHAR),"phpmd")
-	@-$(PHP_BIN) `pwd`/vendor/bin/phpmd.phar "$(PATH_SRC)" json "$(JBZOO_CONFIG_PHPMD)" > "$(PATH_BUILD)/phpmd.json"
+	@-$(PHP_BIN) `pwd`/vendor/bin/phpmd "$(PATH_SRC)" json "$(JBZOO_CONFIG_PHPMD)" > "$(PATH_BUILD)/phpmd.json"
 	@$(PHP_BIN) `pwd`/vendor/bin/ci-report-converter convert    \
         --input-format="phpmd-json"                             \
         --output-format="$(TC_REPORT)"                          \
@@ -357,7 +349,7 @@ test-phan: ##@Tests Phan - super strict static analyzer for PHP
         --config-file="$(JBZOO_CONFIG_PHAN)"                    \
         --project-root-directory="`pwd`"                        \
         --color-scheme=light                                    \
-        --progress-bar                                          \
+        --no-progress-bar                                       \
         --backward-compatibility-checks                         \
         --print-memory-usage-summary                            \
         --markdown-issue-messages                               \

@@ -14,26 +14,30 @@
     ],
 
     "require"     : {
-        "php"                                : ">=7.2",
+        "php"                                  : ">=7.2",
 
-        "psalm/phar"                         : ">=4.7.0",
-        "phpstan/phpstan"                    : ">=0.12.84",
-        "phpstan/phpstan-strict-rules"       : ">=0.12.9",
-        "povils/phpmnd"                      : ">=2.4.0",
-        "squizlabs/php_codesniffer"          : ">=3.6.0",
-        "phpcompatibility/php-compatibility" : ">=9.3.5",
-        "phpmetrics/phpmetrics"              : ">=2.7.4",
+        "psalm/phar"                           : ">=4.7.1",
+        "phpmd/phpmd"                          : ">=2.10.0",
+        "phpstan/phpstan"                      : ">=0.12.85",
+        "phpstan/phpstan-strict-rules"         : ">=0.12.9",
+        "povils/phpmnd"                        : ">=2.4.0",
+        "squizlabs/php_codesniffer"            : ">=3.6.0",
+        "phpcompatibility/php-compatibility"   : ">=9.3.5",
+        "phpmetrics/phpmetrics"                : ">=2.7.4",
 
-        "symfony/yaml"                       : ">=4.4.16",
-        "symfony/console"                    : ">=4.4.16",
-        "nikic/php-parser"                   : ">=4.10.4"
+        "symfony/yaml"                         : ">=4.4.16",
+        "symfony/console"                      : ">=4.4.16",
+        "nikic/php-parser"                     : ">=4.10.4",
+
+        "jbzoo/composer-diff"                  : "^1.4.0",
+        "jbzoo/composer-graph"                 : "^1.2.1",
+        "jbzoo/ci-report-converter"            : "^2.2.0",
+        "mheap/phpunit-github-actions-printer" : "^1.5.1"
     },
 
     "require-dev" : {
-        "phpbench/phpbench"         : "^0.17.1",
-        "jbzoo/phpunit"             : "^4.9.0",
-        "jbzoo/utils"               : "^4.4.0",
-        "jbzoo/ci-report-converter" : "^2.0.0"
+        "jbzoo/phpunit" : "^4.9.0",
+        "jbzoo/utils"   : "^4.4.0"
     },
 
     "autoload"    : {
