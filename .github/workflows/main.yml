@@ -66,7 +66,7 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: PHPUnit Artifacts - ${{ matrix.php-version }} - ${{ matrix.coverage }}
+          name: PHPUnit - ${{ matrix.php-version }} - ${{ matrix.coverage }}
           path: build/
 
 
@@ -103,7 +103,7 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: Linters Artifacts - ${{ matrix.php-version }}
+          name: Linters - ${{ matrix.php-version }}
           path: build/
 
 
@@ -140,5 +140,5 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: Reports Artifacts - ${{ matrix.php-version }}
+          name: Reports - ${{ matrix.php-version }}
           path: build/
