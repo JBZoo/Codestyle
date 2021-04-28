@@ -16,15 +16,13 @@
 declare(strict_types=1);
 
 // Example for depended projects
-// $default = include __DIR__ . '/../vendor/jbzoo/codestyle/src/phan/default.php';
+// $default = include __DIR__ . '/vendor/jbzoo/codestyle/src/phan/default.php';
 
-$default = include __DIR__ . '/../src/phan/default.php';
+$default = include __DIR__ . '/src/phan/default.php';
 
 return array_merge($default, [
     'directory_list' => [
-        // project
         'src',
-        '.phan',
     ],
 
     'exclude_file_list' => [

@@ -100,7 +100,9 @@ else
 endif
 
 
-ifneq (, $(wildcard ./.phan/config.php))
+ifneq (, $(wildcard ./.phan.php))
+    JBZOO_CONFIG_PHAN ?= `pwd`/.phan.php
+else ifneq (, $(wildcard ./.phan/config.php))
     JBZOO_CONFIG_PHAN ?= `pwd`/.phan/config.php
 else
     JBZOO_CONFIG_PHAN ?= `pwd`/vendor/jbzoo/codestyle/.phan/config.php
