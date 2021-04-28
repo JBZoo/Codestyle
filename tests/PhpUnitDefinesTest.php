@@ -38,7 +38,7 @@ class PhpUnitDefinesTest extends PHPUnit
 
     public function testPhanConfig(): void
     {
-        $configs = include PROJECT_ROOT . '/.phan/config.php';
+        $configs = include PROJECT_ROOT . '/.phan.php';
         isSame([
             'target_php_version'                                => null,
             'quick_mode'                                        => false,
@@ -104,7 +104,6 @@ class PhpUnitDefinesTest extends PHPUnit
             'file_list'                                         => [],
             'directory_list'                                    => [
                 'src',
-                '.phan',
             ],
             'exclude_file_regex'                                => '@^vendor/.*/(tests?|Tests?)/@',
             'exclude_file_list'                                 => [
