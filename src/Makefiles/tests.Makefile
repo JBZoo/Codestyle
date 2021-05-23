@@ -60,10 +60,11 @@ test-phpunit-ga:
         --order-by=random                                           \
         --colors=always                                             \
         --verbose || true
-	@for f in $(shell ls $(PATH_BUILD)/coverage_junit/); do         \
+	@for f in `find ./build/coverage_junit -type f -name "*.xml"`;  \
+    do                                                              \
         $(PHP_BIN) `pwd`/vendor/bin/ci-report-converter convert     \
             --input-format=junit                                    \
-            --input-file="$(PATH_BUILD)/coverage_junit/$${f}"       \
+            --input-file="$${f}"                                    \
             --output-format=github-cli                              \
             --root-path="$(PATH_ROOT)"                              \
             --suite-name="PHPUnit - $${f}"                          \
