@@ -39,8 +39,8 @@ test-phpunit-teamcity:
         --input-format="phpunit-clover-xml"                         \
         --input-file="$(PATH_BUILD)/coverage_xml/main.xml"
 	@$(PHP_BIN) `pwd`/vendor/bin/ci-report-converter teamcity:stats \
-            --input-format="junit-xml"                              \
-            --input-file="$(PATH_BUILD)/coverage_junit/main.xml"
+        --input-format="junit-xml"                                  \
+        --input-file="$(PATH_BUILD)/coverage_junit/main.xml"
 	@echo "##teamcity[progressFinish 'PHPUnit Tests']"
 
 
@@ -56,10 +56,20 @@ test-phpunit-local:
 test-phpunit-ga:
 	@XDEBUG_MODE=coverage $(PHP_BIN) `pwd`/vendor/bin/phpunit       \
         --configuration="$(JBZOO_CONFIG_PHPUNIT)"                   \
-        --printer=mheap\\GithubActionsReporter\\Printer             \
+        --printer=Codedungeon\\PHPUnitPrettyResultPrinter\\Printer  \
         --order-by=random                                           \
         --colors=always                                             \
-        --verbose
+        --verbose                                                   \
+        --coverage-xml=$(PATH_BUILD)/coverage_junit/main.xml
+	@for f in $(shell ls $(PATH_BUILD)/coverage_junit/); do         \
+        $(PHP_BIN) `pwd`/vendor/bin/ci-report-converter convert     \
+            --input-format=junit                                    \
+            --input-file="$(PATH_BUILD)/coverage_junit/$${f}"       \
+            --output-format=github-cli                              \
+            --suite-name="PHPUnit - $${f}"                          \
+            --non-zero-code=yes;                                    \
+        echo "";                                                    \
+    done;
 
 
 #### All Coding Standards ##############################################################################################
@@ -88,12 +98,19 @@ codestyle-local:
 
 codestyle-ga:
 	@make test-phpcs-ga
+	@echo ""
 	@make test-phpmd-ga
+	@echo ""
 	@make test-phpmnd-ga
+	@echo ""
 	@make test-phpcpd-ga
+	@echo ""
 	@make test-phpstan-ga
+	@echo ""
 	@make test-psalm-ga
+	@echo ""
 	@make test-phan-ga
+	@echo ""
 	@make test-composer-ga
 	@-make test-composer-reqs-ga
 
@@ -161,24 +178,23 @@ test-phpcs: ##@Tests PHPcs - Checking PHP Code Sniffer (PSR-12 + PHP Compatibili
 test-phpcs-teamcity:
 	@rm -f "$(PATH_BUILD)/phpcs-checkstyle.xml"
 	@-$(PHP_BIN) `pwd`/vendor/bin/phpcs "$(PATH_SRC)"           \
-            --standard="$(JBZOO_CONFIG_PHPCS)"                  \
-            --report=checkstyle                                 \
-            --report-file="$(PATH_BUILD)/phpcs-checkstyle.xml"  \
-            --no-cache                                          \
-            --no-colors                                         \
-            -s -q > /dev/null
+        --standard="$(JBZOO_CONFIG_PHPCS)"                      \
+        --report=checkstyle                                     \
+        --report-file="$(PATH_BUILD)/phpcs-checkstyle.xml"      \
+        --no-cache                                              \
+        --no-colors                                             \
+        -s -q > /dev/null
 	@$(PHP_BIN) `pwd`/vendor/bin/ci-report-converter convert    \
+        --input-file="$(PATH_BUILD)/phpcs-checkstyle.xml"       \
         --input-format="checkstyle"                             \
-        --output-format="$(TC_REPORT)"                          \
+        --output-format="$(CI_REPORT)"                          \
         --suite-name="PHPcs"                                    \
         --root-path="`pwd`"                                     \
-        --input-file="$(PATH_BUILD)/phpcs-checkstyle.xml"
+        --non-zero-code=$(CI_NON_ZERO_CODE)
 
 
 test-phpcs-ga:
-	@echo "::group::PHPcs"
-	@make TC_REPORT=github-cli test-phpcs-teamcity
-	@echo "::endgroup::"
+	@make CI_REPORT=github-cli CI_NON_ZERO_CODE=yes test-phpcs-teamcity
 
 
 #### PHP Mess Detector #################################################################################################
@@ -201,17 +217,16 @@ test-phpmd-teamcity:
 	@rm -f "$(PATH_BUILD)/phpmd.json"
 	@-$(PHP_BIN) `pwd`/vendor/bin/phpmd "$(PATH_SRC)" json "$(JBZOO_CONFIG_PHPMD)" > "$(PATH_BUILD)/phpmd.json"
 	@$(PHP_BIN) `pwd`/vendor/bin/ci-report-converter convert    \
+        --input-file="$(PATH_BUILD)/phpmd.json"                 \
         --input-format="phpmd-json"                             \
-        --output-format="$(TC_REPORT)"                          \
+        --output-format="$(CI_REPORT)"                          \
         --suite-name="PHPmd"                                    \
         --root-path="`pwd`"                                     \
-        --input-file="$(PATH_BUILD)/phpmd.json"
+        --non-zero-code=$(CI_NON_ZERO_CODE)
 
 
 test-phpmd-ga:
-	@echo "::group::PHPmd"
-	@make TC_REPORT=github-cli test-phpmd-teamcity
-	@echo "::endgroup::"
+	@make CI_REPORT=github-cli CI_NON_ZERO_CODE=yes test-phpmd-teamcity
 
 
 #### PHP Magic Number Detector #########################################################################################
@@ -224,17 +239,16 @@ test-phpmnd: ##@Tests PHPmnd - Magic Number Detector
 test-phpmnd-teamcity:
 	@$(PHP_BIN) `pwd`/vendor/bin/phpmnd "$(PATH_SRC)" --quiet --hint --xml-output="$(PATH_BUILD)/phpmnd.xml"
 	@$(PHP_BIN) `pwd`/vendor/bin/ci-report-converter convert    \
+        --input-file="$(PATH_BUILD)/phpmnd.xml"                 \
         --input-format="phpmnd"                                 \
-        --output-format="$(TC_REPORT_MND)"                      \
+        --output-format="$(CI_REPORT_MND)"                      \
         --suite-name="PHP Magic Numbers"                        \
         --root-path="$(PATH_SRC)"                               \
-        --input-file="$(PATH_BUILD)/phpmnd.xml"
+        --non-zero-code=$(CI_NON_ZERO_CODE)
 
 
 test-phpmnd-ga:
-	@echo "::group::PHPmnd"
-	@make TC_REPORT=github-cli test-phpmnd-teamcity
-	@echo "::endgroup::"
+	@make CI_REPORT=github-cli CI_NON_ZERO_CODE=yes test-phpmnd-teamcity
 
 
 #### PHP Copy@Paste Detector ###########################################################################################
@@ -253,9 +267,17 @@ test-phpcpd-teamcity:
 
 
 test-phpcpd-ga:
-	@echo "::group::PHPcpd"
-	@make TC_REPORT=github-cli test-phpcpd-teamcity
-	@echo "::endgroup::"
+	$(call download_phar,$(PHPCPD_PHAR),"phpcpd")
+	@-XDEBUG_MODE=off $(PHP_BIN) `pwd`/vendor/bin/phpcpd.phar $(PATH_SRC) \
+        --log-pmd="$(PATH_BUILD)/phpcpd.xml"                              \
+        --quiet
+	@$(PHP_BIN) `pwd`/vendor/bin/ci-report-converter convert    \
+        --input-file="$(PATH_BUILD)/phpcpd.xml"                 \
+        --input-format=pmd-cpd                                  \
+        --output-format="github-cli"                            \
+        --root-path="$(PATH_SRC)"                               \
+        --suite-name="Copy&Paste Detector"                      \
+        --non-zero-code=yes
 
 
 #### PHPstan - Static Analysis Tool ####################################################################################
@@ -277,17 +299,16 @@ test-phpstan-teamcity:
         --no-progress                                           \
         "$(PATH_SRC)" > "$(PATH_BUILD)/phpstan-checkstyle.xml"
 	@$(PHP_BIN) `pwd`/vendor/bin/ci-report-converter convert    \
+        --input-file="$(PATH_BUILD)/phpstan-checkstyle.xml"     \
         --input-format="checkstyle"                             \
-        --output-format="$(TC_REPORT)"                          \
+        --output-format="$(CI_REPORT)"                          \
         --suite-name="PHPstan"                                  \
         --root-path="`pwd`"                                     \
-        --input-file="$(PATH_BUILD)/phpstan-checkstyle.xml"
+        --non-zero-code=$(CI_NON_ZERO_CODE)
 
 
 test-phpstan-ga:
-	@echo "::group::PHPStan"
-	@make TC_REPORT=github-cli test-phpstan-teamcity
-	@echo "::endgroup::"
+	@make CI_REPORT=github-cli CI_NON_ZERO_CODE=yes test-phpstan-teamcity
 
 
 #### Psalm - Static Analysis Tool ######################################################################################
@@ -322,17 +343,16 @@ test-psalm-teamcity:
         --no-progress                                           \
         --monochrome > "$(PATH_BUILD)/psalm-checkstyle.json"
 	@$(PHP_BIN) `pwd`/vendor/bin/ci-report-converter convert    \
+        --input-file="$(PATH_BUILD)/psalm-checkstyle.json"      \
         --input-format="psalm-json"                             \
-        --output-format="$(TC_REPORT)"                          \
+        --output-format="$(CI_REPORT)"                          \
         --suite-name="Psalm"                                    \
         --root-path="`pwd`"                                     \
-        --input-file="$(PATH_BUILD)/psalm-checkstyle.json"
+        --non-zero-code=$(CI_NON_ZERO_CODE)
 
 
 test-psalm-ga:
-	@echo "::group::Psalm"
-	@make TC_REPORT=github-cli test-psalm-teamcity
-	@echo "::endgroup::"
+	@make CI_REPORT=github-cli CI_NON_ZERO_CODE=yes test-psalm-teamcity
 
 
 #### Phan - Static Analysis Tool #######################################################################################
@@ -372,17 +392,16 @@ test-phan-teamcity:
         --analyze-twice	                                        \
         --no-color
 	@$(PHP_BIN) `pwd`/vendor/bin/ci-report-converter convert    \
+        --input-file="$(PATH_BUILD)/phan-checkstyle.xml"        \
         --input-format="checkstyle"                             \
-        --output-format="$(TC_REPORT)"                          \
+        --output-format="$(CI_REPORT)"                          \
         --suite-name="Phan"                                     \
         --root-path="`pwd`"                                     \
-        --input-file="$(PATH_BUILD)/phan-checkstyle.xml"
+        --non-zero-code=$(CI_NON_ZERO_CODE)
 
 
 test-phan-ga:
-	@echo "::group::Phan"
-	@make TC_REPORT=github-cli test-phan-teamcity
-	@echo "::endgroup::"
+	@make CI_REPORT=github-cli CI_NON_ZERO_CODE=yes test-phan-teamcity
 
 
 #### Testing Performance ###############################################################################################

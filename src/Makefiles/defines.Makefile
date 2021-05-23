@@ -27,9 +27,13 @@ PATH_TESTS     ?= $(PATH_ROOT)/tests
 
 XDEBUG_OFF     ?= no
 
-# TODO: Rename variables. Now it's not only about TeamCity
-TC_REPORT      ?= tc-tests
-TC_REPORT_MND  ?= tc-inspections
+CI_REPORT        ?= tc-tests
+CI_REPORT_MND    ?= tc-inspections
+CI_NON_ZERO_CODE ?= no
+
+# Legacy vars. Will be removed ASAP
+CI_REPORT        ?= $(TC_REPORT)
+CI_REPORT_MND    ?= $(TC_REPORT_MND)
 
 PHP_BIN           ?= php
 COMPOSER_BIN      ?= $(shell if [ $(PHP_BIN) = "php" ]; then echo "composer"; else which composer fi;)
