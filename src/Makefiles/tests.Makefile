@@ -68,7 +68,7 @@ test-phpunit-ga:
             --output-format=github-cli                              \
             --root-path="$(PATH_ROOT)"                              \
             --suite-name="PHPUnit - $${f}"                          \
-            --non-zero-code=yes;                                    \
+            --non-zero-code=yes || exit 1;                          \
     done;
 
 
