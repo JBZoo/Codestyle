@@ -60,7 +60,7 @@ test-phpunit-ga:
         --order-by=random                                           \
         --colors=always                                             \
         --verbose                                                   \
-        --coverage-xml=$(PATH_BUILD)/coverage_junit/main.xml
+        --coverage-xml=$(PATH_BUILD)/coverage_junit/main.xml || true
 	@for f in $(shell ls $(PATH_BUILD)/coverage_junit/); do         \
         $(PHP_BIN) `pwd`/vendor/bin/ci-report-converter convert     \
             --input-format=junit                                    \

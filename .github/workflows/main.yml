@@ -80,6 +80,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
+          coverage: xdebug
           tools: composer
 
       - name: Build the Project
@@ -111,6 +112,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
+          coverage: xdebug
           tools: composer
 
       - name: Build the Project
