@@ -31,7 +31,7 @@
 
         "jbzoo/composer-diff"                  : "^1.5.1",
         "jbzoo/composer-graph"                 : "^1.3.1",
-        "jbzoo/ci-report-converter"            : "^2.5.0",
+        "jbzoo/ci-report-converter"            : "^2.5.2",
         "mheap/phpunit-github-actions-printer" : "^1.5.1"
     },
 

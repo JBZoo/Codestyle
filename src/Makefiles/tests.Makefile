@@ -68,7 +68,6 @@ test-phpunit-ga:
             --output-format=github-cli                              \
             --suite-name="PHPUnit - $${f}"                          \
             --non-zero-code=yes;                                    \
-        echo "";                                                    \
     done;
 
 
@@ -98,19 +97,12 @@ codestyle-local:
 
 codestyle-ga:
 	@make test-phpcs-ga
-	@echo ""
 	@make test-phpmd-ga
-	@echo ""
 	@make test-phpmnd-ga
-	@echo ""
 	@make test-phpcpd-ga
-	@echo ""
 	@make test-phpstan-ga
-	@echo ""
 	@make test-psalm-ga
-	@echo ""
 	@make test-phan-ga
-	@echo ""
 	@make test-composer-ga
 	@-make test-composer-reqs-ga
 
@@ -169,10 +161,10 @@ test-phpcs: ##@Tests PHPcs - Checking PHP Code Sniffer (PSR-12 + PHP Compatibili
 	$(call title,"PHPcs - Checks PHP Code Sniffer \(PSR-12 + PHP Compatibility\)")
 	@echo "Config: $(JBZOO_CONFIG_PHPCS)"
 	@$(PHP_BIN) `pwd`/vendor/bin/phpcs "$(PATH_SRC)"  \
-            --standard="$(JBZOO_CONFIG_PHPCS)"        \
-            --report=full                             \
-            --colors                                  \
-            -p -s
+        --standard="$(JBZOO_CONFIG_PHPCS)"            \
+        --report=full                                 \
+        --colors                                      \
+        -p -s
 
 
 test-phpcs-teamcity:
