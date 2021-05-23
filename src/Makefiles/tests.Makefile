@@ -54,7 +54,7 @@ test-phpunit-local:
 
 
 test-phpunit-ga:
-	@XDEBUG_MODE=coverage $(PHP_BIN) `pwd`/vendor/bin/phpunit       \
+	@-XDEBUG_MODE=coverage $(PHP_BIN) `pwd`/vendor/bin/phpunit      \
         --configuration="$(JBZOO_CONFIG_PHPUNIT)"                   \
         --printer=Codedungeon\\PHPUnitPrettyResultPrinter\\Printer  \
         --order-by=random                                           \
@@ -66,6 +66,7 @@ test-phpunit-ga:
             --input-format=junit                                    \
             --input-file="$(PATH_BUILD)/coverage_junit/$${f}"       \
             --output-format=github-cli                              \
+            --root-path="$(PATH_ROOT)"                              \
             --suite-name="PHPUnit - $${f}"                          \
             --non-zero-code=yes;                                    \
     done;
@@ -181,7 +182,7 @@ test-phpcs-teamcity:
         --input-format="checkstyle"                             \
         --output-format="$(CI_REPORT)"                          \
         --suite-name="PHPcs"                                    \
-        --root-path="`pwd`"                                     \
+        --root-path="$(PATH_ROOT)"                              \
         --non-zero-code=$(CI_NON_ZERO_CODE)
 
 
@@ -213,7 +214,7 @@ test-phpmd-teamcity:
         --input-format="phpmd-json"                             \
         --output-format="$(CI_REPORT)"                          \
         --suite-name="PHPmd"                                    \
-        --root-path="`pwd`"                                     \
+        --root-path="$(PATH_ROOT)"                              \
         --non-zero-code=$(CI_NON_ZERO_CODE)
 
 
@@ -235,7 +236,7 @@ test-phpmnd-teamcity:
         --input-format="phpmnd"                                 \
         --output-format="$(CI_REPORT_MND)"                      \
         --suite-name="PHP Magic Numbers"                        \
-        --root-path="$(PATH_SRC)"                               \
+        --root-path="$(PATH_ROOT)"                              \
         --non-zero-code=$(CI_NON_ZERO_CODE)
 
 
@@ -256,6 +257,7 @@ test-phpcpd-teamcity:
 	@-XDEBUG_MODE=off $(PHP_BIN) `pwd`/vendor/bin/phpcpd.phar $(PATH_SRC) --log-pmd="$(PATH_BUILD)/phpcpd.xml"
 	@echo ""
 	@echo "##teamcity[importData type='pmdCpd' path='$(PATH_BUILD)/phpcpd.xml' verbose='true']"
+	@echo ""
 
 
 test-phpcpd-ga:
@@ -267,7 +269,7 @@ test-phpcpd-ga:
         --input-file="$(PATH_BUILD)/phpcpd.xml"                 \
         --input-format=pmd-cpd                                  \
         --output-format="github-cli"                            \
-        --root-path="$(PATH_SRC)"                               \
+        --root-path="$(PATH_ROOT)"                              \
         --suite-name="Copy&Paste Detector"                      \
         --non-zero-code=yes
 
@@ -295,7 +297,7 @@ test-phpstan-teamcity:
         --input-format="checkstyle"                             \
         --output-format="$(CI_REPORT)"                          \
         --suite-name="PHPstan"                                  \
-        --root-path="`pwd`"                                     \
+        --root-path="$(PATH_ROOT)"                              \
         --non-zero-code=$(CI_NON_ZERO_CODE)
 
 
@@ -339,7 +341,7 @@ test-psalm-teamcity:
         --input-format="psalm-json"                             \
         --output-format="$(CI_REPORT)"                          \
         --suite-name="Psalm"                                    \
-        --root-path="`pwd`"                                     \
+        --root-path="$(PATH_ROOT)"                              \
         --non-zero-code=$(CI_NON_ZERO_CODE)
 
 
@@ -388,7 +390,7 @@ test-phan-teamcity:
         --input-format="checkstyle"                             \
         --output-format="$(CI_REPORT)"                          \
         --suite-name="Phan"                                     \
-        --root-path="`pwd`"                                     \
+        --root-path="$(PATH_ROOT)"                              \
         --non-zero-code=$(CI_NON_ZERO_CODE)
 
 
