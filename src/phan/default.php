@@ -104,4 +104,4 @@ return [
         'vendor/',
         'tests/',
     ],
-] ;
+];
