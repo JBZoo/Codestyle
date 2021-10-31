@@ -262,7 +262,7 @@ test-phpcpd-teamcity:
 
 test-phpcpd-ga:
 	$(call download_phar,$(PHPCPD_PHAR),"phpcpd")
-	@-XDEBUG_MODE=off $(PHP_BIN) `pwd`/vendor/bin/phpcpd.phar $(PATH_SRC) --log-pmd="$(PATH_BUILD)/phpcpd.xml"
+	@-XDEBUG_MODE=off $(PHP_BIN) `pwd`/vendor/bin/phpcpd.phar $(PATH_SRC) --log-pmd="$(PATH_BUILD)/phpcpd.xml" > /dev/null
 	@$(PHP_BIN) `pwd`/vendor/bin/ci-report-converter convert    \
         --input-file="$(PATH_BUILD)/phpcpd.xml"                 \
         --input-format=pmd-cpd                                  \
