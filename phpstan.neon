@@ -13,6 +13,7 @@
 
 parameters:
     level: max
+    checkExplicitMixed: false
     checkMissingIterableValueType: false
     checkGenericClassInNonGenericObjectType: false
     reportUnmatchedIgnoredErrors: false
