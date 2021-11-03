@@ -333,6 +333,7 @@ test-psalm-teamcity:
         --no-cache                                              \
         --output-format=json                                    \
         --no-progress                                           \
+        --shepherd                                              \
         --monochrome > "$(PATH_BUILD)/psalm-checkstyle.json"
 	@$(PHP_BIN) `pwd`/vendor/bin/ci-report-converter convert    \
         --input-file="$(PATH_BUILD)/psalm-checkstyle.json"      \
