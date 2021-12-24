@@ -90,9 +90,9 @@ return [
         'PossiblyStaticMethodPlugin',
         'PHPDocToRealTypesPlugin',
         'UnusedSuppressionPlugin',
+        'NotFullyQualifiedUsagePlugin',
         //'UnknownElementTypePlugin',       // TODO: Generics?
         //'HasPHPDocPlugin',                // TODO: Have to design it only for public method
-        //'NotFullyQualifiedUsagePlugin',   // TODO: Coming soon
     ],
 
     'file_list'      => [],

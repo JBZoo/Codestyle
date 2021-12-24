@@ -100,6 +100,7 @@ class PhpUnitDefinesTest extends PHPUnit
                 'PossiblyStaticMethodPlugin',
                 'PHPDocToRealTypesPlugin',
                 'UnusedSuppressionPlugin',
+                'NotFullyQualifiedUsagePlugin',
             ],
             'file_list'                                         => [],
             'directory_list'                                    => [
