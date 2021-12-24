@@ -16,7 +16,7 @@
     "require"     : {
         "php"                                  : ">=7.2",
 
-        "psalm/phar"                           : ">=4.11.2",
+        "vimeo/psalm"                          : ">=4.11.2",
         "phpmd/phpmd"                          : ">=2.10.1",
         "phpstan/phpstan"                      : ">=1.0.1",
         "phpstan/phpstan-strict-rules"         : ">=1.0.0",
@@ -45,7 +45,10 @@
     },
 
     "config"      : {
-        "optimize-autoloader" : true
+        "optimize-autoloader" : true,
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true
+        }
     },
 
     "extra"       : {

@@ -309,8 +309,8 @@ test-psalm: ##@Tests Psalm - static analysis tool for PHP
 	$(call title,"Psalm - static analysis tool for PHP")
 	@echo "Config:   $(JBZOO_CONFIG_PSALM)"
 	@echo "Baseline: $(JBZOO_CONFIG_PSALM_BASELINE)"
-	@$(PHP_BIN) `pwd`/vendor/bin/psalm.phar --version
-	@$(PHP_BIN) `pwd`/vendor/bin/psalm.phar                     \
+	@$(PHP_BIN) `pwd`/vendor/bin/psalm --version
+	@$(PHP_BIN) `pwd`/vendor/bin/psalm                     \
         --config="$(JBZOO_CONFIG_PSALM)"                        \
         --use-baseline="$(JBZOO_CONFIG_PSALM_BASELINE)"         \
         --show-snippet=true                                     \
@@ -324,7 +324,7 @@ test-psalm: ##@Tests Psalm - static analysis tool for PHP
 
 test-psalm-teamcity:
 	@rm -f "$(PATH_BUILD)/psalm-checkstyle.json"
-	@-$(PHP_BIN) `pwd`/vendor/bin/psalm.phar                    \
+	@-$(PHP_BIN) `pwd`/vendor/bin/psalm                    \
         --config="$(JBZOO_CONFIG_PSALM)"                        \
         --use-baseline="$(JBZOO_CONFIG_PSALM_BASELINE)"         \
         --show-snippet=true                                     \
