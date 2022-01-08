@@ -149,6 +149,5 @@ endef
 
 # Download phar file (if needs) and save it in ./vendor/bin
 define download_phar
-    @curl $(1) --output "$(PATH_ROOT)/vendor/bin/$(2).phar" -L
-    @chmod +x "$(PATH_ROOT)/vendor/bin/$(2).phar"
+    @test -f "$(PATH_ROOT)/vendor/bin/$(2).phar" && true || (curl $(1) --output "$(PATH_ROOT)/vendor/bin/$(2).phar" -L && chmod +x "$(PATH_ROOT)/vendor/bin/$(2).phar")
 endef
