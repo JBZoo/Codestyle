@@ -58,7 +58,7 @@ ifeq ($(strip $(PHP_VERSION_ALIAS)),72)
 else
 	PHPCPD_PHAR = https://phar.phpunit.de/phpcpd.phar
 	PHPLOC_PHAR = https://phar.phpunit.de/phploc.phar
-	BOX_PHAR    = https://github.com/box-project/box/releases/latest/download/box.phar
+	BOX_PHAR    = https://github.com/box-project/box/releases/download/3.14.0/box.phar
 	CO_RC_PHAR  = https://github.com/maglnet/ComposerRequireChecker/releases/latest/download/composer-require-checker.phar
 endif
 
