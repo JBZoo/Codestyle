@@ -149,6 +149,6 @@ endef
 
 # Download phar file (if needs) and save it in ./vendor/bin
 define download_phar
-    @wget $(1) --output-document="$(PATH_ROOT)/vendor/bin/$(2).phar" -L --no-clobber --no-check-certificate --quiet || true
-    @chmod +x "$(PATH_ROOT)/vendor/bin/$(2).phar" || true
+    @curl $(1) --output "$(PATH_ROOT)/vendor/bin/$(2).phar" -L
+    @chmod +x "$(PATH_ROOT)/vendor/bin/$(2).phar"
 endef
