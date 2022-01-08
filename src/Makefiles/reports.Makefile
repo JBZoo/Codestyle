@@ -43,8 +43,9 @@ report-coveralls: ##@Reports Send coverage report to coveralls.io
 
 report-merge-coverage: ##@Reports Merge all coverage reports in one clover file
 	$(call title,"Merge all coverage reports in one clover file")
+	$(call download_phar,$(PHPCOV_PHAR),"phpcov")
 	@mkdir -pv "$(PATH_BUILD)/coverage_cov"
-	@$(PHP_BIN) `pwd`/vendor/bin/phpcov merge                 \
+	@$(PHP_BIN) `pwd`/vendor/bin/phpcov.phar merge            \
         --clover="$(PATH_BUILD)/coverage_xml/all_merged.xml"  \
         --html="$(PATH_BUILD)/coverage_html"                  \
         "$(PATH_BUILD)/coverage_cov"                          \

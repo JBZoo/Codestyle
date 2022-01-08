@@ -53,11 +53,13 @@ endif
 ifeq ($(strip $(PHP_VERSION_ALIAS)),72)
 	PHPCPD_PHAR = https://phar.phpunit.de/phpcpd-4.1.0.phar
 	PHPLOC_PHAR = https://phar.phpunit.de/phploc-5.0.0.phar
+	PHPCOV_PHAR = https://phar.phpunit.de/phpcov-6.0.1.phar
 	BOX_PHAR    = https://github.com/box-project/box/releases/download/3.9.1/box.phar
 	CO_RC_PHAR  = https://github.com/maglnet/ComposerRequireChecker/releases/download/2.1.0/composer-require-checker.phar
 else
 	PHPCPD_PHAR = https://phar.phpunit.de/phpcpd.phar
 	PHPLOC_PHAR = https://phar.phpunit.de/phploc.phar
+	PHPCOV_PHAR = https://phar.phpunit.de/phpcov.phar
 	BOX_PHAR    = https://github.com/box-project/box/releases/download/3.14.0/box.phar
 	CO_RC_PHAR  = https://github.com/maglnet/ComposerRequireChecker/releases/latest/download/composer-require-checker.phar
 endif
