@@ -146,6 +146,7 @@ test-composer-reqs: ##@Tests Checks composer.json the defined dependencies again
 	@echo "Config: $(JBZOO_CONFIG_COMPOSER_REQ_CHECKER)"
 	@$(PHP_BIN) `pwd`/vendor/bin/composer-require-checker.phar check   \
         --config-file=$(JBZOO_CONFIG_COMPOSER_REQ_CHECKER)             \
+        --ignore-parse-errors                                          \
         -vvv                                                           \
         $(PATH_ROOT)/composer.json
 
