@@ -25,17 +25,4 @@ namespace JBZoo\PHPUnit;
 class CodestyleReadmeTest extends AbstractReadmeTest
 {
     protected $packageName = 'Codestyle';
-
-    /**
-     * @inheritDoc
-     */
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->params['scrutinizer'] = true;
-        $this->params['codefactor'] = true;
-        $this->params['strict_types'] = true;
-        $this->params['travis'] = false;
-    }
 }
