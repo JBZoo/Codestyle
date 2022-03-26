@@ -65,13 +65,13 @@ ifeq ($(strip $(PHP_VERSION_ALIAS)),72)
 	BOX_PHAR   = https://github.com/box-project/box/releases/download/3.9.1/box.phar
 else ifeq ($(strip $(PHP_VERSION_ALIAS)),73)
 	CO_RC_PHAR = https://github.com/maglnet/ComposerRequireChecker/releases/download/2.1.0/composer-require-checker.phar
-	BOX_PHAR   = https://github.com/box-project/box/releases/download/3.14.1/box.phar
+	BOX_PHAR   = https://github.com/box-project/box/releases/download/3.14.0/box.phar
 else ifeq ($(strip $(PHP_VERSION_ALIAS)),74)
 	CO_RC_PHAR = https://github.com/maglnet/ComposerRequireChecker/releases/download/3.8.0/composer-require-checker.phar
-	BOX_PHAR   = https://github.com/box-project/box/releases/download/latest/box.phar
+	BOX_PHAR   = https://github.com/box-project/box/releases/latest/download/box.phar
 else
 	CO_RC_PHAR = https://github.com/maglnet/ComposerRequireChecker/releases/latest/download/composer-require-checker.phar
-	BOX_PHAR   = https://github.com/box-project/box/releases/download/latest/box.phar
+	BOX_PHAR   = https://github.com/box-project/box/releases/latest/download/box.phar
 endif
 
 
