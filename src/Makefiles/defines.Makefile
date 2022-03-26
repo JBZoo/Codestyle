@@ -65,7 +65,7 @@ ifeq ($(strip $(PHP_VERSION_ALIAS)),72)
 	BOX_PHAR   = https://github.com/box-project/box/releases/download/3.9.1/box.phar
 else ifeq ($(strip $(PHP_VERSION_ALIAS)),73)
 	CO_RC_PHAR = https://github.com/maglnet/ComposerRequireChecker/releases/download/2.1.0/composer-require-checker.phar
-	BOX_PHAR   = https://github.com/box-project/box/releases/download/3.14.0/box.phar
+	BOX_PHAR   = https://github.com/box-project/box/releases/download/3.10.0/box.phar
 else ifeq ($(strip $(PHP_VERSION_ALIAS)),74)
 	CO_RC_PHAR = https://github.com/maglnet/ComposerRequireChecker/releases/download/3.8.0/composer-require-checker.phar
 	BOX_PHAR   = https://github.com/box-project/box/releases/latest/download/box.phar
@@ -162,7 +162,7 @@ endef
 
 # Download phar file (if needs) and save it in ./vendor/bin
 define download_phar
-    @echo "Expected PHAR: $(CO_RC_PHAR)"
+    @echo "Expected PHAR: $(2)"
     @test -f "$(PATH_ROOT)/vendor/bin/$(2).phar"                                            \
       &&                                                                                    \
       echo " * File found. No download required."                                           \
