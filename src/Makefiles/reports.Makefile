@@ -12,11 +12,11 @@
 #
 
 report-all: ##@Reports Build all reports at once
-	@-make report-composer-diff
 	@-make report-composer-graph
 	@-make report-phpmetrics
 	@-make report-phploc
 	@-make report-pdepend
+	@-make report-composer-diff
 	@-make report-performance
 
 
@@ -66,7 +66,7 @@ report-composer-diff: ##@Reports What has changed after a composer update
 
 
 update-extend: ##@Reports Checks new compatible versions of 3rd party libraries
-	@$(COMPOSER_BIN) outdated --direct --verbose
+	@$(COMPOSER_BIN) outdated --direct
 	@cp -f `pwd`/composer.lock `pwd`/build/composer.lock
 	@echo "Composer flags: $(JBZOO_COMPOSER_UPDATE_FLAGS)"
 	@$(COMPOSER_BIN) update --no-progress $(JBZOO_COMPOSER_UPDATE_FLAGS)
@@ -145,7 +145,6 @@ report-phpmetrics: ##@Reports Build PHP Metrics Report
         --report-html="$(PATH_BUILD)/phpmetrics"           \
         --report-violations="$(PATH_BUILD)/phpmetrics.xml" \
         --report-json="$(PATH_BUILD)/phpmetrics.json"      \
-        --junit="$(PATH_BUILD)/coverage_junit/main.xml"    \
         --git=/usr/bin/git                                 \
         --no-interaction                                   || true
 
@@ -178,7 +177,7 @@ report-phploc: ##@Reports PHPloc - Show code stats
 	$(call title,"PHPloc - Show code stats")
 	$(call download_phar,$(PHPLOC_PHAR),"phploc")
 	@if [ -z "$(TEAMCITY_VERSION)" ]; then                                \
-        $(PHP_BIN) `pwd`/vendor/bin/phploc.phar "$(PATH_SRC)" --verbose;  \
+        $(PHP_BIN) `pwd`/vendor/bin/phploc.phar "$(PATH_SRC)";            \
     else                                                                  \
         $(PHP_BIN) `pwd`/vendor/bin/phploc.phar "$(PATH_SRC)"             \
             --log-json="$(PATH_BUILD)/phploc.json" --quiet;               \
