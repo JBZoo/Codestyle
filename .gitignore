@@ -17,3 +17,4 @@ vendor
 build
 composer.lock
 *.cache
+build/phpunit.xml
