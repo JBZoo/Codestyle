@@ -16,8 +16,6 @@ report-all: ##@Reports Build all reports at once
 	@-make report-phpmetrics
 	@-make report-phploc
 	@-make report-pdepend
-	@-make report-composer-diff
-	@-make report-performance
 
 
 report-phpqa: ##@Reports PHPqa - Build user-friendly code reports
