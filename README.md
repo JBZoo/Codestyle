@@ -32,33 +32,17 @@ test-all: ##@Project Run all project tests at once
 ```
 Usage:
   - `make [target]`
+  - `make [target] OPTION=value`
   - `ENV_VAR=value make [target]`
 
-Project:
-  update                        Install/Update all 3rd party dependencies
-  test-all                      Run all project tests at once
-  clean                         Cleanup only build directory
-  clean-vendor                  Cleanup all
-  autoload                      Dump optimized autoload file for PHP
-  build-phar                    Compile phar file
-
-Reports:
-  report-all                    Build all reports at once
-  report-phpqa                  PHPqa - Build user-friendly code reports
-  report-coveralls              Send coverage report to coveralls.io
-  report-merge-coverage         Merge all coverage reports in one clover file
-  report-composer-diff          What has changed after a composer update
-  update-extend                 Checks new compatible versions of 3rd party libraries
-  report-composer-graph         Build composer graph of dependencies
-  report-performance            Build performance summary report
-  report-phpmetrics             Build PHP Metrics Report
-  report-pdepend                Build PHP Depend Report
-  report-phploc                 PHPloc - Show code stats
-
+Misc:
+  help                          Show this text
+  list                          Full list of targets
+                                
 Tests:
-  test                          Runs unit-tests (alias "test-phpunit")
-  test-phpunit                  Runs all codestyle linters at once
-  codestyle                     Runs all codestyle linters at once
+  test                          Launch PHPUnit Tests (alias "test-phpunit")
+  test-phpunit                  Launch PHPUnit Tests
+  codestyle                     Launch all codestyle linters at once
   test-composer                 Validates composer.json and composer.lock
   test-composer-reqs            Checks composer.json the defined dependencies against your code
   test-phpcs                    PHPcs - Checking PHP Code Sniffer (PSR-12 + PHP Compatibility)
@@ -72,9 +56,26 @@ Tests:
   test-performance              Run benchmarks and performance tests
   test-performance-travis       Travis wrapper for benchmarks
                                 
-Misc:
-  help                          Show this text
-  list                          Full list of targets
-
+Reports:
+  report-all                    Build all reports at once
+  report-phpqa                  PHPqa - Build user-friendly code reports
+  report-coveralls              Send coverage report to coveralls.io
+  report-merge-coverage         Merge all coverage reports in one clover file
+  report-composer-diff          What has changed after a composer update
+  update-extend                 Checks new compatible versions of 3rd party libraries
+  report-composer-graph         Build composer graph of dependencies
+  report-performance            Build performance summary report
+  report-phpmetrics             Build PHP Metrics Report
+  report-pdepend                Build PHP Depend Report
+  report-phploc                 PHPloc - Show code stats
+                                
+Project:
+  update                        Install/Update all 3rd party dependencies
+  test-all                      Run all project tests at once
+  clean                         Cleanup only build directory
+  clean-vendor                  Cleanup all
+  autoload                      Dump optimized autoload file for PHP
+  build-phar                    Compile phar file
+                                
 Trick: Add into your "~/.bash_aliases" the line "complete -W "\`make list\`" make" to use TAB
 ```

@@ -21,6 +21,7 @@ HELP_FUNCTION =                                                              \
 help: ## Show this text
 	@echo "Usage:"
 	@echo "  - \`make [target]\`"
+	@echo "  - \`make [target] OPTION=value\`"
 	@echo "  - \`ENV_VAR=value make [target]\`"
 	@echo ''
 	@perl -e '$(HELP_FUNCTION)' $(MAKEFILE_LIST)
