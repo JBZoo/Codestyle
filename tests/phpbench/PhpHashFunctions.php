@@ -65,7 +65,6 @@ class PhpHashFunctions
         \hash('sha1', $this->string);
     }
 
-
     /**
      * @Groups({"crc32", "Native"})
      */
