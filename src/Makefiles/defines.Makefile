@@ -162,7 +162,8 @@ endef
 
 # Download phar file (if needs) and save it in ./vendor/bin
 define download_phar
-    @echo "Expected PHAR: $(2)"
+    @echo "Expected PHAR: $(1)"
+    @echo "Binary file  : ./vendor/bin/$(2).phar"
     @test -f "$(PATH_ROOT)/vendor/bin/$(2).phar"                                            \
       &&                                                                                    \
       echo " * File found. No download required."                                           \

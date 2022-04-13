@@ -11,9 +11,10 @@
 # @link       https://github.com/JBZoo/Codestyle
 #
 
-.idea
+*.cache
 .DS_Store
-vendor
+.idea
 build
 composer.lock
-*.cache
+phpunit.xml
+vendor

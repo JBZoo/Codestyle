@@ -13,9 +13,9 @@
 
 #### General Tests #####################################################################################################
 
-test: test-phpunit ##@Tests Runs unit-tests (alias "test-phpunit-manual")
+test: test-phpunit ##@Tests Launch PHPUnit Tests (alias "test-phpunit")
 
-test-phpunit: ##@Tests Runs all codestyle linters at once
+test-phpunit: ##@Tests Launch PHPUnit Tests
 	$(call title,"PHPUnit - Run all tests")
 	@echo "Config: $(JBZOO_CONFIG_PHPUNIT)"
 	@if [ -n "$(TEAMCITY_VERSION)" ]; then    \
@@ -74,7 +74,7 @@ test-phpunit-ga:
 
 #### All Coding Standards ##############################################################################################
 
-codestyle: ##@Tests Runs all codestyle linters at once
+codestyle: ##@Tests Launch all codestyle linters at once
 	@if [ -n "$(TEAMCITY_VERSION)" ]; then    \
         make codestyle-teamcity;              \
     elif [ -n "$(GITHUB_ACTIONS)" ]; then     \
