@@ -50,28 +50,15 @@ endif
 
 
 #### Phar files
-ifeq ($(strip $(PHP_VERSION_ALIAS)),72)
-	PHPCPD_PHAR = https://phar.phpunit.de/phpcpd-4.1.0.phar
-	PHPLOC_PHAR = https://phar.phpunit.de/phploc-5.0.0.phar
-	PHPCOV_PHAR = https://phar.phpunit.de/phpcov-6.0.1.phar
-else
-	PHPCPD_PHAR = https://phar.phpunit.de/phpcpd.phar
-	PHPLOC_PHAR = https://phar.phpunit.de/phploc.phar
-	PHPCOV_PHAR = https://phar.phpunit.de/phpcov.phar
-endif
+PHPCPD_PHAR = https://phar.phpunit.de/phpcpd.phar
+PHPLOC_PHAR = https://phar.phpunit.de/phploc.phar
+PHPCOV_PHAR = https://phar.phpunit.de/phpcov.phar
+BOX_PHAR    = https://github.com/box-project/box/releases/latest/download/box.phar
 
-ifeq ($(strip $(PHP_VERSION_ALIAS)),72)
-	CO_RC_PHAR = https://github.com/maglnet/ComposerRequireChecker/releases/download/2.1.0/composer-require-checker.phar
-	BOX_PHAR   = https://github.com/box-project/box/releases/download/3.9.1/box.phar
-else ifeq ($(strip $(PHP_VERSION_ALIAS)),73)
-	CO_RC_PHAR = https://github.com/maglnet/ComposerRequireChecker/releases/download/2.1.0/composer-require-checker.phar
-	BOX_PHAR   = https://github.com/box-project/box/releases/download/3.10.0/box.phar
-else ifeq ($(strip $(PHP_VERSION_ALIAS)),74)
+ifeq ($(strip $(PHP_VERSION_ALIAS)),74)
 	CO_RC_PHAR = https://github.com/maglnet/ComposerRequireChecker/releases/download/3.8.0/composer-require-checker.phar
-	BOX_PHAR   = https://github.com/box-project/box/releases/latest/download/box.phar
 else
 	CO_RC_PHAR = https://github.com/maglnet/ComposerRequireChecker/releases/latest/download/composer-require-checker.phar
-	BOX_PHAR   = https://github.com/box-project/box/releases/latest/download/box.phar
 endif
 
 

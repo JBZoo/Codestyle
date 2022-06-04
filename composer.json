@@ -14,12 +14,12 @@
     ],
 
     "require"     : {
-        "php"                                  : ">=7.2",
+        "php"                                  : ">=7.4",
 
-        "vimeo/psalm"                          : ">=4.22.0",
+        "vimeo/psalm"                          : ">=4.23.0",
         "phpmd/phpmd"                          : ">=2.12.0",
-        "phpstan/phpstan"                      : ">=1.5.4",
-        "phpstan/phpstan-strict-rules"         : ">=1.1.0",
+        "phpstan/phpstan"                      : ">=1.7.10",
+        "phpstan/phpstan-strict-rules"         : ">=1.2.3",
         "povils/phpmnd"                        : ">=2.5.0",
         "squizlabs/php_codesniffer"            : ">=3.6.2",
         "phpcompatibility/php-compatibility"   : ">=9.3.5",
@@ -27,17 +27,17 @@
 
         "symfony/yaml"                         : ">=4.4.16",
         "symfony/console"                      : ">=4.4.16",
-        "nikic/php-parser"                     : ">=4.13.2",
+        "nikic/php-parser"                     : ">=4.14.0",
 
-        "jbzoo/composer-diff"                  : "^1.7.0",
-        "jbzoo/composer-graph"                 : "^1.5.0",
-        "jbzoo/ci-report-converter"            : "^2.8.0",
-        "mheap/phpunit-github-actions-printer" : "^1.5.1"
+        "jbzoo/composer-diff"                  : ">=1.7.0",
+        "jbzoo/composer-graph"                 : ">=1.5.0",
+        "jbzoo/ci-report-converter"            : ">=2.8.1",
+        "mheap/phpunit-github-actions-printer" : ">=1.5.1"
     },
 
     "require-dev" : {
-        "jbzoo/phpunit" : "^4.13.1",
-        "jbzoo/utils"   : "^4.5.5"
+        "jbzoo/phpunit" : ">=4.13.1",
+        "jbzoo/utils"   : ">=4.5.5"
     },
 
     "autoload"    : {
