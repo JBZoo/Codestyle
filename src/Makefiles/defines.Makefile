@@ -53,7 +53,7 @@ endif
 PHPCPD_PHAR = https://phar.phpunit.de/phpcpd.phar
 PHPLOC_PHAR = https://phar.phpunit.de/phploc.phar
 PHPCOV_PHAR = https://phar.phpunit.de/phpcov.phar
-BOX_PHAR    = https://github.com/box-project/box/releases/latest/download/box.phar
+BOX_PHAR    = https://github.com/box-project/box/releases/download/3.16.0/box.phar
 
 ifeq ($(strip $(PHP_VERSION_ALIAS)),74)
 	CO_RC_PHAR = https://github.com/maglnet/ComposerRequireChecker/releases/download/3.8.0/composer-require-checker.phar
