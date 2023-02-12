@@ -14,7 +14,7 @@
     ],
 
     "require"     : {
-        "php"                                  : ">=7.4",
+        "php"                                  : ">=8.0",
 
         "vimeo/psalm"                          : ">=4.23.0",
         "phpmd/phpmd"                          : ">=2.12.0",
