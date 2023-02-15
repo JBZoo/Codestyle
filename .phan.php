@@ -26,6 +26,6 @@ return array_merge($default, [
     ],
 
     'exclude_file_list' => [
-        'src/php/compatibility.php',
+        'src/compatibility.php',
     ],
 ]);

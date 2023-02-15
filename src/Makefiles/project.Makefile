@@ -35,6 +35,6 @@ build-phar: ##@Project Compile phar file
 	$(call download_phar,$(BOX_PHAR),"box")
 	@$(PHP_BIN) `pwd`/vendor/bin/box.phar --version
 	@$(PHP_BIN) `pwd`/vendor/bin/box.phar validate                      -vvv
-	@$(COMPOSER_BIN) config autoloader-suffix $(PROJECT_ALIAS)                 -v
+	@$(COMPOSER_BIN) config autoloader-suffix $(PROJECT_ALIAS)          -v
 	@$(PHP_BIN) `pwd`/vendor/bin/box.phar compile --working-dir="`pwd`" -v
-	@$(COMPOSER_BIN) config autoloader-suffix --unset                          -v
+	@$(COMPOSER_BIN) config autoloader-suffix --unset                   -v

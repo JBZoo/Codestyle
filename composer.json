@@ -41,7 +41,7 @@
     },
 
     "autoload"    : {
-        "files" : ["src/php/compatibility.php"]
+        "files" : ["src/compatibility.php"]
     },
 
     "config"      : {
