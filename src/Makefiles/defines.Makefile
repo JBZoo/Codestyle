@@ -39,7 +39,6 @@ PHP_BIN           ?= php
 COMPOSER_BIN      ?= $(shell if [ $(PHP_BIN) = "php" ]; then echo "composer"; else which composer fi;)
 PHP_VERSION_ALIAS ?= $(shell $(PHP_BIN) --version | head -n 1 | cut -d " " -f 2 | cut -c 1,3)
 PROJECT_ALIAS     ?= $(shell basename `git rev-parse --show-toplevel` | sed 's/-//g')
-PHPUNIT_PRETTY_PRINT_PROGRESS ?= true
 
 
 ifeq ($(strip $(PHP_BIN)),php)
@@ -80,7 +79,7 @@ endif
 ifneq (, $(wildcard ./phpstan.neon))
     JBZOO_CONFIG_PHPSTAN ?= `pwd`/phpstan.neon
 else
-    JBZOO_CONFIG_PHPSTAN ?= `pwd`/vendor/jbzoo/codestyle/phpstan.neon
+    JBZOO_CONFIG_PHPSTAN ?= `pwd`/vendor/jbzoo/codestyle/src/phpstan.neon
 endif
 
 
@@ -124,7 +123,7 @@ endif
 ifneq (, $(wildcard ./phpbench.json))
     JBZOO_CONFIG_PHPBENCH ?= `pwd`/phpbench.json
 else
-    JBZOO_CONFIG_PHPBENCH ?= `pwd`/vendor/jbzoo/codestyle/src/phpbench/phpbench.json
+    JBZOO_CONFIG_PHPBENCH ?= `pwd`/vendor/jbzoo/codestyle/src/phpbench.json
 endif
 
 
