@@ -26,5 +26,5 @@ class CodestyleComposerTest extends AbstractComposerTest
     /**
      * @var string
      */
-    protected $phpVersion = '>=7.4';
+    protected string $phpVersion = '>=8.0';
 }

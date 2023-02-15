@@ -24,5 +24,5 @@ namespace JBZoo\PHPUnit;
  */
 class CodestyleReadmeTest extends AbstractReadmeTest
 {
-    protected $packageName = 'Codestyle';
+    protected string $packageName = 'Codestyle';
 }
