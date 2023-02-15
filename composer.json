@@ -36,7 +36,7 @@
     },
 
     "require-dev" : {
-        "jbzoo/phpunit" : "6.x-dev",
+        "jbzoo/phpunit" : ">=5.0.0",
         "jbzoo/utils"   : ">=4.5.5"
     },
 
@@ -53,7 +53,7 @@
 
     "extra"       : {
         "branch-alias" : {
-            "dev-master" : "4.x-dev"
+            "dev-master" : "5.x-dev"
         }
     }
 }

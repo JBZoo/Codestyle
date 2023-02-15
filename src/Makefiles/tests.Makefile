@@ -47,7 +47,6 @@ test-phpunit-teamcity:
 test-phpunit-local:
 	@XDEBUG_MODE=coverage $(PHP_BIN) `pwd`/vendor/bin/phpunit       \
         --configuration="$(JBZOO_CONFIG_PHPUNIT)"                   \
-        --printer=Codedungeon\\PHPUnitPrettyResultPrinter\\Printer  \
         --order-by=random                                           \
         --colors=always                                             \
         --verbose
