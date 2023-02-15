@@ -23,8 +23,4 @@ namespace JBZoo\PHPUnit;
  */
 class CodestyleComposerTest extends AbstractComposerTest
 {
-    /**
-     * @var string
-     */
-    protected string $phpVersion = '>=8.0';
 }
