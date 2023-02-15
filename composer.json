@@ -36,7 +36,7 @@
     },
 
     "require-dev" : {
-        "jbzoo/phpunit" : ">=5.0.0",
+        "jbzoo/phpunit" : "6.x-dev",
         "jbzoo/utils"   : ">=4.5.5"
     },
 

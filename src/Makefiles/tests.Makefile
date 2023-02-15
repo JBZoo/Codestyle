@@ -31,6 +31,7 @@ test-phpunit-teamcity:
 	@echo "##teamcity[progressStart 'PHPUnit Tests']"
 	@XDEBUG_MODE=coverage $(PHP_BIN) `pwd`/vendor/bin/phpunit       \
         --configuration="$(JBZOO_CONFIG_PHPUNIT)"                   \
+        --cache-result-file="$(PATH_BUILD)/phpunit.result.cache"    \
         --order-by=random                                           \
         --colors=always                                             \
         --teamcity                                                  \
@@ -47,6 +48,7 @@ test-phpunit-teamcity:
 test-phpunit-local:
 	@XDEBUG_MODE=coverage $(PHP_BIN) `pwd`/vendor/bin/phpunit       \
         --configuration="$(JBZOO_CONFIG_PHPUNIT)"                   \
+        --cache-result-file="$(PATH_BUILD)/phpunit.result.cache"    \
         --order-by=random                                           \
         --colors=always                                             \
         --verbose
@@ -55,7 +57,7 @@ test-phpunit-local:
 test-phpunit-ga:
 	@-XDEBUG_MODE=coverage $(PHP_BIN) `pwd`/vendor/bin/phpunit      \
         --configuration="$(JBZOO_CONFIG_PHPUNIT)"                   \
-        --printer=Codedungeon\\PHPUnitPrettyResultPrinter\\Printer  \
+        --cache-result-file="$(PATH_BUILD)/phpunit.result.cache"    \
         --order-by=random                                           \
         --colors=always                                             \
         --verbose || true
