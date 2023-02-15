@@ -23,6 +23,6 @@ namespace JBZoo\PHPUnit;
  */
 class CodestyleCopyrightsTest extends AbstractCopyrightTest
 {
-    protected $packageName     = "Codestyle";
-    protected $isPhpStrictType = true;
+    protected string $packageName     = "Codestyle";
+    protected bool   $isPhpStrictType = true;
 }

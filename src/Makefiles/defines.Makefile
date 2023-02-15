@@ -50,21 +50,15 @@ endif
 
 
 #### Phar files
-PHPCPD_PHAR = https://phar.phpunit.de/phpcpd.phar
-PHPLOC_PHAR = https://phar.phpunit.de/phploc.phar
-PHPCOV_PHAR = https://phar.phpunit.de/phpcov.phar
-BOX_PHAR    = https://github.com/box-project/box/releases/download/3.16.0/box.phar
-
-ifeq ($(strip $(PHP_VERSION_ALIAS)),74)
-	CO_RC_PHAR = https://github.com/maglnet/ComposerRequireChecker/releases/download/3.8.0/composer-require-checker.phar
-else
-	CO_RC_PHAR = https://github.com/maglnet/ComposerRequireChecker/releases/latest/download/composer-require-checker.phar
-endif
-
-
+PHPCPD_PHAR        = https://phar.phpunit.de/phpcpd.phar
+PHPLOC_PHAR        = https://phar.phpunit.de/phploc.phar
+PHPCOV_PHAR        = https://phar.phpunit.de/phpcov.phar
+BOX_PHAR           = https://github.com/box-project/box/releases/latest/download/composer-require-checker.phar
+CO_RC_PHAR         = https://github.com/maglnet/ComposerRequireChecker/releases/latest/download/composer-require-checker.phar
 PHAN_PHAR          = https://github.com/phan/phan/releases/latest/download/phan.phar
 PHP_COVERALLS_PHAR = https://github.com/php-coveralls/php-coveralls/releases/latest/download/php-coveralls.phar
-PDEPEND_PHAR       = https://github.com/pdepend/pdepend/releases/download/2.9.0/pdepend.phar
+PDEPEND_PHAR       = https://github.com/pdepend/pdepend/releases/latest/download/php-coveralls.phar
+
 #PHPMD_PHAR        = https://github.com/phpmd/phpmd/releases/latest/download/phpmd.phar
 #CO_DIFF_PHAR      = https://github.com/JBZoo/Composer-Diff/releases/latest/download/composer-diff.phar
 #CO_GRAPH_PHAR     = https://github.com/JBZoo/Composer-Graph/releases/latest/download/composer-graph.phar
@@ -110,13 +104,6 @@ else ifneq (, $(wildcard ./.phan/config.php))
     JBZOO_CONFIG_PHAN ?= `pwd`/.phan/config.php
 else
     JBZOO_CONFIG_PHAN ?= `pwd`/vendor/jbzoo/codestyle/.phan/config.php
-endif
-
-
-ifneq (, $(wildcard ./.phpqa.yml))
-    JBZOO_CONFIG_PHPQA ?= `pwd`
-else
-    JBZOO_CONFIG_PHPQA ?= `pwd`/vendor/jbzoo/codestyle/src/phpqa
 endif
 
 

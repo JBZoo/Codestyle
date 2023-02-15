@@ -11,6 +11,9 @@
 # @link       https://github.com/JBZoo/Codestyle
 #
 
+includes:
+    - vendor/phpstan/phpstan-strict-rules/rules.neon
+
 parameters:
     level: max
     checkExplicitMixed: false
