@@ -18,16 +18,6 @@ report-all: ##@Reports Build all reports at once
 	@-make report-pdepend
 
 
-report-phpqa: ##@Reports PHPqa - Build user-friendly code reports
-	$(call title,"PHPqa - Build user-friendly code reports")
-	@echo "Config: $(JBZOO_CONFIG_PHPQA)"
-	@rm -rf "$(PATH_BUILD)/phpqa"
-	@$(PHP_BIN) `pwd`/vendor/bin/phpqa   \
-        --config="$(JBZOO_CONFIG_PHPQA)" \
-        --analyzedDirs="$(PATH_SRC)"     \
-        --buildDir="$(PATH_BUILD)/phpqa"
-
-
 report-coveralls: ##@Reports Send coverage report to coveralls.io
 	$(call title,"Send coverage to coveralls.io")
 	$(call download_phar,$(PHP_COVERALLS_PHAR),"php-coveralls")
