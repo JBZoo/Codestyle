@@ -80,7 +80,7 @@ endif
 ifneq (, $(wildcard ./phpstan.neon))
     JBZOO_CONFIG_PHPSTAN ?= `pwd`/phpstan.neon
 else
-    JBZOO_CONFIG_PHPSTAN ?= `pwd`/vendor/jbzoo/codestyle/phpstan.neon
+    JBZOO_CONFIG_PHPSTAN ?= `pwd`/vendor/jbzoo/codestyle/src/phpstan.neon
 endif
 
 
@@ -124,7 +124,7 @@ endif
 ifneq (, $(wildcard ./phpbench.json))
     JBZOO_CONFIG_PHPBENCH ?= `pwd`/phpbench.json
 else
-    JBZOO_CONFIG_PHPBENCH ?= `pwd`/vendor/jbzoo/codestyle/src/phpbench/phpbench.json
+    JBZOO_CONFIG_PHPBENCH ?= `pwd`/vendor/jbzoo/codestyle/src/phpbench.json
 endif
 
 
