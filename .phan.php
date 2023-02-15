@@ -15,7 +15,7 @@
 
 declare(strict_types=1);
 
-// Example for depended projects
+// Example for depended on projects
 // $default = include __DIR__ . '/vendor/jbzoo/codestyle/src/phan/default.php';
 
 $default = include __DIR__ . '/src/phan/default.php';
@@ -26,6 +26,6 @@ return array_merge($default, [
     ],
 
     'exclude_file_list' => [
-        'src/php/compatibility.php'
+        'src/php/compatibility.php',
     ],
 ]);
