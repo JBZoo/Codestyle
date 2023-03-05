@@ -109,9 +109,9 @@ final class PhpUnitDefinesTest extends PHPUnit
                 'vendor/jbzoo/utils',
                 'vendor/jbzoo/phpunit',
                 'vendor/jbzoo/markdown',
-                'vendor/phpunit/phpunit/src',
-                'vendor/symfony/finder',
                 'vendor/friendsofphp/php-cs-fixer',
+                'vendor/phpunit/phpunit',
+                'vendor/symfony/finder',
             ],
             'exclude_file_regex' => '@^vendor/.*/(tests?|Tests?)/@',
             'exclude_file_list'  => [
