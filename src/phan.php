@@ -43,7 +43,7 @@ return [
     'check_docblock_signature_return_type_match' => true,
     'phpdoc_type_mapping'                        => [],
 
-    'dead_code_detection'                      => false, // TODO: Coming soon
+    'dead_code_detection'                      => false,
     'unused_variable_detection'                => true,
     'redundant_condition_detection'            => true,
     'assume_real_types_for_internal_functions' => true,
@@ -87,7 +87,6 @@ return [
         'PossiblyStaticMethodPlugin',
         'PHPDocToRealTypesPlugin',
         'UnusedSuppressionPlugin',
-        // 'UnknownElementTypePlugin', // TODO: Generics?
     ],
 
     'file_list'      => [],
