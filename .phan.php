@@ -29,6 +29,7 @@ return \array_merge($default, [
         'vendor/jbzoo/markdown',
 
         'vendor/friendsofphp/php-cs-fixer',
+        'vendor/kubawerlos/php-cs-fixer-custom-fixers',
         'vendor/phpunit/phpunit',
         'vendor/symfony/finder',
     ],

@@ -18,6 +18,9 @@ namespace JBZoo\CodeStyle\PhpCsFixer;
 
 use PhpCsFixer\Config;
 use PhpCsFixer\ConfigInterface;
+use PhpCsFixerCustomFixers\Fixer\NoDuplicatedArrayKeyFixer;
+use PhpCsFixerCustomFixers\Fixer\NoUselessCommentFixer;
+use PhpCsFixerCustomFixers\Fixers;
 use Symfony\Component\Finder\Finder;
 
 /**
@@ -231,13 +234,19 @@ final class PhpCsFixerCodingStandard
         return $this->ruleSet;
     }
 
-    public function getFixerConfig(?Finder $customFinder = null, array $customUrls = []): ConfigInterface
+    public function getFixerConfig(?Finder $customFinder = null, array $customRules = []): ConfigInterface
     {
+        $customRules = [
+            NoDuplicatedArrayKeyFixer::name() => true,
+            NoUselessCommentFixer::name()     => true,
+        ] + $customRules;
+
         return (new Config($this->styleName))
             ->setRiskyAllowed(true)
+            ->registerCustomFixers(new Fixers())
             ->setCacheFile("{$this->projectPath}/build/php-cs-fixer-cache.json")
             ->setFinder($customFinder ?? $this->getFinder())
-            ->setRules($this->getRules() + $customUrls);
+            ->setRules($this->getRules() + $customRules);
     }
 
     public function getFinder(): Finder

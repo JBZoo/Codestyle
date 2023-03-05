@@ -21,29 +21,30 @@
     ],
 
     "require"     : {
-        "php"                                  : "^8.1",
+        "php"                                   : "^8.1",
 
-        "vimeo/psalm"                          : ">=5.7.7",
-        "phpmd/phpmd"                          : ">=2.13.0",
-        "phan/phan"                            : ">=5.4.1",
-        "phpstan/phpstan"                      : ">=1.10.3",
-        "phpstan/phpstan-strict-rules"         : ">=1.5.0",
-        "povils/phpmnd"                        : ">=3.0.1",
-        "squizlabs/php_codesniffer"            : ">=3.7.2",
-        "phpcompatibility/php-compatibility"   : ">=9.3.5",
-        "phpmetrics/phpmetrics"                : ">=2.8.1",
+        "vimeo/psalm"                           : ">=5.7.7",
+        "phpmd/phpmd"                           : ">=2.13.0",
+        "phan/phan"                             : ">=5.4.1",
+        "phpstan/phpstan"                       : ">=1.10.3",
+        "phpstan/phpstan-strict-rules"          : ">=1.5.0",
+        "povils/phpmnd"                         : ">=3.0.1",
+        "squizlabs/php_codesniffer"             : ">=3.7.2",
+        "phpcompatibility/php-compatibility"    : ">=9.3.5",
+        "phpmetrics/phpmetrics"                 : ">=2.8.1",
 
-        "symfony/yaml"                         : ">=4.4.16",
-        "symfony/console"                      : ">=4.4.16",
-        "symfony/finder"                       : ">=4.4.16",
-        "nikic/php-parser"                     : ">=4.14.0",
+        "symfony/yaml"                          : ">=4.4.16",
+        "symfony/console"                       : ">=4.4.16",
+        "symfony/finder"                        : ">=4.4.16",
+        "nikic/php-parser"                      : ">=4.14.0",
 
-        "jbzoo/composer-diff"                  : ">=1.7.0",
-        "jbzoo/composer-graph"                 : ">=1.5.0",
-        "jbzoo/ci-report-converter"            : ">=2.8.1",
-        "mheap/phpunit-github-actions-printer" : ">=1.5.1",
+        "jbzoo/composer-diff"                   : ">=1.7.0",
+        "jbzoo/composer-graph"                  : ">=1.5.0",
+        "jbzoo/ci-report-converter"             : ">=2.8.1",
+        "mheap/phpunit-github-actions-printer"  : ">=1.5.1",
 
-        "friendsofphp/php-cs-fixer"            : ">=3.14.0"
+        "friendsofphp/php-cs-fixer"             : ">=3.14.0",
+        "kubawerlos/php-cs-fixer-custom-fixers" : ">=3.13.0"
     },
 
     "require-dev" : {
