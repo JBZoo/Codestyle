@@ -53,6 +53,9 @@ abstract class AbstractPackageTest extends PHPUnit
     protected string $copyrightRights     = 'Copyright (C) JBZoo.com, All rights reserved.';
     protected string $copyrightSee        = 'https://github.com/_VENDOR_NS_/_PACKAGE_';
 
+    // Internal variables
+    protected string $packageNamespace = '';
+
     /**
      * {@inheritDoc}
      */
@@ -75,6 +78,7 @@ abstract class AbstractPackageTest extends PHPUnit
         }
 
         $this->projectRoot = $projectRoot;
+        $this->packageNamespace = \str_replace('-', '', $this->packageName);
     }
 
     public static function checkFiles(string $testcaseName, Finder $finder, \Closure $testCaseFunction): void
