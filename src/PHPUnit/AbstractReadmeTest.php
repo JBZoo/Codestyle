@@ -22,7 +22,6 @@ use JBZoo\PHPUnit\PHPUnit;
 use function JBZoo\PHPUnit\fail;
 use function JBZoo\PHPUnit\isFileContains;
 use function JBZoo\PHPUnit\isNotEmpty;
-use function JBZoo\PHPUnit\skip;
 use function JBZoo\PHPUnit\success;
 
 /**
