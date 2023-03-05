@@ -194,7 +194,7 @@ test-phpcs-ga:
 	@make CI_REPORT=$(CI_REPORT_GA) CI_NON_ZERO_CODE=yes test-phpcs-teamcity
 
 
-#### PhpCsFixer ######################################################################################################
+#### PhpCsFixer ########################################################################################################
 
 test-phpcsfixer-fix: ##@Tests PhpCsFixer - Auto fix code to follow stylish standards
 	$(call title,"Fix Coding Standards with PhpCsFixer")
