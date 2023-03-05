@@ -232,7 +232,7 @@ final class PhpCsFixerCodingStandard
 
     public function getFixerConfig(?Finder $customFinder = null, array $customUrls = []): ConfigInterface
     {
-        return (new Config())
+        return (new Config('JBZoo Style'))
             ->setRiskyAllowed(true)
             ->setCacheFile("{$this->projectPath}/build/php-cs-fixer-cache.json")
             ->setFinder($customFinder ?? $this->getFinder())
