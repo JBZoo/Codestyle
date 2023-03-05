@@ -56,11 +56,6 @@ PHPCOV_PHAR        = https://phar.phpunit.de/phpcov.phar
 BOX_PHAR           = https://github.com/box-project/box/releases/latest/download/composer-require-checker.phar
 CO_RC_PHAR         = https://github.com/maglnet/ComposerRequireChecker/releases/latest/download/composer-require-checker.phar
 PHP_COVERALLS_PHAR = https://github.com/php-coveralls/php-coveralls/releases/latest/download/php-coveralls.phar
-PDEPEND_PHAR       = https://github.com/pdepend/pdepend/releases/latest/download/php-coveralls.phar
-
-#PHPMD_PHAR        = https://github.com/phpmd/phpmd/releases/latest/download/phpmd.phar
-#CO_DIFF_PHAR      = https://github.com/JBZoo/Composer-Diff/releases/latest/download/composer-diff.phar
-#CO_GRAPH_PHAR     = https://github.com/JBZoo/Composer-Graph/releases/latest/download/composer-graph.phar
 
 ifneq (, $(wildcard ./src/phpcs.xml))
     JBZOO_CONFIG_PHPCS ?= `pwd`/src/phpcs.xml
