@@ -14,10 +14,9 @@
 
 declare(strict_types=1);
 
-namespace JBZoo\CodeStyle\PHPUnit;
+namespace JBZoo\Codestyle\PHPUnit;
 
 use JBZoo\Markdown\Markdown;
-use JBZoo\PHPUnit\PHPUnit;
 
 use function JBZoo\PHPUnit\fail;
 use function JBZoo\PHPUnit\isFileContains;
@@ -25,18 +24,15 @@ use function JBZoo\PHPUnit\isNotEmpty;
 use function JBZoo\PHPUnit\success;
 
 /**
- * @SuppressWarnings(PHPMD.TooManyPublicMethods)
- * @codeCoverageIgnore
+ * @phan-file-suppress PhanUndeclaredProperty
  */
-abstract class AbstractReadmeTest extends PHPUnit
+trait TraitReadme
 {
     // See also
     // - https://github.com/badges/shields#specification
     // - https://github.com/badges/poser
 
-    protected string $vendorName  = 'JBZoo';
-    protected string $packageName = '__DEFINE_ME__';
-    protected string $readmeFile  = 'README.md';
+    protected string $readmeFile = 'README.md';
 
     /** @var bool[] */
     protected array $params = [
@@ -465,7 +461,7 @@ abstract class AbstractReadmeTest extends PHPUnit
 
     protected function getPreparedBadge(string $badge): ?string
     {
-        $trace        = \debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS);
+        $trace = \debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS);
         $testCaseName = \str_replace('check_badge_', '', self::splitCamelCase($trace[1]['function']));
 
         $isEnabled = $this->params[$testCaseName] ?? null;

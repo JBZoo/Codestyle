@@ -1,18 +1,27 @@
 {
-    "name"        : "jbzoo/codestyle",
-    "type"        : "library",
-    "license"     : "MIT",
-    "description" : "Collection of QA tools and JBZoo code standards",
-    "keywords"    : [
-        "jbzoo",
-        "php",
-        "qa",
-        "tests",
+    "name"         : "jbzoo/codestyle",
+    "type"         : "library",
+    "license"      : "MIT",
+    "description"  : "Collection of QA tools and JBZoo code standards",
+    "keywords"     : [
         "codestyle",
-        "coding-standard"
+        "coding-standard",
+        "jbzoo",
+        "phan",
+        "php",
+        "php-cs-fixer",
+        "phpcompatibility",
+        "phpcs",
+        "phpmd",
+        "phpmetrics",
+        "phpstan",
+        "phpunit",
+        "psalm",
+        "qa",
+        "tests"
     ],
 
-    "authors"     : [
+    "authors"      : [
         {
             "name"  : "Denis Smetannikov",
             "email" : "admin@jbzoo.com",
@@ -20,53 +29,59 @@
         }
     ],
 
-    "require"     : {
+    "require"      : {
         "php"                                   : "^8.1",
 
         "vimeo/psalm"                           : ">=5.7.7",
         "phpmd/phpmd"                           : ">=2.13.0",
         "phan/phan"                             : ">=5.4.1",
+        "povils/phpmnd"                         : ">=3.0.1",
+
         "phpstan/phpstan"                       : ">=1.10.3",
         "phpstan/phpstan-strict-rules"          : ">=1.5.0",
-        "povils/phpmnd"                         : ">=3.0.1",
+
         "squizlabs/php_codesniffer"             : ">=3.7.2",
         "phpcompatibility/php-compatibility"    : ">=9.3.5",
+
         "phpmetrics/phpmetrics"                 : ">=2.8.1",
+        "pdepend/pdepend"                       : ">=2.13.0",
 
         "symfony/yaml"                          : ">=4.4.16",
         "symfony/console"                       : ">=4.4.16",
         "symfony/finder"                        : ">=4.4.16",
-        "nikic/php-parser"                      : ">=4.14.0",
+        "nikic/php-parser"                      : ">=4.15.3",
 
         "jbzoo/composer-diff"                   : ">=1.7.0",
         "jbzoo/composer-graph"                  : ">=1.5.0",
         "jbzoo/ci-report-converter"             : ">=2.8.1",
         "mheap/phpunit-github-actions-printer"  : ">=1.5.1",
 
-        "friendsofphp/php-cs-fixer"             : ">=3.14.0",
+        "friendsofphp/php-cs-fixer"             : ">=3.14.4",
         "kubawerlos/php-cs-fixer-custom-fixers" : ">=3.13.0"
     },
 
-    "require-dev" : {
+    "require-dev"  : {
         "jbzoo/phpunit" : "6.x-dev",
         "jbzoo/utils"   : ">=4.5.5"
     },
 
-    "autoload"    : {
+    "autoload"     : {
+        "psr-4" : {"JBZoo\\Codestyle\\" : "src"},
         "files" : [
             "src/compatibility.php"
-        ],
-        "psr-4" : {
-            "JBZoo\\CodeStyle\\" : "src/"
-        }
+        ]
     },
 
-    "config"      : {
+    "autoload-dev" : {
+        "psr-4" : {"JBZoo\\PHPUnit\\" : "tests"}
+    },
+
+    "config"       : {
         "optimize-autoloader" : true,
         "allow-plugins"       : {"composer/package-versions-deprecated" : true}
     },
 
-    "extra"       : {
+    "extra"        : {
         "branch-alias" : {
             "dev-master" : "7.x-dev"
         }

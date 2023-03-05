@@ -14,7 +14,7 @@
 
 declare(strict_types=1);
 
-namespace JBZoo\CodeStyle\PhpCsFixer;
+namespace JBZoo\Codestyle\PhpCsFixer;
 
 use PhpCsFixer\Config;
 use PhpCsFixer\ConfigInterface;

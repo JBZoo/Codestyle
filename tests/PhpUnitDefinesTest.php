@@ -16,7 +16,7 @@ declare(strict_types=1);
 
 namespace JBZoo\PHPUnit;
 
-use JBZoo\CodeStyle\PhpCsFixer\PhpCsFixerCodingStandard;
+use JBZoo\Codestyle\PhpCsFixer\PhpCsFixerCodingStandard;
 
 final class PhpUnitDefinesTest extends PHPUnit
 {
@@ -37,37 +37,40 @@ final class PhpUnitDefinesTest extends PHPUnit
     {
         $configs = include PROJECT_ROOT . '/.phan.php';
         isSame([
-            'target_php_version'                                => null,
-            'quick_mode'                                        => false,
-            'enable_include_path_checks'                        => false,
-            'processes'                                         => 1,
-            'allow_missing_properties'                          => false,
-            'null_casts_as_any_type'                            => false,
-            'null_casts_as_array'                               => false,
-            'array_casts_as_null'                               => false,
-            'scalar_implicit_cast'                              => false,
-            'scalar_array_key_cast'                             => false,
-            'scalar_implicit_partial'                           => [],
-            'strict_method_checking'                            => true,
-            'strict_object_checking'                            => true,
-            'strict_param_checking'                             => true,
-            'strict_property_checking'                          => true,
-            'strict_return_checking'                            => true,
+            'target_php_version'         => null,
+            'quick_mode'                 => false,
+            'enable_include_path_checks' => false,
+            'processes'                  => 1,
+            'allow_missing_properties'   => false,
+            'null_casts_as_any_type'     => false,
+            'null_casts_as_array'        => false,
+            'array_casts_as_null'        => false,
+            'scalar_implicit_cast'       => false,
+            'scalar_array_key_cast'      => false,
+            'scalar_implicit_partial'    => [],
+            'strict_method_checking'     => true,
+            'strict_object_checking'     => true,
+            'strict_param_checking'      => true,
+            'strict_property_checking'   => true,
+            'strict_return_checking'     => true,
+
             'ignore_undeclared_variables_in_global_scope'       => false,
             'ignore_undeclared_functions_with_known_signatures' => false,
             'backward_compatibility_checks'                     => true,
             'check_docblock_signature_return_type_match'        => true,
-            'phpdoc_type_mapping'                               => [],
-            'dead_code_detection'                               => false,
-            'unused_variable_detection'                         => true,
-            'redundant_condition_detection'                     => true,
-            'assume_real_types_for_internal_functions'          => true,
-            'globals_type_map'                                  => [],
-            'suppress_issue_types'                              => [],
-            'minimum_severity'                                  => 0,
-            'analyzed_file_extensions'                          => ['php'],
-            'autoload_internal_extension_signatures'            => [],
-            'plugins'                                           => [
+
+            'phpdoc_type_mapping'                      => [],
+            'dead_code_detection'                      => false,
+            'unused_variable_detection'                => true,
+            'redundant_condition_detection'            => true,
+            'assume_real_types_for_internal_functions' => true,
+
+            'globals_type_map'                       => [],
+            'suppress_issue_types'                   => [],
+            'minimum_severity'                       => 0,
+            'analyzed_file_extensions'               => ['php'],
+            'autoload_internal_extension_signatures' => [],
+            'plugins'                                => [
                 'AlwaysReturnPlugin',
                 'DollarDollarPlugin',
                 'DuplicateArrayKeyPlugin',
