@@ -72,7 +72,7 @@ endif
 ifneq (, $(wildcard ./.php-cs-fixer.php))
     JBZOO_CONFIG_PHPCSFIXER ?= `pwd`/.php-cs-fixer.php
 else
-    JBZOO_CONFIG_PHPCSFIXER ?= `pwd`/vendor/jbzoo/codestyle/src/php-cs-fixer.php
+    JBZOO_CONFIG_PHPCSFIXER ?= `pwd`/vendor/jbzoo/codestyle/src/PhpCsFixer/php-cs-fixer.php
 endif
 
 
