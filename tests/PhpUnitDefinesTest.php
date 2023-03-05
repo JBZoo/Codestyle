@@ -106,6 +106,7 @@ final class PhpUnitDefinesTest extends PHPUnit
                 'vendor/jbzoo/phpunit',
                 'vendor/jbzoo/markdown',
                 'vendor/friendsofphp/php-cs-fixer',
+                'vendor/kubawerlos/php-cs-fixer-custom-fixers',
                 'vendor/phpunit/phpunit',
                 'vendor/symfony/finder',
             ],
