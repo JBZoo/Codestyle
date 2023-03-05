@@ -57,7 +57,7 @@ jobs:
         run: make test --no-print-directory
 
       - name: Uploading coverage to coveralls
-        if: ${{ matrix.coverage == 'xdebug' && matrix.php-version != '8.1' && matrix.php-version != '8.0' }}
+        if: ${{ matrix.coverage == 'xdebug' }}
         env:
             COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: make report-coveralls --no-print-directory || true
