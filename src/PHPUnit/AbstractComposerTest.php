@@ -19,51 +19,36 @@ namespace JBZoo\CodeStyle\PHPUnit;
 use JBZoo\PHPUnit\PHPUnit;
 
 use function JBZoo\Data\json;
+use function JBZoo\PHPUnit\isContain;
 use function JBZoo\PHPUnit\isNotEmpty;
 use function JBZoo\PHPUnit\isSame;
 
-/**
- * @SuppressWarnings(PHPMD.TooManyPublicMethods)
- */
 abstract class AbstractComposerTest extends PHPUnit
 {
     protected string $authorName  = 'Denis Smetannikov';
     protected string $authorEmail = 'admin@jbzoo.com';
     protected string $authorRole  = 'lead';
-    protected string $devBranch   = 'dev-master';
+    protected string $devVersion  = '7.x-dev';
     protected string $phpVersion  = '^8.1';
 
-    public function testAuthor(): void
+    public function test(): void
     {
-        $composerPath = PROJECT_ROOT . '/composer.json';
-        $composerJson = json($composerPath);
+        $composer = json(PROJECT_ROOT . '/composer.json');
 
-        if ($this->authorName !== '') {
-            isSame($this->authorName, $composerJson->find('authors.0.name'), "See file: {$composerPath}");
-        }
+        isSame($this->authorName, $composer->find('authors.0.name'));
+        isSame($this->authorEmail, $composer->find('authors.0.email'));
+        isSame($this->authorRole, $composer->find('authors.0.role'));
+        isSame($this->devVersion, $composer->find('extra.branch-alias.dev-master'));
+        isSame($this->phpVersion, $composer->find('require.php'));
+        isSame('MIT', $composer->find('license'));
 
-        if ($this->authorEmail !== '') {
-            isSame($this->authorEmail, $composerJson->find('authors.0.email'), "See file: {$composerPath}");
-        }
+        isContain('jbzoo/', $composer->find('name'));
+        isNotEmpty($composer->find('type'));
+        isNotEmpty($composer->find('keywords'));
+        isNotEmpty($composer->find('description'));
 
-        if ($this->authorRole !== '') {
-            isSame($this->authorRole, $composerJson->find('authors.0.role'), "See file: {$composerPath}");
-        }
-    }
-
-    public function testDevMasterAlias(): void
-    {
-        $composerPath = PROJECT_ROOT . '/composer.json';
-        $composerJson = json($composerPath);
-
-        isNotEmpty($composerJson->find("extra.branch-alias.{$this->devBranch}"), "See file: {$composerPath}");
-    }
-
-    public function testPhpRequirements(): void
-    {
-        $composerPath = PROJECT_ROOT . '/composer.json';
-        $composerJson = json($composerPath);
-
-        isSame($this->phpVersion, $composerJson->find('require.php'), "See file: {$composerPath}");
+        isSame(['JBZoo\PHPUnit\\' => 'tests'], $composer->find('autoload-dev.psr-4'));
+        isSame(true, $composer->find('config.optimize-autoloader'));
+        isSame(true, $composer->find('config.allow-plugins.composer/package-versions-deprecated'));
     }
 }
