@@ -21,9 +21,6 @@ use function JBZoo\PHPUnit\is;
 use function JBZoo\PHPUnit\isContain;
 use function JBZoo\PHPUnit\isSame;
 
-/**
- * @phan-file-suppress PhanUndeclaredProperty
- */
 trait TraitGithubActions
 {
     public function testGithubActionsWorkflow(): void
@@ -33,8 +30,11 @@ trait TraitGithubActions
         unset($actual['on']['schedule']);
 
         // Params
-        $phpVersions  = [8.1, 8.2];
-        $expectedOs   = 'ubuntu-latest';
+        $phpVersions    = [8.1, 8.2];
+        $expectedOs     = 'ubuntu-latest';
+        $setupPhpAction = 'shivammathur/setup-php@v2';
+
+        // General Steps
         $checkoutStep = [
             'name' => 'Checkout code',
             'uses' => 'actions/checkout@v3',
@@ -44,16 +44,6 @@ trait TraitGithubActions
             'name' => 'Build the Project',
             'run'  => 'make update --no-print-directory',
         ];
-
-        $uploadArtifactsStep = static function ($stepName) {
-            return [
-                'name'              => 'Upload Artifacts',
-                'uses'              => 'actions/upload-artifact@v3',
-                'continue-on-error' => true,
-                'with'              => ['name' => $stepName, 'path' => 'build/'],
-            ];
-        };
-        $setupPhpAction = 'shivammathur/setup-php@v2';
 
         // Expected
         $expected = [
@@ -103,16 +93,14 @@ trait TraitGithubActions
                             'env'  => ['COVERALLS_REPO_TOKEN' => '${{ secrets.GITHUB_TOKEN }}'],
                             'run'  => 'make report-coveralls --no-print-directory || true',
                         ],
-                        $uploadArtifactsStep('PHPUnit - ${{ matrix.php-version }} - ${{ matrix.coverage }}'),
+                        $this->uploadArtifactsStep('PHPUnit - ${{ matrix.php-version }} - ${{ matrix.coverage }}'),
                     ],
                 ],
                 'linters' => [
                     'name'     => 'Linters',
                     'runs-on'  => $expectedOs,
-                    'strategy' => [
-                        'matrix' => ['php-version' => $phpVersions],
-                    ],
-                    'steps' => [
+                    'strategy' => ['matrix' => ['php-version' => $phpVersions]],
+                    'steps'    => [
                         $checkoutStep,
                         [
                             'name' => 'Setup PHP',
@@ -128,16 +116,14 @@ trait TraitGithubActions
                             'name' => '👍 Code Quality',
                             'run'  => 'make codestyle --no-print-directory',
                         ],
-                        $uploadArtifactsStep('Linters - ${{ matrix.php-version }}'),
+                        $this->uploadArtifactsStep('Linters - ${{ matrix.php-version }}'),
                     ],
                 ],
                 'report' => [
                     'name'     => 'Reports',
-                    'runs-on'  => 'ubuntu-latest',
-                    'strategy' => [
-                        'matrix' => ['php-version' => $phpVersions],
-                    ],
-                    'steps' => [
+                    'runs-on'  => $expectedOs,
+                    'strategy' => ['matrix' => ['php-version' => $phpVersions]],
+                    'steps'    => [
                         $checkoutStep,
                         [
                             'name' => 'Setup PHP',
@@ -153,7 +139,7 @@ trait TraitGithubActions
                             'name' => '📝 Build Reports',
                             'run'  => 'make report-all --no-print-directory',
                         ],
-                        $uploadArtifactsStep('Reports - ${{ matrix.php-version }}'),
+                        $this->uploadArtifactsStep('Reports - ${{ matrix.php-version }}'),
                     ],
                 ],
             ],
@@ -161,5 +147,18 @@ trait TraitGithubActions
 
         is($expected, $actual);
         isSame($expected, $actual);
+    }
+
+    /**
+     * @suppress PhanPluginPossiblyStaticPrivateMethod
+     */
+    private function uploadArtifactsStep(string $stepName): array
+    {
+        return [
+            'name'              => 'Upload Artifacts',
+            'uses'              => 'actions/upload-artifact@v3',
+            'continue-on-error' => true,
+            'with'              => ['name' => $stepName, 'path' => 'build/'],
+        ];
     }
 }
