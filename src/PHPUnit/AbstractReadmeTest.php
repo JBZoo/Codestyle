@@ -234,7 +234,7 @@ abstract class AbstractReadmeTest extends PHPUnit
         return $this->getPreparedBadge(
             $this->getBadge(
                 'Coverage Status',
-                'https://coveralls.io/repos/__VENDOR_ORIG__/__PACKAGE_ORIG__/badge.svg?branch=master',
+                'https://coveralls.io/repos/github/__VENDOR_ORIG__/__PACKAGE_ORIG__/badge.svg?branch=master',
                 'https://coveralls.io/github/__VENDOR_ORIG__/__PACKAGE_ORIG__?branch=master',
             ),
         );
