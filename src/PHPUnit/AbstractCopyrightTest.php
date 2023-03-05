@@ -39,9 +39,6 @@ abstract class AbstractCopyrightTest extends PHPUnit
     protected string $packageAuthor    = '';
     protected string $eol              = "\n";
 
-    protected bool $isPsr12         = true;
-    protected bool $isPhpStrictType = false;
-
     /** @var string[] */
     protected array $excludePaths = [
         '.git',
@@ -242,21 +239,14 @@ abstract class AbstractCopyrightTest extends PHPUnit
     {
         $valid = $this->prepareTemplate(\implode($this->eol, $this->validHeaderPHP));
 
-        if ($this->isPsr12) {
-            $valid = "<?php{$this->eol}{$this->eol}{$valid}";
-        } else {
-            $valid = "<?php{$this->eol}{$valid}";
-        }
-
-        if ($this->isPhpStrictType) {
-            $valid .= \implode($this->eol, [
-                '',
-                ' */',
-                '',
-                'declare(strict_types=1);',
-                '',
-            ]);
-        }
+        $valid = "<?php{$this->eol}{$this->eol}{$valid}";
+        $valid .= \implode($this->eol, [
+            '',
+            ' */',
+            '',
+            'declare(strict_types=1);',
+            '',
+        ]);
 
         $finder = $this->createFinder(['php', 'phtml']);
 
