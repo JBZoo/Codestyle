@@ -461,10 +461,9 @@ trait TraitReadme
 
     protected function getPreparedBadge(string $badge): ?string
     {
-        $trace = \debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS);
+        $trace        = \debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS);
         $testCaseName = \str_replace('check_badge_', '', self::splitCamelCase($trace[1]['function']));
-
-        $isEnabled = $this->params[$testCaseName] ?? null;
+        $isEnabled    = $this->params[$testCaseName] ?? null;
 
         if ($isEnabled === null) {
             return null;

@@ -15,10 +15,7 @@
 
     <arg name="report-width" value="120"/>
     <arg name="encoding" value="utf-8"/>
-    <config name="installed_paths" value="vendor/phpcompatibility/php-compatibility"/>
-    <config name="testVersion" value="8.1-"/>
 
-    <rule ref="PHPCompatibility"/>
     <rule ref="PSR12">
         <exclude name="PSR2.Classes.PropertyDeclaration.SpacingAfterType"/>
     </rule>

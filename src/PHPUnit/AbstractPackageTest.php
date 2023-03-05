@@ -27,6 +27,7 @@ abstract class AbstractPackageTest extends PHPUnit
 {
     use TraitComposer;
     use TraitCopyright;
+    use TraitGithubActions;
     use TraitOtherTests;
     use TraitPhpStormProxy;
     use TraitReadme;
@@ -77,7 +78,7 @@ abstract class AbstractPackageTest extends PHPUnit
             throw new Exception('$this->projectRoot not exists');
         }
 
-        $this->projectRoot = $projectRoot;
+        $this->projectRoot      = $projectRoot;
         $this->packageNamespace = \str_replace('-', '', $this->packageName);
     }
 
@@ -90,7 +91,7 @@ abstract class AbstractPackageTest extends PHPUnit
         /** @var \SplFileInfo $file */
         foreach ($finder as $file) {
             $pathname = $file->getPathname();
-            $content = (string)openFile($pathname);
+            $content  = (string)openFile($pathname);
 
             if (static::DEBUG_MODE) {
                 Cli::out(" * {$pathname}");
