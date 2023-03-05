@@ -93,6 +93,7 @@ trait TraitOtherTests
             ->exclude($this->excludePaths)
             ->notName([
                 \basename(__FILE__),
+                '.DS_Store',
                 '/\.md$/',
                 '/\.min\.(js|css)$/',
                 '/\.min\.(js|css)\.map$/',

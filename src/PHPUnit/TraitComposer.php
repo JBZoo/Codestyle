@@ -45,7 +45,7 @@ trait TraitComposer
         isNotEmpty($composer->find('keywords'));
         isNotEmpty($composer->find('description'));
 
-        isSame(["{$this->vendorName}\\{$this->packageName}\\" => 'src'], $composer->find('autoload.psr-4'));
+        isSame(["{$this->vendorName}\\{$this->packageNamespace}\\" => 'src'], $composer->find('autoload.psr-4'));
         isSame(["{$this->vendorName}\\PHPUnit\\" => 'tests'], $composer->find('autoload-dev.psr-4'));
         isSame(true, $composer->find('config.optimize-autoloader'));
         isSame(true, $composer->find('config.allow-plugins.composer/package-versions-deprecated'));
