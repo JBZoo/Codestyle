@@ -1,14 +1,13 @@
 #
-# JBZoo Toolbox - Codestyle
+# JBZoo Toolbox - Codestyle.
 #
 # This file is part of the JBZoo Toolbox project.
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 #
-# @package    Codestyle
 # @license    MIT
 # @copyright  Copyright (C) JBZoo.com, All rights reserved.
-# @link       https://github.com/JBZoo/Codestyle
+# @see        https://github.com/JBZoo/Codestyle
 #
 
 name: CI
@@ -35,7 +34,7 @@ jobs:
       JBZOO_COMPOSER_UPDATE_FLAGS: ${{ matrix.composer_flags }}
     strategy:
       matrix:
-        php-version: [ 8.0, 8.1, 8.2 ]
+        php-version: [ 8.1, 8.2 ]
         coverage: [ xdebug, none ]
         composer_flags: [ "--prefer-lowest", "" ]
     steps:
@@ -58,7 +57,7 @@ jobs:
         run: make test --no-print-directory
 
       - name: Uploading coverage to coveralls
-        if: ${{ matrix.coverage == 'xdebug' && matrix.php-version != '8.1' && matrix.php-version != '8.0' }}
+        if: ${{ matrix.coverage == 'xdebug' }}
         env:
             COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: make report-coveralls --no-print-directory || true
@@ -76,7 +75,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-version: [ 8.0, 8.1, 8.2 ]
+        php-version: [ 8.1, 8.2 ]
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -109,7 +108,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-version: [ 8.0, 8.1, 8.2 ]
+        php-version: [ 8.1, 8.2 ]
     steps:
       - name: Checkout code
         uses: actions/checkout@v3

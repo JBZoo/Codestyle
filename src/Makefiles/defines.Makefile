@@ -1,14 +1,13 @@
 #
-# JBZoo Toolbox - Codestyle
+# JBZoo Toolbox - Codestyle.
 #
 # This file is part of the JBZoo Toolbox project.
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 #
-# @package    Codestyle
 # @license    MIT
 # @copyright  Copyright (C) JBZoo.com, All rights reserved.
-# @link       https://github.com/JBZoo/Codestyle
+# @see        https://github.com/JBZoo/Codestyle
 #
 
 # Colors
@@ -37,6 +36,7 @@ CI_REPORT_MND    ?= $(TC_REPORT_MND)
 CI_REPORT_GA     ?= plain
 
 PHP_BIN           ?= php
+VENDOR_BIN        ?= $(PHP_BIN) `pwd`/vendor/bin
 COMPOSER_BIN      ?= $(shell if [ $(PHP_BIN) = "php" ]; then echo "composer"; else which composer fi;)
 PHP_VERSION_ALIAS ?= $(shell $(PHP_BIN) --version | head -n 1 | cut -d " " -f 2 | cut -c 1,3)
 PROJECT_ALIAS     ?= $(shell basename `git rev-parse --show-toplevel` | sed 's/-//g')
@@ -55,7 +55,6 @@ PHPLOC_PHAR        = https://phar.phpunit.de/phploc.phar
 PHPCOV_PHAR        = https://phar.phpunit.de/phpcov.phar
 BOX_PHAR           = https://github.com/box-project/box/releases/latest/download/composer-require-checker.phar
 CO_RC_PHAR         = https://github.com/maglnet/ComposerRequireChecker/releases/latest/download/composer-require-checker.phar
-PHAN_PHAR          = https://github.com/phan/phan/releases/latest/download/phan.phar
 PHP_COVERALLS_PHAR = https://github.com/php-coveralls/php-coveralls/releases/latest/download/php-coveralls.phar
 PDEPEND_PHAR       = https://github.com/pdepend/pdepend/releases/latest/download/php-coveralls.phar
 
@@ -63,17 +62,24 @@ PDEPEND_PHAR       = https://github.com/pdepend/pdepend/releases/latest/download
 #CO_DIFF_PHAR      = https://github.com/JBZoo/Composer-Diff/releases/latest/download/composer-diff.phar
 #CO_GRAPH_PHAR     = https://github.com/JBZoo/Composer-Graph/releases/latest/download/composer-graph.phar
 
-ifneq (, $(wildcard ./src/phpcs/ruleset.xml))
-    JBZOO_CONFIG_PHPCS ?= `pwd`/src/phpcs/ruleset.xml
+ifneq (, $(wildcard ./src/phpcs.xml))
+    JBZOO_CONFIG_PHPCS ?= `pwd`/src/phpcs.xml
 else
-    JBZOO_CONFIG_PHPCS ?= `pwd`/vendor/jbzoo/codestyle/src/phpcs/ruleset.xml
+    JBZOO_CONFIG_PHPCS ?= `pwd`/vendor/jbzoo/codestyle/src/phpcs.xml
 endif
 
 
-ifneq (, $(wildcard ./src/phpmd/jbzoo.xml))
-    JBZOO_CONFIG_PHPMD ?= `pwd`/src/phpmd/jbzoo.xml
+ifneq (, $(wildcard ./.php-cs-fixer.php))
+    JBZOO_CONFIG_PHPCSFIXER ?= `pwd`/.php-cs-fixer.php
 else
-    JBZOO_CONFIG_PHPMD ?= `pwd`/vendor/jbzoo/codestyle/src/phpmd/jbzoo.xml
+    JBZOO_CONFIG_PHPCSFIXER ?= `pwd`/vendor/jbzoo/codestyle/src/php-cs-fixer.php
+endif
+
+
+ifneq (, $(wildcard ./src/phpmd.xml))
+    JBZOO_CONFIG_PHPMD ?= `pwd`/src/phpmd.xml
+else
+    JBZOO_CONFIG_PHPMD ?= `pwd`/vendor/jbzoo/codestyle/src/phpmd.xml
 endif
 
 

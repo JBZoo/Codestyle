@@ -2,7 +2,6 @@
     "bootstrap"        : "../../../../../vendor/autoload.php",
     "path"             : "../../../../../tests/phpbench",
     "xml_storage_path" : "build/phpbench/storage",
-    "progress"         : "travis",
 
     "outputs"          : {
         "jbzoo-html-summary" : {
