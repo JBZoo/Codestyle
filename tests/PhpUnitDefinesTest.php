@@ -99,11 +99,17 @@ final class PhpUnitDefinesTest extends PHPUnit
                 'PossiblyStaticMethodPlugin',
                 'PHPDocToRealTypesPlugin',
                 'UnusedSuppressionPlugin',
-                'NotFullyQualifiedUsagePlugin',
             ],
             'file_list'      => [],
             'directory_list' => [
                 'src',
+                'vendor/jbzoo/data',
+                'vendor/jbzoo/utils',
+                'vendor/jbzoo/phpunit',
+                'vendor/jbzoo/markdown',
+                'vendor/phpunit/phpunit/src',
+                'vendor/symfony/finder',
+                'vendor/friendsofphp/php-cs-fixer',
             ],
             'exclude_file_regex' => '@^vendor/.*/(tests?|Tests?)/@',
             'exclude_file_list'  => [
