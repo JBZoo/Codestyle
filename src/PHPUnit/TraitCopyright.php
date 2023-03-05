@@ -324,6 +324,7 @@ trait TraitCopyright
     {
         $template = \implode("\n", $templateRows);
 
+        // Important! Order of replacements is important!
         $replace = [
             '_DESCRIPTION_PHP_'  => \implode("\n * ", $this->packageDesc),
             '_DESCRIPTION_JS_'   => \implode("\n * ", $this->packageDesc),
@@ -339,6 +340,7 @@ trait TraitCopyright
             '_COPYRIGHTS_'       => $this->copyrightRights,
             '_PACKAGE_'          => $this->packageName,
             '_LICENSE_'          => $this->copyrightLicense,
+            '_VENDOR_NS_'        => $this->vendorName,
             '_VENDOR_'           => $this->copyrightVendorName,
         ];
 

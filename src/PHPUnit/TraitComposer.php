@@ -21,11 +21,11 @@ use function JBZoo\PHPUnit\isContain;
 use function JBZoo\PHPUnit\isNotEmpty;
 use function JBZoo\PHPUnit\isSame;
 
+/**
+ * @phan-file-suppress PhanUndeclaredProperty
+ */
 trait TraitComposer
 {
-    protected string $composerDevVersion = '7.x-dev';
-    protected string $composerPhpVersion = '^8.1';
-
     public function testComposerJsonProperties(): void
     {
         $composer = json(PROJECT_ROOT . '/composer.json');
@@ -40,7 +40,7 @@ trait TraitComposer
         isSame($this->composerPhpVersion, $composer->find('require.php'));
         isSame('MIT', $composer->find('license'));
 
-        isContain('jbzoo/', $composer->find('name'));
+        isContain(\strtolower("{$this->vendorName}/{$this->packageName}"), $composer->find('name'));
         isNotEmpty($composer->find('type'));
         isNotEmpty($composer->find('keywords'));
         isNotEmpty($composer->find('description'));

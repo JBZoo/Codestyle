@@ -32,18 +32,24 @@ abstract class AbstractPackageTest extends PHPUnit
     use TraitReadme;
 
     // ### Other properties. ###########################################################################################
-    protected const DEBUG_MODE = true;
+    protected const DEBUG_MODE = false;
 
     // Important! Overload these properties in your test class.
     protected string $packageName = '';
 
     // ### Default values. #############################################################################################
+    // General
+    protected string $vendorName = 'JBZoo';
+
+    // Composer
+    protected string $composerDevVersion = '7.x-dev';
+    protected string $composerPhpVersion = '^8.1';
+
     protected string $projectRoot         = PROJECT_ROOT;
-    protected string $vendorName          = 'JBZoo';
     protected string $copyrightVendorName = 'JBZoo Toolbox';
     protected string $copyrightLicense    = 'MIT';
     protected string $copyrightRights     = 'Copyright (C) JBZoo.com, All rights reserved.';
-    protected string $copyrightSee        = 'https://github.com/JBZoo/_PACKAGE_';
+    protected string $copyrightSee        = 'https://github.com/_VENDOR_NS_/_PACKAGE_';
 
     /**
      * {@inheritDoc}
