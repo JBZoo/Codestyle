@@ -1,14 +1,13 @@
 #
-# JBZoo Toolbox - Codestyle
+# JBZoo Toolbox - Codestyle.
 #
 # This file is part of the JBZoo Toolbox project.
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 #
-# @package    Codestyle
 # @license    MIT
 # @copyright  Copyright (C) JBZoo.com, All rights reserved.
-# @link       https://github.com/JBZoo/Codestyle
+# @see        https://github.com/JBZoo/Codestyle
 #
 
 #### General Tests #####################################################################################################
@@ -86,6 +85,7 @@ codestyle: ##@Tests Launch all codestyle linters at once
 
 
 codestyle-local:
+	@make test-phpcsfixer
 	@make test-phpcs
 	@make test-phpmd
 	@make test-phpmnd
@@ -98,6 +98,7 @@ codestyle-local:
 
 
 codestyle-ga:
+	@make test-phpcsfixer-ga
 	@make test-phpcs-ga
 	@make test-phpmd-ga
 	@make test-phpmnd-ga
@@ -111,6 +112,7 @@ codestyle-ga:
 
 codestyle-teamcity:
 	@echo "##teamcity[progressStart 'Checking Coding Standards']"
+	@make test-phpcsfixer-teamcity
 	@make test-phpcs-teamcity
 	@make test-phpmd-teamcity
 	@make test-phpmnd-teamcity
@@ -161,7 +163,7 @@ test-composer-reqs-ga:
 #### PHP Code Sniffer ##################################################################################################
 
 test-phpcs: ##@Tests PHPcs - Checking PHP Code Sniffer (PSR-12 + PHP Compatibility)
-	$(call title,"PHPcs - Checks PHP Code Sniffer \(PSR-12 + PHP Compatibility\)")
+	$(call title,"PHPcs - Checking PHP Code Sniffer")
 	@echo "Config: $(JBZOO_CONFIG_PHPCS)"
 	@$(PHP_BIN) `pwd`/vendor/bin/phpcs "$(PATH_SRC)"  \
         --standard="$(JBZOO_CONFIG_PHPCS)"            \
@@ -191,6 +193,46 @@ test-phpcs-teamcity:
 test-phpcs-ga:
 	@make CI_REPORT=$(CI_REPORT_GA) CI_NON_ZERO_CODE=yes test-phpcs-teamcity
 
+
+#### PHP CS Fixer ######################################################################################################
+
+test-phpcsfixer-fix: ##@Tests PHP-CS-Fixer - Auto fix code to follow stylish standards
+	$(call title,"Fix Coding Standards with PHP-CS-Fixer")
+	@echo "Config: $(JBZOO_CONFIG_PHPCSFIXER)"
+	@PHP_CS_FIXER_IGNORE_ENV=1 $(PHP_BIN) `pwd`/vendor/bin/php-cs-fixer fix \
+        --config="$(JBZOO_CONFIG_PHPCSFIXER)"                               \
+        -vvv
+
+
+test-phpcsfixer-local: ##@Tests PHP-CS-Fixer - Auto fix code to follow stylish standards
+	@echo "Config: $(JBZOO_CONFIG_PHPCSFIXER)"
+	@PHP_CS_FIXER_IGNORE_ENV=1 $(PHP_BIN) `pwd`/vendor/bin/php-cs-fixer fix \
+        --config="$(JBZOO_CONFIG_PHPCSFIXER)"                               \
+        --dry-run                                                           \
+        -vvv                                                                \
+        --format=checkstyle > "$(PATH_BUILD)/phpcsfixer-checkstyle.xml"     || true
+	@$(PHP_BIN) `pwd`/vendor/bin/ci-report-converter convert                \
+        --input-file="$(PATH_BUILD)/phpcsfixer-checkstyle.xml"              \
+        --input-format="checkstyle"                                         \
+        --output-format="$(CI_REPORT)"                                      \
+        --suite-name="PhpCsFixer"                                           \
+        --root-path="$(PATH_ROOT)"                                          \
+        --non-zero-code=yes
+
+
+test-phpcsfixer: ##@Tests PHP-CS-Fixer - Auto fix code to follow stylish standards
+	$(call title,"Fix Coding Standards with PHP-CS-Fixer")
+	@make test-phpcsfixer-local CI_REPORT=plain
+
+
+test-phpcsfixer-teamcity: ##@Tests PHP-CS-Fixer - Auto fix code to follow stylish standards
+	@echo "##teamcity[progressStart 'Checking Coding Standards with PHP-CS-Fixer']"
+	@make test-phpcsfixer-local CI_REPORT=tc-tests
+	@echo "##teamcity[progressFinish 'Checking Coding Standards with PHP-CS-Fixer']"
+
+
+test-phpcsfixer-ga:
+	@make test-phpcsfixer-local CI_REPORT=$(CI_REPORT_GA)
 
 #### PHP Mess Detector #################################################################################################
 
@@ -318,7 +360,6 @@ test-psalm: ##@Tests Psalm - static analysis tool for PHP
         --show-snippet=true                                     \
         --report-show-info=true                                 \
         --find-unused-psalm-suppress                            \
-        --no-cache                                              \
         --output-format=compact                                 \
         --long-progress                                         \
         --shepherd
@@ -332,7 +373,6 @@ test-psalm-teamcity:
         --show-snippet=true                                     \
         --report-show-info=true                                 \
         --find-unused-psalm-suppress                            \
-        --no-cache                                              \
         --output-format=json                                    \
         --no-progress                                           \
         --shepherd                                              \

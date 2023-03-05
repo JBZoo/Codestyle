@@ -14,9 +14,8 @@
 
 declare(strict_types=1);
 
-namespace JBZoo\PHPUnit;
+namespace JBZoo\CodeStyle\PHPUnit;
 
-final class CodestyleReadmeTest extends \JBZoo\CodeStyle\PHPUnit\AbstractReadmeTest
+class Exception extends \RuntimeException
 {
-    protected string $packageName = 'Codestyle';
 }

@@ -1,16 +1,15 @@
 <?php
 
 /**
- * JBZoo Toolbox - Codestyle
+ * JBZoo Toolbox - Codestyle.
  *
  * This file is part of the JBZoo Toolbox project.
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @package    Codestyle
  * @license    MIT
  * @copyright  Copyright (C) JBZoo.com, All rights reserved.
- * @link       https://github.com/JBZoo/Codestyle
+ * @see        https://github.com/JBZoo/Codestyle
  */
 
 declare(strict_types=1);
@@ -18,22 +17,22 @@ declare(strict_types=1);
 namespace JBZoo\PHPUnit;
 
 /**
- * Class PhphUnitDefinesTest
- * @package JBZoo\PHPUnit
+ * @internal
+ * @coversNothing
  */
-class PhpUnitDefinesTest extends PHPUnit
+final class PhpUnitDefinesTest extends PHPUnit
 {
     public function testDefines(): void
     {
-        isSame(realpath(__DIR__ . '/..'), PROJECT_ROOT);
-        isSame(realpath(__DIR__ . '/../src'), PROJECT_SRC);
-        isSame(realpath(__DIR__ . '/../tests'), PROJECT_TESTS);
-        isSame(realpath(__DIR__ . '/../build'), PROJECT_BUILD);
+        isSame(\realpath(__DIR__ . '/..'), PROJECT_ROOT);
+        isSame(\realpath(__DIR__ . '/../src'), PROJECT_SRC);
+        isSame(\realpath(__DIR__ . '/../tests'), PROJECT_TESTS);
+        isSame(\realpath(__DIR__ . '/../build'), PROJECT_BUILD);
         isSame(true, JBZOO_PHPUNIT);
-        isSame('/', DIRECTORY_SEPARATOR);
+        isSame('/', \DIRECTORY_SEPARATOR);
         isSame("\r\n", CRLF);
         isSame("\n", LF);
-        isSame("\n", PHP_EOL);
+        isSame("\n", \PHP_EOL);
     }
 
     public function testPhanConfig(): void
@@ -102,15 +101,15 @@ class PhpUnitDefinesTest extends PHPUnit
                 'UnusedSuppressionPlugin',
                 'NotFullyQualifiedUsagePlugin',
             ],
-            'file_list'                                         => [],
-            'directory_list'                                    => [
+            'file_list'      => [],
+            'directory_list' => [
                 'src',
             ],
-            'exclude_file_regex'                                => '@^vendor/.*/(tests?|Tests?)/@',
-            'exclude_file_list'                                 => [
+            'exclude_file_regex' => '@^vendor/.*/(tests?|Tests?)/@',
+            'exclude_file_list'  => [
                 'src/compatibility.php',
             ],
-            'exclude_analysis_directory_list'                   => [
+            'exclude_analysis_directory_list' => [
                 'vendor/',
                 'tests/',
             ],

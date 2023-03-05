@@ -1,23 +1,20 @@
 <?php
 
 /**
- * JBZoo Toolbox - Codestyle
+ * JBZoo Toolbox - Codestyle.
  *
  * This file is part of the JBZoo Toolbox project.
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @package    Codestyle
  * @license    MIT
  * @copyright  Copyright (C) JBZoo.com, All rights reserved.
- * @link       https://github.com/JBZoo/Codestyle
+ * @see        https://github.com/JBZoo/Codestyle
  */
 
 declare(strict_types=1);
 
 // See for details ./vendor/phan/phan/src/Phan/Config.php
-
-
 return [
     'target_php_version'         => null,
     'quick_mode'                 => false,
@@ -53,7 +50,7 @@ return [
 
     'globals_type_map'     => [],
     'suppress_issue_types' => [],
-    'minimum_severity'     => 0, //Issue::SEVERITY_LOW,
+    'minimum_severity'     => 0, // Issue::SEVERITY_LOW,
 
     'analyzed_file_extensions'               => ['php'],
     'autoload_internal_extension_signatures' => [],
@@ -90,9 +87,7 @@ return [
         'PossiblyStaticMethodPlugin',
         'PHPDocToRealTypesPlugin',
         'UnusedSuppressionPlugin',
-        'NotFullyQualifiedUsagePlugin',
-        //'UnknownElementTypePlugin',       // TODO: Generics?
-        //'HasPHPDocPlugin',                // TODO: Have to design it only for public method
+        // 'UnknownElementTypePlugin', // TODO: Generics?
     ],
 
     'file_list'      => [],

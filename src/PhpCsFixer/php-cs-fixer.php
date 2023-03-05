@@ -14,9 +14,6 @@
 
 declare(strict_types=1);
 
-namespace JBZoo\PHPUnit;
+use JBZoo\CodeStyle\PhpCsFixer\PhpCsFixerCodingStandard;
 
-final class CodestyleReadmeTest extends \JBZoo\CodeStyle\PHPUnit\AbstractReadmeTest
-{
-    protected string $packageName = 'Codestyle';
-}
+return (new PhpCsFixerCodingStandard(\dirname(__DIR__, 5)))->getFixerConfig();
