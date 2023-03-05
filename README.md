@@ -38,44 +38,44 @@ Usage:
 Misc:
   help                          Show this text
   list                          Full list of targets
-                                
+
+Project:
+  autoload                      Dump optimized autoload file for PHP
+  build-phar                    Compile phar file
+  clean                         Cleanup only build directory
+  clean-vendor                  Cleanup all
+  test-all                      Run all project tests at once
+  update                        Install/Update all 3rd party dependencies
+
 Tests:
-  test                          Launch PHPUnit Tests (alias "test-phpunit")
-  test-phpunit                  Launch PHPUnit Tests
   codestyle                     Launch all codestyle linters at once
+  test                          Launch PHPUnit Tests (alias "test-phpunit")
   test-composer                 Validates composer.json and composer.lock
   test-composer-reqs            Checks composer.json the defined dependencies against your code
+  test-performance              Run benchmarks and performance tests
+  test-phan                     Phan - super strict static analyzer for PHP
+  test-phpcpd                   PHPcpd - Find obvious Copy&Paste
   test-phpcs                    PHPcs - Checking PHP Code Sniffer (PSR-12 + PHP Compatibility)
+  test-phpcsfixer               PhpCsFixer - Check code to follow stylish standards
+  test-phpcsfixer-fix           PhpCsFixer - Auto fix code to follow stylish standards
   test-phpmd                    PHPmd - Mess Detector Checker
   test-phpmd-strict             PHPmd - Mess Detector Checker (strict mode)
   test-phpmnd                   PHPmnd - Magic Number Detector
-  test-phpcpd                   PHPcpd - Find obvious Copy&Paste
   test-phpstan                  PHPStan - Static Analysis Tool
+  test-phpunit                  PHPUnit - Launch General Tests
   test-psalm                    Psalm - static analysis tool for PHP
-  test-phan                     Phan - super strict static analyzer for PHP
-  test-performance              Run benchmarks and performance tests
-  test-performance-travis       Travis wrapper for benchmarks
-                                
+
 Reports:
   report-all                    Build all reports at once
-  report-phpqa                  PHPqa - Build user-friendly code reports
+  report-composer-diff          What has changed after a composer update
+  report-composer-graph         Build composer graph of dependencies
   report-coveralls              Send coverage report to coveralls.io
   report-merge-coverage         Merge all coverage reports in one clover file
-  report-composer-diff          What has changed after a composer update
-  update-extend                 Checks new compatible versions of 3rd party libraries
-  report-composer-graph         Build composer graph of dependencies
-  report-performance            Build performance summary report
-  report-phpmetrics             Build PHP Metrics Report
   report-pdepend                Build PHP Depend Report
+  report-performance            Build performance summary report
   report-phploc                 PHPloc - Show code stats
-                                
-Project:
-  update                        Install/Update all 3rd party dependencies
-  test-all                      Run all project tests at once
-  clean                         Cleanup only build directory
-  clean-vendor                  Cleanup all
-  autoload                      Dump optimized autoload file for PHP
-  build-phar                    Compile phar file
-                                
+  report-phpmetrics             Build PHP Metrics Report
+  update-extend                 Checks new compatible versions of 3rd party libraries
+
 Trick: Add into your "~/.bash_aliases" the line "complete -W "\`make list\`" make" to use TAB
 ```

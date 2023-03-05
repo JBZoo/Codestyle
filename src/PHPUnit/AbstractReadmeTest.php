@@ -74,7 +74,6 @@ abstract class AbstractReadmeTest extends PHPUnit
         'strict_types'   => true,
         'coveralls'      => true,
         'codecov'        => false,
-        'travis'         => true,
         'circle_ci'      => true,
         'visitors'       => true,
     ];
@@ -228,17 +227,6 @@ abstract class AbstractReadmeTest extends PHPUnit
     protected function checkBadgeCircleCI(): ?string
     {
         return $this->getPreparedBadge($this->getBadgePackagist('CircleCI Build', 'circleci'));
-    }
-
-    protected function checkBadgeTravis(): ?string
-    {
-        return $this->getPreparedBadge(
-            $this->getBadge(
-                'Build Status',
-                'https://travis-ci.org/__VENDOR_ORIG__/__PACKAGE_ORIG__.svg?branch=master',
-                'https://travis-ci.org/__VENDOR_ORIG__/__PACKAGE_ORIG__?branch=master',
-            ),
-        );
     }
 
     protected function checkBadgeCoveralls(): ?string

@@ -14,7 +14,7 @@
 
 test: test-phpunit ##@Tests Launch PHPUnit Tests (alias "test-phpunit")
 
-test-phpunit: ##@Tests Launch PHPUnit Tests
+test-phpunit: ##@Tests PHPUnit - Launch General Tests
 	$(call title,"PHPUnit - Run all tests")
 	@echo "Config: $(JBZOO_CONFIG_PHPUNIT)"
 	@if [ -n "$(TEAMCITY_VERSION)" ]; then    \
@@ -194,19 +194,24 @@ test-phpcs-ga:
 	@make CI_REPORT=$(CI_REPORT_GA) CI_NON_ZERO_CODE=yes test-phpcs-teamcity
 
 
-#### PHP CS Fixer ######################################################################################################
+#### PhpCsFixer ######################################################################################################
 
-test-phpcsfixer-fix: ##@Tests PHP-CS-Fixer - Auto fix code to follow stylish standards
-	$(call title,"Fix Coding Standards with PHP-CS-Fixer")
+test-phpcsfixer-fix: ##@Tests PhpCsFixer - Auto fix code to follow stylish standards
+	$(call title,"Fix Coding Standards with PhpCsFixer")
 	@echo "Config: $(JBZOO_CONFIG_PHPCSFIXER)"
-	@PHP_CS_FIXER_IGNORE_ENV=1 $(PHP_BIN) `pwd`/vendor/bin/php-cs-fixer fix \
+	@PHP_CS_FIXER_IGNORE_ENV=1 $(PHP_BIN) `pwd`/vendor/bin/PhpCsFixer fix   \
         --config="$(JBZOO_CONFIG_PHPCSFIXER)"                               \
         -vvv
 
 
-test-phpcsfixer-local: ##@Tests PHP-CS-Fixer - Auto fix code to follow stylish standards
+test-phpcsfixer: ##@Tests PhpCsFixer - Check code to follow stylish standards
+	$(call title,"Check Coding Standards with PhpCsFixer")
+	@make test-phpcsfixer-local CI_REPORT=plain
+
+
+test-phpcsfixer-int:
 	@echo "Config: $(JBZOO_CONFIG_PHPCSFIXER)"
-	@PHP_CS_FIXER_IGNORE_ENV=1 $(PHP_BIN) `pwd`/vendor/bin/php-cs-fixer fix \
+	@PHP_CS_FIXER_IGNORE_ENV=1 $(PHP_BIN) `pwd`/vendor/bin/PhpCsFixer fix   \
         --config="$(JBZOO_CONFIG_PHPCSFIXER)"                               \
         --dry-run                                                           \
         -vvv                                                                \
@@ -220,19 +225,14 @@ test-phpcsfixer-local: ##@Tests PHP-CS-Fixer - Auto fix code to follow stylish s
         --non-zero-code=yes
 
 
-test-phpcsfixer: ##@Tests PHP-CS-Fixer - Auto fix code to follow stylish standards
-	$(call title,"Fix Coding Standards with PHP-CS-Fixer")
-	@make test-phpcsfixer-local CI_REPORT=plain
-
-
-test-phpcsfixer-teamcity: ##@Tests PHP-CS-Fixer - Auto fix code to follow stylish standards
-	@echo "##teamcity[progressStart 'Checking Coding Standards with PHP-CS-Fixer']"
-	@make test-phpcsfixer-local CI_REPORT=tc-tests
-	@echo "##teamcity[progressFinish 'Checking Coding Standards with PHP-CS-Fixer']"
+test-phpcsfixer-teamcity:
+	@echo "##teamcity[progressStart 'Checking Coding Standards with PhpCsFixer']"
+	@make test-phpcsfixer-int CI_REPORT=tc-tests
+	@echo "##teamcity[progressFinish 'Checking Coding Standards with PhpCsFixer']"
 
 
 test-phpcsfixer-ga:
-	@make test-phpcsfixer-local CI_REPORT=$(CI_REPORT_GA)
+	@make test-phpcsfixer-int CI_REPORT=$(CI_REPORT_GA)
 
 #### PHP Mess Detector #################################################################################################
 
@@ -451,12 +451,3 @@ test-performance: ##@Tests Run benchmarks and performance tests
         --store                                                 \
         --stop-on-error
 	@make report-performance
-
-
-test-performance-travis: ##@Tests Travis wrapper for benchmarks
-	$(call title,"Run benchmark tests \(Travis Mode\)")
-	@if [ $(XDEBUG_OFF) = "yes" ]; then                         \
-       make test-performance;                                   \
-    else                                                        \
-       echo "Performance test works only if XDEBUG_OFF=yes";    \
-    fi;
