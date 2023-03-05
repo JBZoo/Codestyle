@@ -65,15 +65,16 @@ abstract class AbstractReadmeTest extends PHPUnit
         'docker_build' => false,
         'docker_pulls' => false,
 
+        'strict_types' => false,
+        'codecov'      => false,
+        'scrutinizer'  => false,
+
         'psalm_coverage' => true,
         'psalm_level'    => true,
-        'scrutinizer'    => true,
         'codacy'         => true,
         'codefactor'     => true,
         'sonarcloud'     => true,
-        'strict_types'   => false,
         'coveralls'      => true,
-        'codecov'        => false,
         'circle_ci'      => true,
         'visitors'       => true,
     ];
