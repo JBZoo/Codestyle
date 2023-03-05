@@ -65,14 +65,16 @@ abstract class AbstractReadmeTest extends PHPUnit
         'docker_build' => false,
         'docker_pulls' => false,
 
+        'strict_types' => false,
+        'codecov'      => false,
+        'scrutinizer'  => false,
+
         'psalm_coverage' => true,
-        'scrutinizer'    => true,
+        'psalm_level'    => true,
         'codacy'         => true,
         'codefactor'     => true,
         'sonarcloud'     => true,
-        'strict_types'   => false,
         'coveralls'      => true,
-        'codecov'        => false,
         'circle_ci'      => true,
         'visitors'       => true,
     ];
@@ -84,6 +86,7 @@ abstract class AbstractReadmeTest extends PHPUnit
         'codecov',
         'coveralls',
         'psalm_coverage',
+        'psalm_level',
         'codefactor',
         'scrutinizer',
         '__BR__',
@@ -254,6 +257,17 @@ abstract class AbstractReadmeTest extends PHPUnit
             $this->getBadge(
                 'Psalm Coverage',
                 'https://shepherd.dev/github/__VENDOR_ORIG__/__PACKAGE_ORIG__/coverage.svg',
+                'https://shepherd.dev/github/__VENDOR_ORIG__/__PACKAGE_ORIG__',
+            ),
+        );
+    }
+
+    protected function checkBadgePsalmLevel(): ?string
+    {
+        return $this->getPreparedBadge(
+            $this->getBadge(
+                'Psalm Level',
+                'https://shepherd.dev/github/__VENDOR_ORIG__/__PACKAGE_ORIG__/level.svg',
                 'https://shepherd.dev/github/__VENDOR_ORIG__/__PACKAGE_ORIG__',
             ),
         );

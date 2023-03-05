@@ -28,9 +28,9 @@ return \array_merge($default, [
         'vendor/jbzoo/phpunit',
         'vendor/jbzoo/markdown',
 
-        'vendor/phpunit/phpunit/src',
-        'vendor/symfony/finder',
         'vendor/friendsofphp/php-cs-fixer',
+        'vendor/phpunit/phpunit',
+        'vendor/symfony/finder',
     ],
 
     'exclude_file_list' => [

@@ -16,6 +16,8 @@ declare(strict_types=1);
 
 namespace JBZoo\PHPUnit;
 
+use JBZoo\CodeStyle\PhpCsFixer\PhpCsFixerCodingStandard;
+
 /**
  * @internal
  * @coversNothing
@@ -107,9 +109,9 @@ final class PhpUnitDefinesTest extends PHPUnit
                 'vendor/jbzoo/utils',
                 'vendor/jbzoo/phpunit',
                 'vendor/jbzoo/markdown',
-                'vendor/phpunit/phpunit/src',
-                'vendor/symfony/finder',
                 'vendor/friendsofphp/php-cs-fixer',
+                'vendor/phpunit/phpunit',
+                'vendor/symfony/finder',
             ],
             'exclude_file_regex' => '@^vendor/.*/(tests?|Tests?)/@',
             'exclude_file_list'  => [
@@ -120,5 +122,28 @@ final class PhpUnitDefinesTest extends PHPUnit
                 'tests/',
             ],
         ], $configs);
+    }
+
+    public function testPhpCsFixerConfig(): void
+    {
+        $config = (new PhpCsFixerCodingStandard(__DIR__ . '/..'))
+            ->getFixerConfig();
+
+        isTrue($config->getUsingCache());
+        isContain('/build/php-cs-fixer-cache.json', $config->getCacheFile());
+        isSame('    ', $config->getIndent());
+        isSame("\n", $config->getLineEnding());
+        isSame('JBZoo Style', $config->getName());
+    }
+
+    public function testPhpCsFixerConfigAsFile(): void
+    {
+        $config = include \realpath(__DIR__ . '/../src/PhpCsFixer/php-cs-fixer.php');
+
+        isTrue($config->getUsingCache());
+        isContain('/build/php-cs-fixer-cache.json', $config->getCacheFile());
+        isSame('    ', $config->getIndent());
+        isSame("\n", $config->getLineEnding());
+        isSame('JBZoo Style', $config->getName());
     }
 }
