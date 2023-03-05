@@ -146,7 +146,6 @@ final class PhpCsFixerCodingStandard
                 'do',
                 'for',
                 'foreach',
-                'if',
                 'return',
                 'switch',
                 'try',

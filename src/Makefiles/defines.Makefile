@@ -36,6 +36,7 @@ CI_REPORT_MND    ?= $(TC_REPORT_MND)
 CI_REPORT_GA     ?= plain
 
 PHP_BIN           ?= php
+VENDOR_BIN        ?= $(PHP_BIN) `pwd`/vendor/bin
 COMPOSER_BIN      ?= $(shell if [ $(PHP_BIN) = "php" ]; then echo "composer"; else which composer fi;)
 PHP_VERSION_ALIAS ?= $(shell $(PHP_BIN) --version | head -n 1 | cut -d " " -f 2 | cut -c 1,3)
 PROJECT_ALIAS     ?= $(shell basename `git rev-parse --show-toplevel` | sed 's/-//g')
