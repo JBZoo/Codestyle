@@ -149,7 +149,7 @@ trait TraitGithubActions
             ],
         ];
 
-        $actualYml = (string)yml($actual);
+        $actualYml    = (string)yml($actual);
         $expectedYaml = (string)yml($expected);
         isSame($expectedYaml, $actualYml);
 
