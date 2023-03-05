@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!--
-    JBZoo Toolbox - Codestyle
+    JBZoo Toolbox - Codestyle.
 
     This file is part of the JBZoo Toolbox project.
     For the full copyright and license information, please view the LICENSE
     file that was distributed with this source code.
 
-    @package    Codestyle
     @license    MIT
     @copyright  Copyright (C) JBZoo.com, All rights reserved.
-    @link       https://github.com/JBZoo/Codestyle
+    @see        https://github.com/JBZoo/Codestyle
 -->
 <files psalm-version="3.12.2@7c7ebd068f8acaba211d4a2c707c4ba90874fa26">
     <file src="vendor/lstrojny/functional-php/src/Functional/Match.php">

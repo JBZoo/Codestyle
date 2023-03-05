@@ -14,11 +14,6 @@
 
 declare(strict_types=1);
 
-$autoload = \dirname(__DIR__) . '/vendor/autoload.php';
+use JBZoo\CodeStyle\PhpCsFixer\PhpCsFixerCodingStandard;
 
-if (\file_exists($autoload)) {
-    require_once $autoload;
-} else {
-    echo 'Please execute "composer update" !' . \PHP_EOL;
-    exit(1);
-}
+return (new PhpCsFixerCodingStandard(\dirname(__DIR__, 5)))->getFixerConfig();

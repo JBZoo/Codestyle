@@ -14,11 +14,8 @@
 
 declare(strict_types=1);
 
-$autoload = \dirname(__DIR__) . '/vendor/autoload.php';
+namespace JBZoo\PHPUnit;
 
-if (\file_exists($autoload)) {
-    require_once $autoload;
-} else {
-    echo 'Please execute "composer update" !' . \PHP_EOL;
-    exit(1);
+final class CodestyleCodeStyleTest extends \JBZoo\CodeStyle\PHPUnit\AbstractCodeStyleTest
+{
 }
