@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace JBZoo\CodeStyle\PHPUnit;
 
 use JBZoo\PHPUnit\PHPUnit;
+use JBZoo\Utils\Cli;
 use Symfony\Component\Finder\Finder;
 
 use function JBZoo\PHPUnit\isTrue;
@@ -38,6 +39,7 @@ abstract class AbstractCopyrightTest extends PHPUnit
     protected string $packageLink      = 'https://github.com/JBZoo/_PACKAGE_';
     protected string $packageAuthor    = '';
     protected string $eol              = "\n";
+    protected bool   $debugMode        = false;
 
     /** @var string[] */
     protected array $excludePaths = [
@@ -179,7 +181,7 @@ abstract class AbstractCopyrightTest extends PHPUnit
         '#',
         '# _VENDOR_ - _PACKAGE_.',
         '#',
-        '# _DESCRIPTION_HTACCESS_',
+        '# _DESCRIPTION_HASH_',
         '#',
         '# @license    _LICENSE_',
         '# @copyright  _COPYRIGHTS_',
@@ -210,11 +212,107 @@ abstract class AbstractCopyrightTest extends PHPUnit
         }
     }
 
-    protected static function checkHeaderInFiles(Finder $finder, string $validHeader): void
+    public function testHeadersPhp(): void
     {
+        $phpTemplate = $this->prepareTemplate($this->validHeaderPHP);
+
+        $phpTemplate = "<?php{$this->eol}{$this->eol}{$phpTemplate}";
+        $phpTemplate .= \implode($this->eol, [
+            '',
+            ' */',
+            '',
+            'declare(strict_types=1);',
+            '',
+        ]);
+
+        $finder = $this->createFinder(['.php', '.phtml']);
+        $this->checkHeaderInFiles($finder, $phpTemplate);
+    }
+
+    public function testHeadersJs(): void
+    {
+        $finder = $this->createFinder(['.js', '.jsx'], ['*.min.js', '*.min.jsx']);
+        $this->checkHeaderInFiles($finder, $this->prepareTemplate($this->validHeaderJS));
+    }
+
+    public function testHeadersCss(): void
+    {
+        $finder = $this->createFinder(['.css'], ['*.min.css']);
+        $this->checkHeaderInFiles($finder, $this->prepareTemplate($this->validHeaderCSS));
+    }
+
+    public function testHeadersLess(): void
+    {
+        $finder = $this->createFinder(['.less']);
+        $this->checkHeaderInFiles($finder, $this->prepareTemplate($this->validHeaderLESS));
+    }
+
+    public function testHeadersXml(): void
+    {
+        $finder = $this->createFinder(['.xml.dist', '.xml']);
+        $this->checkHeaderInFiles($finder, $this->prepareTemplate($this->validHeaderXML));
+    }
+
+    /**
+     * Test copyright headers of INI files.
+     */
+    public function testHeadersIni(): void
+    {
+        $finder = $this->createFinder(['.ini']);
+        $this->checkHeaderInFiles($finder, $this->prepareTemplate($this->validHeaderINI));
+    }
+
+    /**
+     * Test copyright headers of SH files.
+     */
+    public function testHeadersSh(): void
+    {
+        $finder = $this->createFinder(['.sh']);
+        $this->checkHeaderInFiles($finder, $this->prepareTemplate($this->validHeaderSH));
+    }
+
+    /**
+     * Test copyright headers of SQL files.
+     */
+    public function testHeadersSql(): void
+    {
+        $finder = $this->createFinder(['.sql']);
+        $this->checkHeaderInFiles($finder, $this->prepareTemplate($this->validHeaderSQL));
+    }
+
+    /**
+     * Test copyright headers for files with hash-like comments.
+     */
+    public function testHeadersOtherConfigs(): void
+    {
+        $finder = $this->createFinder([
+            'Makefile',
+            '.Makefile',
+            '.yml',
+            '.yaml',
+            '.neon',
+            '.htaccess',
+            '.editorconfig',
+            '.gitattributes',
+            '.gitignore',
+        ]);
+        $this->checkHeaderInFiles($finder, $this->prepareTemplate($this->validHeaderHash));
+    }
+
+    protected function checkHeaderInFiles(Finder $finder, string $validHeader): void
+    {
+        if ($this->debugMode) {
+            $parentMethod = \debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS, 2)[1]['function'];
+            Cli::out("Count: {$finder->count()}; Method: {$parentMethod}");
+        }
+
         /** @var \SplFileInfo $file */
         foreach ($finder as $file) {
             $content = (string)openFile($file->getPathname());
+
+            if ($this->debugMode) {
+                Cli::out(" * {$file->getPathname()}");
+            }
 
             if ($content !== '') {
                 $isValid = \str_starts_with($content, $validHeader);
@@ -235,123 +333,6 @@ abstract class AbstractCopyrightTest extends PHPUnit
         isTrue(true); // One assert is a minimum to complete test
     }
 
-    public function testHeadersPhp(): void
-    {
-        $valid = $this->prepareTemplate(\implode($this->eol, $this->validHeaderPHP));
-
-        $valid = "<?php{$this->eol}{$this->eol}{$valid}";
-        $valid .= \implode($this->eol, [
-            '',
-            ' */',
-            '',
-            'declare(strict_types=1);',
-            '',
-        ]);
-
-        $finder = $this->createFinder(['php', 'phtml']);
-
-        self::checkHeaderInFiles($finder, $valid);
-    }
-
-    public function testHeadersJs(): void
-    {
-        $finder = $this->createFinder(['js', 'jsx'], ['*.min.js', '*.min.jsx']);
-
-        self::checkHeaderInFiles($finder, $this->prepareTemplate(\implode($this->eol, $this->validHeaderJS)));
-    }
-
-    public function testHeadersCss(): void
-    {
-        $finder = $this->createFinder(['css'], ['*.min.css']);
-
-        self::checkHeaderInFiles($finder, $this->prepareTemplate(\implode($this->eol, $this->validHeaderCSS)));
-    }
-
-    public function testHeadersLess(): void
-    {
-        $finder = $this->createFinder(['less']);
-
-        self::checkHeaderInFiles($finder, $this->prepareTemplate(\implode($this->eol, $this->validHeaderLESS)));
-    }
-
-    public function testHeadersXml(): void
-    {
-        $finder = $this->createFinder(['xml.dist', 'xml']);
-
-        self::checkHeaderInFiles($finder, $this->prepareTemplate(\implode($this->eol, $this->validHeaderXML)));
-    }
-
-    /**
-     * Test copyright headers of INI files.
-     */
-    public function testHeadersIni(): void
-    {
-        $finder = $this->createFinder(['ini']);
-
-        self::checkHeaderInFiles($finder, $this->prepareTemplate(\implode($this->eol, $this->validHeaderINI)));
-    }
-
-    /**
-     * Test copyright headers of SH files.
-     */
-    public function testHeadersSh(): void
-    {
-        $finder = $this->createFinder(['sh']);
-
-        self::checkHeaderInFiles($finder, $this->prepareTemplate(\implode($this->eol, $this->validHeaderSH)));
-    }
-
-    /**
-     * Test copyright headers of SQL files.
-     */
-    public function testHeadersSql(): void
-    {
-        $finder = $this->createFinder(['sql']);
-
-        self::checkHeaderInFiles($finder, $this->prepareTemplate(\implode($this->eol, $this->validHeaderSQL)));
-    }
-
-    /**
-     * Test copyright headers of Makefile.
-     */
-    public function testHeadersMakefile(): void
-    {
-        $finder = $this->createFinder(['Makefile']);
-        $finder->name('Makefile');
-
-        self::checkHeaderInFiles($finder, $this->prepareTemplate(\implode($this->eol, $this->validHeaderHash)));
-    }
-
-    /**
-     * Test copyright headers of Makefile.
-     */
-    public function testHeadersYaml(): void
-    {
-        $finder = $this->createFinder(['yml', 'yaml', 'neon']);
-
-        self::checkHeaderInFiles($finder, $this->prepareTemplate(\implode($this->eol, $this->validHeaderHash)));
-    }
-
-    /**
-     * Test copyright headers of .htaccess files.
-     */
-    public function testHeadersHtaccess(): void
-    {
-        $finder = $this->createFinder(['htaccess', '.htaccess']);
-
-        self::checkHeaderInFiles($finder, $this->prepareTemplate(\implode($this->eol, $this->validHeaderHash)));
-    }
-
-    /**
-     * Test copyright headers of .htaccess files.
-     */
-    public function testHeadersConfigs(): void
-    {
-        $finder = $this->createFinder(['editorconfig', 'gitattributes', 'gitignore']);
-
-        self::checkHeaderInFiles($finder, $this->prepareTemplate(\implode($this->eol, $this->validHeaderHash)));
-    }
-
     // ### Internal tools for test case ################################################################################
 
     /**
@@ -365,17 +346,21 @@ abstract class AbstractCopyrightTest extends PHPUnit
             ->in($this->projectRoot)
             ->exclude($this->excludePaths)
             ->ignoreDotFiles(false)
+            ->ignoreVCS(true)
             ->followLinks();
 
         foreach ($inclusions as $inclusion) {
-            $finder
-                ->name("\\.{$inclusion}")
-                ->name("*\\.{$inclusion}")
-                ->name("\\.*\\.{$inclusion}");
+            if (\str_contains($inclusion, '.')) {
+                $finder
+                    ->name("*{$inclusion}")
+                    ->name($inclusion);
+            } else {
+                $finder->name($inclusion);
+            }
         }
 
         foreach ($exclusions as $exclusion) {
-            $finder->notName($exclusion);
+            $finder->notPath($exclusion);
         }
 
         return $finder;
@@ -384,31 +369,33 @@ abstract class AbstractCopyrightTest extends PHPUnit
     /**
      * Render copyrights.
      */
-    protected function prepareTemplate(string $text): string
+    protected function prepareTemplate(array $templateRows): string
     {
+        $template = \implode($this->eol, $templateRows);
+
         $replace = [
-            '_DESCRIPTION_PHP_'      => \implode($this->eol . ' * ', $this->packageDesc),
-            '_DESCRIPTION_JS_'       => \implode($this->eol . ' * ', $this->packageDesc),
-            '_DESCRIPTION_CSS_'      => \implode($this->eol . ' * ', $this->packageDesc),
-            '_DESCRIPTION_LESS_'     => \implode($this->eol . '// ', $this->packageDesc),
-            '_DESCRIPTION_XML_'      => \implode($this->eol . '    ', $this->packageDesc),
-            '_DESCRIPTION_INI_'      => \implode($this->eol . '; ', $this->packageDesc),
-            '_DESCRIPTION_SH_'       => \implode($this->eol . '# ', $this->packageDesc),
-            '_DESCRIPTION_SQL_'      => \implode($this->eol . '-- ', $this->packageDesc),
-            '_DESCRIPTION_HTACCESS_' => \implode($this->eol . '# ', $this->packageDesc),
-            '_LINK_'                 => $this->packageLink,
-            '_NAMESPACE_'            => '_VENDOR_\_PACKAGE_',
-            '_COPYRIGHTS_'           => $this->packageCopyright,
-            '_PACKAGE_'              => $this->packageName,
-            '_LICENSE_'              => $this->packageLicense,
-            '_AUTHOR_'               => $this->packageAuthor,
-            '_VENDOR_'               => $this->packageVendor,
+            '_DESCRIPTION_PHP_'  => \implode($this->eol . ' * ', $this->packageDesc),
+            '_DESCRIPTION_JS_'   => \implode($this->eol . ' * ', $this->packageDesc),
+            '_DESCRIPTION_CSS_'  => \implode($this->eol . ' * ', $this->packageDesc),
+            '_DESCRIPTION_LESS_' => \implode($this->eol . '// ', $this->packageDesc),
+            '_DESCRIPTION_XML_'  => \implode($this->eol . '    ', $this->packageDesc),
+            '_DESCRIPTION_INI_'  => \implode($this->eol . '; ', $this->packageDesc),
+            '_DESCRIPTION_SH_'   => \implode($this->eol . '# ', $this->packageDesc),
+            '_DESCRIPTION_SQL_'  => \implode($this->eol . '-- ', $this->packageDesc),
+            '_DESCRIPTION_HASH_' => \implode($this->eol . '# ', $this->packageDesc),
+            '_LINK_'             => $this->packageLink,
+            '_NAMESPACE_'        => '_VENDOR_\_PACKAGE_',
+            '_COPYRIGHTS_'       => $this->packageCopyright,
+            '_PACKAGE_'          => $this->packageName,
+            '_LICENSE_'          => $this->packageLicense,
+            '_AUTHOR_'           => $this->packageAuthor,
+            '_VENDOR_'           => $this->packageVendor,
         ];
 
         foreach ($replace as $const => $value) {
-            $text = \str_replace($const, $value, $text);
+            $template = \str_replace($const, $value, $template);
         }
 
-        return $text;
+        return $template;
     }
 }

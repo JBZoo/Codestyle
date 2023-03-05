@@ -213,6 +213,7 @@ final class PhpCsFixerCodingStandard
     ];
 
     private string $projectPath;
+    private string $styleName = 'JBZooStyle';
 
     public function __construct(string $projectPath)
     {
@@ -232,7 +233,7 @@ final class PhpCsFixerCodingStandard
 
     public function getFixerConfig(?Finder $customFinder = null, array $customUrls = []): ConfigInterface
     {
-        return (new Config('JBZoo Style'))
+        return (new Config($this->styleName))
             ->setRiskyAllowed(true)
             ->setCacheFile("{$this->projectPath}/build/php-cs-fixer-cache.json")
             ->setFinder($customFinder ?? $this->getFinder())

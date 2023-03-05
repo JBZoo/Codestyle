@@ -19,6 +19,7 @@
     <config name="testVersion" value="8.1-"/>
 
     <rule ref="PHPCompatibility"/>
-    <rule ref="PSR12"/>
-    <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+    <rule ref="PSR12">
+        <exclude name="PSR2.Classes.PropertyDeclaration.SpacingAfterType"/>
+    </rule>
 </ruleset>
