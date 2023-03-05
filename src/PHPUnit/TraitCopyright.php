@@ -14,7 +14,7 @@
 
 declare(strict_types=1);
 
-namespace JBZoo\CodeStyle\PHPUnit;
+namespace JBZoo\Codestyle\PHPUnit;
 
 use Symfony\Component\Finder\Finder;
 

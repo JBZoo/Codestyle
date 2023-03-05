@@ -14,7 +14,7 @@
 
 declare(strict_types=1);
 
-namespace JBZoo\CodeStyle\PHPUnit;
+namespace JBZoo\Codestyle\PHPUnit;
 
 use JBZoo\Utils\Cli;
 use JBZoo\Utils\Env;
@@ -65,8 +65,8 @@ trait TraitPhpStormProxy
     protected function runToolViaMakefile(string $makeTargetName): void
     {
         // Test works only in PhpStorm ot TeamCity env. Please, use `make codestyle` for any other environments.
-        if (isPhpStorm()) {
-            $phpBin     = Env::string('PHP_BIN', 'php');
+        if (Env::bool('PHPSTORM_PROXY', false) && isPhpStorm()) {
+            $phpBin = Env::string('PHP_BIN', 'php');
             $cliCommand = \implode(' ', [
                 'TC_REPORT="tc-tests"',
                 'TC_REPORT_MND="tc-tests"',

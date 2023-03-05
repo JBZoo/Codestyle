@@ -14,7 +14,7 @@
 
 declare(strict_types=1);
 
-namespace JBZoo\CodeStyle\PHPUnit;
+namespace JBZoo\Codestyle\PHPUnit;
 
 use function JBZoo\Data\json;
 use function JBZoo\PHPUnit\isContain;
@@ -38,14 +38,15 @@ trait TraitComposer
 
         isSame($this->composerDevVersion, $composer->find('extra.branch-alias.dev-master'));
         isSame($this->composerPhpVersion, $composer->find('require.php'));
-        isSame('MIT', $composer->find('license'));
+        isSame($this->composerLicense, $composer->find('license'));
+        isSame($this->composerType, $composer->find('type'));
 
         isContain(\strtolower("{$this->vendorName}/{$this->packageName}"), $composer->find('name'));
-        isNotEmpty($composer->find('type'));
         isNotEmpty($composer->find('keywords'));
         isNotEmpty($composer->find('description'));
 
-        isSame(['JBZoo\PHPUnit\\' => 'tests'], $composer->find('autoload-dev.psr-4'));
+        isSame(["{$this->vendorName}\\{$this->packageName}\\" => 'src'], $composer->find('autoload.psr-4'));
+        isSame(["{$this->vendorName}\\PHPUnit\\" => 'tests'], $composer->find('autoload-dev.psr-4'));
         isSame(true, $composer->find('config.optimize-autoloader'));
         isSame(true, $composer->find('config.allow-plugins.composer/package-versions-deprecated'));
     }

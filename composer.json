@@ -4,12 +4,21 @@
     "license"      : "MIT",
     "description"  : "Collection of QA tools and JBZoo code standards",
     "keywords"     : [
-        "jbzoo",
-        "php",
-        "qa",
-        "tests",
         "codestyle",
-        "coding-standard"
+        "coding-standard",
+        "jbzoo",
+        "phan",
+        "php",
+        "php-cs-fixer",
+        "phpcompatibility",
+        "phpcs",
+        "phpmd",
+        "phpmetrics",
+        "phpstan",
+        "phpunit",
+        "psalm",
+        "qa",
+        "tests"
     ],
 
     "authors"      : [
@@ -53,7 +62,7 @@
     },
 
     "autoload"     : {
-        "psr-4" : {"JBZoo\\CodeStyle\\" : "src"},
+        "psr-4" : {"JBZoo\\Codestyle\\" : "src"},
         "files" : [
             "src/compatibility.php"
         ]

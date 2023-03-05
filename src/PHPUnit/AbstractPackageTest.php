@@ -14,7 +14,7 @@
 
 declare(strict_types=1);
 
-namespace JBZoo\CodeStyle\PHPUnit;
+namespace JBZoo\Codestyle\PHPUnit;
 
 use JBZoo\PHPUnit\PHPUnit;
 use JBZoo\Utils\Cli;
@@ -44,6 +44,8 @@ abstract class AbstractPackageTest extends PHPUnit
     // Composer
     protected string $composerDevVersion = '7.x-dev';
     protected string $composerPhpVersion = '^8.1';
+    protected string $composerType       = 'library';
+    protected string $composerLicense    = 'MIT';
 
     protected string $projectRoot         = PROJECT_ROOT;
     protected string $copyrightVendorName = 'JBZoo Toolbox';
@@ -84,7 +86,7 @@ abstract class AbstractPackageTest extends PHPUnit
         /** @var \SplFileInfo $file */
         foreach ($finder as $file) {
             $pathname = $file->getPathname();
-            $content  = (string)openFile($pathname);
+            $content = (string)openFile($pathname);
 
             if (static::DEBUG_MODE) {
                 Cli::out(" * {$pathname}");

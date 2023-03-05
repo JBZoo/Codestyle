@@ -16,7 +16,7 @@ declare(strict_types=1);
 
 namespace JBZoo\PHPUnit;
 
-use JBZoo\CodeStyle\PhpCsFixer\PhpCsFixerCodingStandard;
+use JBZoo\Codestyle\PhpCsFixer\PhpCsFixerCodingStandard;
 
 final class PhpUnitDefinesTest extends PHPUnit
 {
