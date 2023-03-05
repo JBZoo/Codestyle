@@ -249,7 +249,7 @@ abstract class AbstractCopyrightTest extends PHPUnit
 
     public function testHeadersXml(): void
     {
-        $finder = $this->createFinder(['.xml.dist', '.xml']);
+        $finder = $this->createFinder(['.xml']);
         $this->checkHeaderInFiles($finder, $this->prepareTemplate($this->validHeaderXML));
     }
 
@@ -267,7 +267,7 @@ abstract class AbstractCopyrightTest extends PHPUnit
      */
     public function testHeadersSh(): void
     {
-        $finder = $this->createFinder(['.sh']);
+        $finder = $this->createFinder(['.sh', '.bash', '.fish']);
         $this->checkHeaderInFiles($finder, $this->prepareTemplate($this->validHeaderSH));
     }
 
@@ -353,6 +353,8 @@ abstract class AbstractCopyrightTest extends PHPUnit
             if (\str_contains($inclusion, '.')) {
                 $finder
                     ->name("*{$inclusion}")
+                    ->name("*.dist{$inclusion}")
+                    ->name("*{$inclusion}.dist")
                     ->name($inclusion);
             } else {
                 $finder->name($inclusion);
