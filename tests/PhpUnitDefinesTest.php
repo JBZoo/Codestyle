@@ -129,7 +129,7 @@ final class PhpUnitDefinesTest extends PHPUnit
         isContain('/build/php-cs-fixer-cache.json', $config->getCacheFile());
         isSame('    ', $config->getIndent());
         isSame("\n", $config->getLineEnding());
-        isSame('JBZoo Style', $config->getName());
+        isSame('JBZooStyle', $config->getName());
     }
 
     public function testPhpCsFixerConfigAsFile(): void
@@ -140,6 +140,6 @@ final class PhpUnitDefinesTest extends PHPUnit
         isContain('/build/php-cs-fixer-cache.json', $config->getCacheFile());
         isSame('    ', $config->getIndent());
         isSame("\n", $config->getLineEnding());
-        isSame('JBZoo Style', $config->getName());
+        isSame('JBZooStyle', $config->getName());
     }
 }
