@@ -14,6 +14,6 @@
 
 declare(strict_types=1);
 
-use JBZoo\CodeStyle\PhpCsFixer\PhpCsFixerCodingStandard;
+use JBZoo\Codestyle\PhpCsFixer\PhpCsFixerCodingStandard;
 
 return (new PhpCsFixerCodingStandard(__DIR__))->getFixerConfig();

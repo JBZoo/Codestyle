@@ -66,7 +66,7 @@ trait TraitPhpStormProxy
     {
         // Test works only in PhpStorm ot TeamCity env. Please, use `make codestyle` for any other environments.
         if (Env::bool('PHPSTORM_PROXY', false) && isPhpStorm()) {
-            $phpBin = Env::string('PHP_BIN', 'php');
+            $phpBin     = Env::string('PHP_BIN', 'php');
             $cliCommand = \implode(' ', [
                 'TC_REPORT="tc-tests"',
                 'TC_REPORT_MND="tc-tests"',

@@ -41,7 +41,6 @@
         "phpstan/phpstan-strict-rules"          : ">=1.5.0",
 
         "squizlabs/php_codesniffer"             : ">=3.7.2",
-        "phpcompatibility/php-compatibility"    : ">=9.3.5",
 
         "phpmetrics/phpmetrics"                 : ">=2.8.1",
         "pdepend/pdepend"                       : ">=2.13.0",
@@ -61,8 +60,9 @@
     },
 
     "require-dev"  : {
-        "jbzoo/phpunit" : "6.x-dev",
-        "jbzoo/utils"   : ">=4.5.5"
+        "jbzoo/phpunit"      : "6.x-dev",
+        "jbzoo/utils"        : ">=4.5.5",
+        "symfony/var-dumper" : ">=4.4.16"
     },
 
     "autoload"     : {
