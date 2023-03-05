@@ -206,7 +206,7 @@ test-phpcsfixer-fix: ##@Tests PhpCsFixer - Auto fix code to follow stylish stand
 
 test-phpcsfixer: ##@Tests PhpCsFixer - Check code to follow stylish standards
 	$(call title,"Check Coding Standards with PhpCsFixer")
-	@make test-phpcsfixer-local CI_REPORT=plain
+	@make test-phpcsfixer-int CI_REPORT=plain
 
 
 test-phpcsfixer-int:
