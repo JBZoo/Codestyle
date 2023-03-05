@@ -18,10 +18,6 @@ namespace JBZoo\PHPUnit;
 
 use JBZoo\CodeStyle\PhpCsFixer\PhpCsFixerCodingStandard;
 
-/**
- * @internal
- * @coversNothing
- */
 final class PhpUnitDefinesTest extends PHPUnit
 {
     public function testDefines(): void
