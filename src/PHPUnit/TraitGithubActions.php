@@ -29,11 +29,11 @@ trait TraitGithubActions
         isContain('*', $actual['on']['schedule'][0]['cron']);
         unset($actual['on']['schedule']);
 
-        // Params
+        // General Parameters
         $phpVersions    = [8.1, 8.2];
-        $phpExtenstions = 'ast';
-        $expectedOs     = 'ubuntu-latest';
+        $phpExtensions  = 'ast';
         $setupPhpAction = 'shivammathur/setup-php@v2';
+        $expectedOs     = 'ubuntu-latest';
 
         // General Steps
         $checkoutStep = [
@@ -81,7 +81,7 @@ trait TraitGithubActions
                                 'php-version' => '${{ matrix.php-version }}',
                                 'coverage'    => '${{ matrix.coverage }}',
                                 'tools'       => 'composer',
-                                'extensions'  => $phpExtenstions,
+                                'extensions'  => $phpExtensions,
                             ],
                         ],
                         $buildProjectStep,
@@ -111,7 +111,7 @@ trait TraitGithubActions
                                 'php-version' => '${{ matrix.php-version }}',
                                 'coverage'    => 'none',
                                 'tools'       => 'composer',
-                                'extensions'  => $phpExtenstions,
+                                'extensions'  => $phpExtensions,
                             ],
                         ],
                         $buildProjectStep,
@@ -135,7 +135,7 @@ trait TraitGithubActions
                                 'php-version' => '${{ matrix.php-version }}',
                                 'coverage'    => 'xdebug',
                                 'tools'       => 'composer',
-                                'extensions'  => $phpExtenstions,
+                                'extensions'  => $phpExtensions,
                             ],
                         ],
                         $buildProjectStep,
