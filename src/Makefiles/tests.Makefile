@@ -66,7 +66,7 @@ test-phpunit-ga:
         $(PHP_BIN) `pwd`/vendor/bin/ci-report-converter convert     \
             --input-format=junit                                    \
             --input-file="$${f}"                                    \
-            --output-format=github-cli                              \
+            --output-format=$(CI_REPORT_GA)                         \
             --root-path="$(PATH_ROOT)"                              \
             --suite-name="PHPUnit - $${f}"                          \
             --non-zero-code=yes || exit 1;                          \
@@ -189,7 +189,7 @@ test-phpcs-teamcity:
 
 
 test-phpcs-ga:
-	@make CI_REPORT=github-cli CI_NON_ZERO_CODE=yes test-phpcs-teamcity
+	@make CI_REPORT=$(CI_REPORT_GA) CI_NON_ZERO_CODE=yes test-phpcs-teamcity
 
 
 #### PHP Mess Detector #################################################################################################
@@ -221,7 +221,7 @@ test-phpmd-teamcity:
 
 
 test-phpmd-ga:
-	@make CI_REPORT=github-cli CI_NON_ZERO_CODE=yes test-phpmd-teamcity
+	@make CI_REPORT=$(CI_REPORT_GA) CI_NON_ZERO_CODE=yes test-phpmd-teamcity
 
 
 #### PHP Magic Number Detector #########################################################################################
@@ -243,7 +243,7 @@ test-phpmnd-teamcity:
 
 
 test-phpmnd-ga:
-	@make CI_REPORT=github-cli CI_NON_ZERO_CODE=yes test-phpmnd-teamcity
+	@make CI_REPORT=$(CI_REPORT_GA) CI_NON_ZERO_CODE=yes test-phpmnd-teamcity
 
 
 #### PHP Copy@Paste Detector ###########################################################################################
@@ -268,7 +268,7 @@ test-phpcpd-ga:
 	@$(PHP_BIN) `pwd`/vendor/bin/ci-report-converter convert    \
         --input-file="$(PATH_BUILD)/phpcpd.xml"                 \
         --input-format=pmd-cpd                                  \
-        --output-format="github-cli"                            \
+        --output-format="$(CI_REPORT_GA)"                       \
         --root-path="$(PATH_ROOT)"                              \
         --suite-name="Copy&Paste Detector"                      \
         --non-zero-code=yes
@@ -302,7 +302,7 @@ test-phpstan-teamcity:
 
 
 test-phpstan-ga:
-	@make CI_REPORT=github-cli CI_NON_ZERO_CODE=yes test-phpstan-teamcity
+	@make CI_REPORT=$(CI_REPORT_GA) CI_NON_ZERO_CODE=yes test-phpstan-teamcity
 
 
 #### Psalm - Static Analysis Tool ######################################################################################
@@ -312,7 +312,7 @@ test-psalm: ##@Tests Psalm - static analysis tool for PHP
 	@echo "Config:   $(JBZOO_CONFIG_PSALM)"
 	@echo "Baseline: $(JBZOO_CONFIG_PSALM_BASELINE)"
 	@$(PHP_BIN) `pwd`/vendor/bin/psalm --version
-	@$(PHP_BIN) `pwd`/vendor/bin/psalm                     \
+	@$(PHP_BIN) `pwd`/vendor/bin/psalm                          \
         --config="$(JBZOO_CONFIG_PSALM)"                        \
         --use-baseline="$(JBZOO_CONFIG_PSALM_BASELINE)"         \
         --show-snippet=true                                     \
@@ -326,7 +326,7 @@ test-psalm: ##@Tests Psalm - static analysis tool for PHP
 
 test-psalm-teamcity:
 	@rm -f "$(PATH_BUILD)/psalm-checkstyle.json"
-	@-$(PHP_BIN) `pwd`/vendor/bin/psalm                    \
+	@-$(PHP_BIN) `pwd`/vendor/bin/psalm                         \
         --config="$(JBZOO_CONFIG_PSALM)"                        \
         --use-baseline="$(JBZOO_CONFIG_PSALM_BASELINE)"         \
         --show-snippet=true                                     \
@@ -347,7 +347,7 @@ test-psalm-teamcity:
 
 
 test-psalm-ga:
-	@make CI_REPORT=github-cli CI_NON_ZERO_CODE=yes test-psalm-teamcity
+	@make CI_REPORT=$(CI_REPORT_GA) CI_NON_ZERO_CODE=yes test-psalm-teamcity
 
 
 #### Phan - Static Analysis Tool #######################################################################################
@@ -396,7 +396,7 @@ test-phan-teamcity:
 
 
 test-phan-ga:
-	@make CI_REPORT=github-cli CI_NON_ZERO_CODE=yes test-phan-teamcity
+	@make CI_REPORT=$(CI_REPORT_GA) CI_NON_ZERO_CODE=yes test-phan-teamcity
 
 
 #### Testing Performance ###############################################################################################

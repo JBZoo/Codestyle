@@ -34,6 +34,7 @@ CI_NON_ZERO_CODE ?= no
 # Legacy vars. Will be removed ASAP
 CI_REPORT        ?= $(TC_REPORT)
 CI_REPORT_MND    ?= $(TC_REPORT_MND)
+CI_REPORT_GA     ?= plain
 
 PHP_BIN           ?= php
 COMPOSER_BIN      ?= $(shell if [ $(PHP_BIN) = "php" ]; then echo "composer"; else which composer fi;)
