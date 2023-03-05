@@ -18,16 +18,16 @@ namespace JBZoo\Codestyle\PHPUnit;
 
 use function JBZoo\Data\yml;
 use function JBZoo\PHPUnit\is;
-use function JBZoo\PHPUnit\isContain;
 use function JBZoo\PHPUnit\isSame;
 
+/**
+ * @phan-file-suppress PhanUndeclaredProperty
+ */
 trait TraitGithubActions
 {
     public function testGithubActionsWorkflow(): void
     {
         $actual = yml(PROJECT_ROOT . '/.github/workflows/main.yml')->getArrayCopy();
-        isContain('*', $actual['on']['schedule'][0]['cron']);
-        unset($actual['on']['schedule']);
 
         // General Parameters
         $phpVersions    = [8.1, 8.2];
@@ -52,6 +52,7 @@ trait TraitGithubActions
             'on'   => [
                 'pull_request' => ['branches' => ['*']],
                 'push'         => ['branches' => ['master']],
+                'schedule'     => [['cron' => "{$this->gaScheduleMinute} */8 * * *"]],
             ],
 
             'env' => [

@@ -36,7 +36,8 @@ abstract class AbstractPackageTest extends PHPUnit
     protected const DEBUG_MODE = false;
 
     // Important! Overload these properties in your test class.
-    protected string $packageName = '';
+    protected string $packageName      = '';
+    protected string $gaScheduleMinute = '';
 
     // ### Default values. #############################################################################################
     // General
