@@ -49,6 +49,7 @@ jobs:
           php-version: ${{ matrix.php-version }}
           coverage: ${{ matrix.coverage }}
           tools: composer
+          extensions: ast
 
       - name: Build the Project
         run: make update --no-print-directory
@@ -88,6 +89,7 @@ jobs:
           php-version: ${{ matrix.php-version }}
           coverage: none
           tools: composer
+          extensions: ast
 
       - name: Build the Project
         run: make update --no-print-directory
@@ -121,6 +123,7 @@ jobs:
           php-version: ${{ matrix.php-version }}
           coverage: xdebug
           tools: composer
+          extensions: ast
 
       - name: Build the Project
         run: make update --no-print-directory

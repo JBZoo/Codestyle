@@ -31,6 +31,7 @@ trait TraitGithubActions
 
         // Params
         $phpVersions    = [8.1, 8.2];
+        $phpExtenstions = 'ast';
         $expectedOs     = 'ubuntu-latest';
         $setupPhpAction = 'shivammathur/setup-php@v2';
 
@@ -80,6 +81,7 @@ trait TraitGithubActions
                                 'php-version' => '${{ matrix.php-version }}',
                                 'coverage'    => '${{ matrix.coverage }}',
                                 'tools'       => 'composer',
+                                'extensions'  => $phpExtenstions,
                             ],
                         ],
                         $buildProjectStep,
@@ -109,6 +111,7 @@ trait TraitGithubActions
                                 'php-version' => '${{ matrix.php-version }}',
                                 'coverage'    => 'none',
                                 'tools'       => 'composer',
+                                'extensions'  => $phpExtenstions,
                             ],
                         ],
                         $buildProjectStep,
@@ -132,6 +135,7 @@ trait TraitGithubActions
                                 'php-version' => '${{ matrix.php-version }}',
                                 'coverage'    => 'xdebug',
                                 'tools'       => 'composer',
+                                'extensions'  => $phpExtenstions,
                             ],
                         ],
                         $buildProjectStep,
@@ -145,7 +149,11 @@ trait TraitGithubActions
             ],
         ];
 
-        is($expected, $actual);
+        $actualYml = (string)yml($actual);
+        $expectedYaml = (string)yml($expected);
+        isSame($expectedYaml, $actualYml);
+
+        is($expected, $actual, $expectedYaml);
         isSame($expected, $actual);
     }
 
