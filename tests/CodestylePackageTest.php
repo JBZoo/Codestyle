@@ -16,7 +16,7 @@ declare(strict_types=1);
 
 namespace JBZoo\PHPUnit;
 
-final class CodestyleReadmeTest extends \JBZoo\CodeStyle\PHPUnit\AbstractReadmeTest
+final class CodestylePackageTest extends \JBZoo\CodeStyle\PHPUnit\AbstractPackageTest
 {
     protected string $packageName = 'Codestyle';
 }

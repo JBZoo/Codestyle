@@ -16,30 +16,28 @@ declare(strict_types=1);
 
 namespace JBZoo\CodeStyle\PHPUnit;
 
-use JBZoo\PHPUnit\PHPUnit;
-
 use function JBZoo\Data\json;
 use function JBZoo\PHPUnit\isContain;
 use function JBZoo\PHPUnit\isNotEmpty;
 use function JBZoo\PHPUnit\isSame;
 
-abstract class AbstractComposerTest extends PHPUnit
+trait TraitComposer
 {
-    protected string $authorName  = 'Denis Smetannikov';
-    protected string $authorEmail = 'admin@jbzoo.com';
-    protected string $authorRole  = 'lead';
-    protected string $devVersion  = '7.x-dev';
-    protected string $phpVersion  = '^8.1';
+    protected string $composerDevVersion = '7.x-dev';
+    protected string $composerPhpVersion = '^8.1';
 
-    public function test(): void
+    public function testComposerJsonProperties(): void
     {
         $composer = json(PROJECT_ROOT . '/composer.json');
 
-        isSame($this->authorName, $composer->find('authors.0.name'));
-        isSame($this->authorEmail, $composer->find('authors.0.email'));
-        isSame($this->authorRole, $composer->find('authors.0.role'));
-        isSame($this->devVersion, $composer->find('extra.branch-alias.dev-master'));
-        isSame($this->phpVersion, $composer->find('require.php'));
+        isSame([
+            'name'  => 'Denis Smetannikov',
+            'email' => 'admin@jbzoo.com',
+            'role'  => 'lead',
+        ], $composer->find('authors.0'));
+
+        isSame($this->composerDevVersion, $composer->find('extra.branch-alias.dev-master'));
+        isSame($this->composerPhpVersion, $composer->find('require.php'));
         isSame('MIT', $composer->find('license'));
 
         isContain('jbzoo/', $composer->find('name'));
