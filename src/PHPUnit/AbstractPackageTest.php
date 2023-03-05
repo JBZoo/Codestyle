@@ -69,6 +69,10 @@ abstract class AbstractPackageTest extends PHPUnit
             throw new Exception('$this->packageName is undefined');
         }
 
+        if ($this->gaScheduleMinute === '') {
+            throw new Exception('$this->gaScheduleMinute is undefined');
+        }
+
         $projectRoot = (string)\realpath($this->projectRoot);
 
         if ($projectRoot === '') {
