@@ -394,10 +394,9 @@ test-psalm-ga:
 
 test-phan: ##@Tests Phan - super strict static analyzer for PHP
 	$(call title,"Phan - super strict static analyzer for PHP")
-	$(call download_phar,$(PHAN_PHAR),"phan")
 	@echo "Config: $(JBZOO_CONFIG_PHAN)"
-	@$(PHP_BIN) `pwd`/vendor/bin/phan.phar --version
-	@$(PHP_BIN) `pwd`/vendor/bin/phan.phar                      \
+	@$(PHP_BIN) `pwd`/vendor/bin/phan --version
+	@$(PHP_BIN) `pwd`/vendor/bin/phan                           \
         --config-file="$(JBZOO_CONFIG_PHAN)"                    \
         --project-root-directory="`pwd`"                        \
         --color-scheme=light                                    \
@@ -412,9 +411,8 @@ test-phan: ##@Tests Phan - super strict static analyzer for PHP
 
 
 test-phan-teamcity:
-	$(call download_phar,$(PHAN_PHAR),"phan")
 	@rm -f "$(PATH_BUILD)/phan-checkstyle.xml"
-	@-$(PHP_BIN) `pwd`/vendor/bin/phan.phar                     \
+	@-$(PHP_BIN) `pwd`/vendor/bin/phan                          \
         --config-file="$(JBZOO_CONFIG_PHAN)"                    \
         --project-root-directory="`pwd`"                        \
         --output-mode="checkstyle"                              \
