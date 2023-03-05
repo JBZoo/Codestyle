@@ -14,8 +14,9 @@
 
 declare(strict_types=1);
 
-// main autoload
-if ($autoload = \realpath('./vendor/autoload.php')) {
+$autoload = \dirname(__DIR__) . '/vendor/autoload.php';
+
+if (\file_exists($autoload)) {
     require_once $autoload;
 } else {
     echo 'Please execute "composer update" !' . \PHP_EOL;

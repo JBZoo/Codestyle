@@ -137,7 +137,9 @@ abstract class AbstractReadmeTest extends PHPUnit
 
                 if (\method_exists($this, $testMethod)) {
                     /** @phpstan-ignore-next-line */
-                    if ($tmpBadge = $this->{$testMethod}()) {
+                    $tmpBadge = $this->{$testMethod}();
+
+                    if ($tmpBadge !== null) {
                         $expectedBadges[$badgeName] = "{$tmpBadge}    ";
                     }
                 } else {
