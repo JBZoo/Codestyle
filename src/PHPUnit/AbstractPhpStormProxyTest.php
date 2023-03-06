@@ -16,33 +16,35 @@ declare(strict_types=1);
 
 namespace JBZoo\Codestyle\PHPUnit;
 
+use JBZoo\PHPUnit\PHPUnit;
 use JBZoo\Utils\Cli;
 use JBZoo\Utils\Env;
 
+use function JBZoo\PHPUnit\getTestName;
 use function JBZoo\PHPUnit\isPhpStorm;
 use function JBZoo\PHPUnit\success;
 
-/**
- * @phan-file-suppress PhanUndeclaredProperty
- */
-trait TraitPhpStormProxy
+abstract class AbstractPhpStormProxyTest extends PHPUnit
 {
     public function testPhpCsFixer(): void
     {
         $this->runToolViaMakefile('test-phpcsfixer-teamcity');
     }
 
-    public function testCodeSniffer(): void
+    /**
+     * @depends testPhpCsFixer
+     */
+    public function testPhpCodeSniffer(): void
     {
         $this->runToolViaMakefile('test-phpcs-teamcity');
     }
 
-    public function testMessDetector(): void
+    public function testPhpMessDetector(): void
     {
         $this->runToolViaMakefile('test-phpmd-teamcity');
     }
 
-    public function testMagicNumbers(): void
+    public function testPhpMagicNumbers(): void
     {
         $this->runToolViaMakefile('test-phpmnd-teamcity');
     }
@@ -52,21 +54,33 @@ trait TraitPhpStormProxy
         $this->runToolViaMakefile('test-phpstan-teamcity');
     }
 
+    /**
+     * @depends testPhpStan
+     */
     public function testPsalm(): void
     {
         $this->runToolViaMakefile('test-psalm-teamcity');
     }
 
+    /**
+     * @depends testPsalm
+     */
     public function testPhan(): void
     {
         $this->runToolViaMakefile('test-phan-teamcity');
     }
 
+    /**
+     * Test works only in PhpStorm or TeamCity if variable PHPSTORM_PROXY=1
+     * Please, use `make codestyle` for any other environments.
+     *
+     * @suppress PhanPluginPossiblyStaticProtectedMethod
+     */
     protected function runToolViaMakefile(string $makeTargetName): void
     {
-        // Test works only in PhpStorm ot TeamCity env. Please, use `make codestyle` for any other environments.
-        if (Env::bool('PHPSTORM_PROXY', false) && isPhpStorm()) {
-            $phpBin     = Env::string('PHP_BIN', 'php');
+        if (Env::bool('PHPSTORM_PROXY') && isPhpStorm()) {
+            $phpBin = Env::string('PHP_BIN', 'php');
+
             $cliCommand = \implode(' ', [
                 'TC_REPORT="tc-tests"',
                 'TC_REPORT_MND="tc-tests"',
@@ -75,14 +89,14 @@ trait TraitPhpStormProxy
                 "make {$makeTargetName}",
             ]);
 
-            // redirect error to std output
+            // Redirect error to std output
             try {
-                $output = \trim(Cli::exec($cliCommand, [], $this->projectRoot));
-                Cli::out($output);
+                Cli::out(\trim(Cli::exec($cliCommand, [], PROJECT_ROOT)));
             } catch (\Exception $exception) {
-                $output = \trim($exception->getMessage());
-                Cli::out($output);
+                Cli::out(\trim($exception->getMessage()));
             }
+        } else {
+            Cli::out('Define env.PHPSTORM_PROXY=1 to run "' . (string)getTestName() . '"');
         }
 
         success();
