@@ -58,7 +58,7 @@
 
     "require-dev"  : {
         "jbzoo/phpunit"      : "7.x-dev",
-        "jbzoo/utils"        : "7.x-dev",
+        "jbzoo/utils"        : "^4.5.5|7.x-dev",
         "symfony/var-dumper" : ">=4.4.16"
     },
 
