@@ -49,5 +49,8 @@ trait TraitComposer
         isSame(["{$this->vendorName}\\PHPUnit\\" => 'tests'], $composer->find('autoload-dev.psr-4'));
         isSame(true, $composer->find('config.optimize-autoloader'));
         isSame(true, $composer->find('config.allow-plugins.composer/package-versions-deprecated'));
+
+        // minimum-stability
+        // jbzoo/* => !dev-master
     }
 }
