@@ -16,33 +16,31 @@ declare(strict_types=1);
 
 namespace JBZoo\Codestyle\PHPUnit;
 
+use JBZoo\PHPUnit\PHPUnit;
 use JBZoo\Utils\Cli;
 use JBZoo\Utils\Env;
 
 use function JBZoo\PHPUnit\isPhpStorm;
 use function JBZoo\PHPUnit\success;
 
-/**
- * @phan-file-suppress PhanUndeclaredProperty
- */
-trait TraitPhpStormProxy
+abstract class AbstractPhpStormProxyTest extends PHPUnit
 {
     public function testPhpCsFixer(): void
     {
         $this->runToolViaMakefile('test-phpcsfixer-teamcity');
     }
 
-    public function testCodeSniffer(): void
+    public function testPhpCodeSniffer(): void
     {
         $this->runToolViaMakefile('test-phpcs-teamcity');
     }
 
-    public function testMessDetector(): void
+    public function testPhpMessDetector(): void
     {
         $this->runToolViaMakefile('test-phpmd-teamcity');
     }
 
-    public function testMagicNumbers(): void
+    public function testPhpMagicNumbers(): void
     {
         $this->runToolViaMakefile('test-phpmnd-teamcity');
     }
@@ -66,7 +64,8 @@ trait TraitPhpStormProxy
     {
         // Test works only in PhpStorm ot TeamCity env. Please, use `make codestyle` for any other environments.
         if (Env::bool('PHPSTORM_PROXY', false) && isPhpStorm()) {
-            $phpBin     = Env::string('PHP_BIN', 'php');
+            $phpBin = Env::string('PHP_BIN', 'php');
+
             $cliCommand = \implode(' ', [
                 'TC_REPORT="tc-tests"',
                 'TC_REPORT_MND="tc-tests"',
@@ -75,16 +74,15 @@ trait TraitPhpStormProxy
                 "make {$makeTargetName}",
             ]);
 
-            // redirect error to std output
+            // Redirect error to std output
             try {
-                $output = \trim(Cli::exec($cliCommand, [], $this->projectRoot));
+                $output = \trim(Cli::exec($cliCommand, [], PROJECT_ROOT));
                 Cli::out($output);
             } catch (\Exception $exception) {
                 $output = \trim($exception->getMessage());
                 Cli::out($output);
             }
         }
-
         success();
     }
 }
