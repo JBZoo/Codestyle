@@ -41,10 +41,10 @@ report-merge-coverage: ##@Reports Merge all coverage reports in one clover file
 
 report-composer-diff: ##@Reports What has changed after a composer update
 	$(call title,"What has changed after a composer update")
-	@-$(VENDOR_BIN)/composer-diff                     \
+	@-$(CO_DIFF_BIN)                                  \
         --source="master:composer.lock"               \
         --target="`pwd`/composer.lock"
-	@-$(VENDOR_BIN)/composer-diff                     \
+	@-$(CO_DIFF_BIN)                                  \
         --source="master:composer.lock"               \
         --target="`pwd`/composer.lock"                \
         --output=markdown --no-ansi                   > `pwd`/build/composer-upgrade-log.md
@@ -57,10 +57,10 @@ update-extend: ##@Reports Checks new compatible versions of 3rd party libraries
 	@cp -f `pwd`/composer.lock `pwd`/build/composer.lock
 	@echo "Composer flags: $(JBZOO_COMPOSER_UPDATE_FLAGS)"
 	@$(COMPOSER_BIN) update --no-progress $(JBZOO_COMPOSER_UPDATE_FLAGS)
-	@-$(VENDOR_BIN)/composer-diff                     \
+	@-$(CO_DIFF_BIN)                                  \
         --source="`pwd`/build/composer.lock"          \
         --target="`pwd`/composer.lock"
-	@-$(VENDOR_BIN)/composer-diff                     \
+	@-$(CO_DIFF_BIN)                                  \
         --source="`pwd`/build/composer.lock"          \
         --target="`pwd`/composer.lock"                \
         --output=markdown --no-ansi                   > `pwd`/build/composer-upgrade-log.md
@@ -71,27 +71,27 @@ update-extend: ##@Reports Checks new compatible versions of 3rd party libraries
 report-composer-graph: ##@Reports Build composer graph of dependencies
 	$(call title,"Build composer graph of dependencies")
 	@mkdir -p "$(PATH_BUILD)/composer-graph"
-	@$(VENDOR_BIN)/composer-graph                                 \
+	@$(CO_GRAPH_BIN)                                              \
         --output="$(PATH_BUILD)/composer-graph/mini.html"         \
         -v
-	@$(VENDOR_BIN)/composer-graph                                 \
+	@$(CO_GRAPH_BIN)                                              \
         --output="$(PATH_BUILD)/composer-graph/extensions.html"   \
         --show-ext                                                \
         -v
-	@$(VENDOR_BIN)/composer-graph                                 \
+	@$(CO_GRAPH_BIN)                                              \
         --output="$(PATH_BUILD)/composer-graph/versions.html"     \
         --show-link-versions                                      \
         --show-package-versions                                   \
         -v
-	@$(VENDOR_BIN)/composer-graph                                 \
+	@$(CO_GRAPH_BIN)                                              \
         --output="$(PATH_BUILD)/composer-graph/suggests.html"     \
         --show-suggests                                           \
         -v
-	@$(VENDOR_BIN)/composer-graph                                 \
+	@$(CO_GRAPH_BIN)                                              \
         --output="$(PATH_BUILD)/composer-graph/dev.html"          \
         --show-dev                                                \
         -v
-	@$(VENDOR_BIN)/composer-graph                                 \
+	@$(CO_GRAPH_BIN)                                              \
         --output="$(PATH_BUILD)/composer-graph/full.html"         \
         --show-ext                                                \
         --show-dev                                                \
@@ -152,7 +152,7 @@ report-pdepend: ##@Reports Build PHP Depend Report
             --summary-xml="$(PATH_BUILD)/pdepend-summary.xml"             \
             --quiet                                                       \
             "$(PATH_SRC)";                                                \
-        $(VENDOR_BIN)/ci-report-converter teamcity:stats                  \
+        $(CO_CI_REPORT_BIN) teamcity:stats                  \
             --input-format="pdepend-xml"                                  \
             --tc-flow-id="$(FLOW_ID)"                                     \
             --input-file="$(PATH_BUILD)/pdepend-summary.xml";             \
@@ -167,7 +167,7 @@ report-phploc: ##@Reports PHPloc - Show code stats
     else                                                                  \
         $(VENDOR_BIN)/phploc.phar "$(PATH_SRC)"                           \
             --log-json="$(PATH_BUILD)/phploc.json" --quiet;               \
-        $(VENDOR_BIN)/ci-report-converter teamcity:stats                  \
+        $(CO_CI_REPORT_BIN) teamcity:stats                  \
             --input-format="phploc-json"                                  \
             --input-file="$(PATH_BUILD)/phploc.json";                     \
     fi;                                                                   \

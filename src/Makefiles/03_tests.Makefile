@@ -35,10 +35,10 @@ test-phpunit-teamcity:
         --colors=always                                             \
         --teamcity                                                  \
         --verbose
-	@$(VENDOR_BIN)/ci-report-converter teamcity:stats               \
+	@$(CO_CI_REPORT_BIN) teamcity:stats                             \
         --input-format="phpunit-clover-xml"                         \
         --input-file="$(PATH_BUILD)/coverage_xml/main.xml"
-	@$(VENDOR_BIN)/ci-report-converter teamcity:stats               \
+	@$(CO_CI_REPORT_BIN) teamcity:stats                             \
         --input-format="junit-xml"                                  \
         --input-file="$(PATH_BUILD)/coverage_junit/main.xml"
 	@echo "##teamcity[progressFinish 'PHPUnit Tests']"
@@ -62,7 +62,7 @@ test-phpunit-ga:
         --verbose || true
 	@for f in `find ./build/coverage_junit -type f -name "*.xml"`;  \
     do                                                              \
-        $(VENDOR_BIN)/ci-report-converter convert                   \
+        $(CO_CI_REPORT_BIN) convert                   \
             --input-format=junit                                    \
             --input-file="$${f}"                                    \
             --output-format=$(CI_REPORT_GA)                         \
@@ -184,7 +184,7 @@ test-phpcs-teamcity:
         --no-cache                                              \
         --no-colors                                             \
         -s -q > /dev/null
-	@$(VENDOR_BIN)/ci-report-converter convert                  \
+	@$(CO_CI_REPORT_BIN) convert                                \
         --input-file="$(PATH_BUILD)/phpcs-checkstyle.xml"       \
         --input-format="checkstyle"                             \
         --output-format="$(CI_REPORT)"                          \
@@ -219,7 +219,7 @@ test-phpcsfixer-int:
         --dry-run                                                           \
         -vvv                                                                \
         --format=checkstyle > "$(PATH_BUILD)/phpcsfixer-checkstyle.xml"     || true
-	@$(VENDOR_BIN)/ci-report-converter convert                              \
+	@$(CO_CI_REPORT_BIN) convert                                            \
         --input-file="$(PATH_BUILD)/phpcsfixer-checkstyle.xml"              \
         --input-format="checkstyle"                                         \
         --output-format="$(CI_REPORT)"                                      \
@@ -256,7 +256,7 @@ test-phpmd-strict: ##@Tests PHPmd - Mess Detector Checker (strict mode)
 test-phpmd-teamcity:
 	@rm -f "$(PATH_BUILD)/phpmd.json"
 	@-$(VENDOR_BIN)/phpmd "$(PATH_SRC)" json "$(JBZOO_CONFIG_PHPMD)" > "$(PATH_BUILD)/phpmd.json"
-	@$(VENDOR_BIN)/ci-report-converter convert      \
+	@$(CO_CI_REPORT_BIN) convert                    \
         --input-file="$(PATH_BUILD)/phpmd.json"     \
         --input-format="phpmd-json"                 \
         --output-format="$(CI_REPORT)"              \
@@ -278,7 +278,7 @@ test-phpmnd: ##@Tests PHPmnd - Magic Number Detector
 
 test-phpmnd-teamcity:
 	@$(VENDOR_BIN)/phpmnd "$(PATH_SRC)" --quiet --hint --xml-output="$(PATH_BUILD)/phpmnd.xml"
-	@$(VENDOR_BIN)/ci-report-converter convert      \
+	@$(CO_CI_REPORT_BIN) convert                    \
         --input-file="$(PATH_BUILD)/phpmnd.xml"     \
         --input-format="phpmnd"                     \
         --output-format="$(CI_REPORT_MND)"          \
@@ -310,7 +310,7 @@ test-phpcpd-teamcity:
 test-phpcpd-ga:
 	$(call download_phar,$(PHPCPD_PHAR),"phpcpd")
 	@-XDEBUG_MODE=off $(VENDOR_BIN)/phpcpd.phar $(PATH_SRC) --log-pmd="$(PATH_BUILD)/phpcpd.xml" > /dev/null
-	@$(VENDOR_BIN)/ci-report-converter convert    \
+	@$(CO_CI_REPORT_BIN) convert                  \
         --input-file="$(PATH_BUILD)/phpcpd.xml"   \
         --input-format=pmd-cpd                    \
         --output-format="$(CI_REPORT_GA)"         \
@@ -337,7 +337,7 @@ test-phpstan-teamcity:
         --error-format=checkstyle                               \
         --no-progress                                           \
         "$(PATH_SRC)" > "$(PATH_BUILD)/phpstan-checkstyle.xml"
-	@$(VENDOR_BIN)/ci-report-converter convert                  \
+	@$(CO_CI_REPORT_BIN) convert                                \
         --input-file="$(PATH_BUILD)/phpstan-checkstyle.xml"     \
         --input-format="checkstyle"                             \
         --output-format="$(CI_REPORT)"                          \
@@ -380,7 +380,7 @@ test-psalm-teamcity:
         --no-progress                                           \
         --shepherd                                              \
         --monochrome > "$(PATH_BUILD)/psalm-checkstyle.json"
-	@$(VENDOR_BIN)/ci-report-converter convert                  \
+	@$(CO_CI_REPORT_BIN) convert                  \
         --input-file="$(PATH_BUILD)/psalm-checkstyle.json"      \
         --input-format="psalm-json"                             \
         --output-format="$(CI_REPORT)"                          \
@@ -427,7 +427,7 @@ test-phan-teamcity:
         --strict-type-checking                                  \
         --analyze-twice	                                        \
         --no-color
-	@$(VENDOR_BIN)/ci-report-converter convert                  \
+	@$(CO_CI_REPORT_BIN) convert                                \
         --input-file="$(PATH_BUILD)/phan-checkstyle.xml"        \
         --input-format="checkstyle"                             \
         --output-format="$(CI_REPORT)"                          \
