@@ -12,7 +12,9 @@
 
 #### General Tests #####################################################################################################
 
-test: test-phpunit ##@Tests Launch PHPUnit Tests (alias "test-phpunit")
+test: ##@Tests Launch PHPUnit Tests (alias "test-phpunit")
+	@make build-download-phars
+	@make test-phpunit
 
 test-phpunit: ##@Tests PHPUnit - Launch General Tests
 	$(call title,"PHPUnit - Run all tests")
@@ -28,6 +30,7 @@ test-phpunit: ##@Tests PHPUnit - Launch General Tests
 
 test-phpunit-teamcity:
 	@echo "##teamcity[progressStart 'PHPUnit Tests']"
+	@make build-download-phars
 	@XDEBUG_MODE=coverage $(VENDOR_BIN)/phpunit                     \
         --configuration="$(JBZOO_CONFIG_PHPUNIT)"                   \
         --cache-result-file="$(PATH_BUILD)/phpunit.result.cache"    \
@@ -45,6 +48,7 @@ test-phpunit-teamcity:
 
 
 test-phpunit-local:
+	@make build-download-phars
 	@XDEBUG_MODE=coverage $(VENDOR_BIN)/phpunit                     \
         --configuration="$(JBZOO_CONFIG_PHPUNIT)"                   \
         --cache-result-file="$(PATH_BUILD)/phpunit.result.cache"    \
@@ -54,6 +58,7 @@ test-phpunit-local:
 
 
 test-phpunit-ga:
+	@make build-download-phars
 	@-XDEBUG_MODE=coverage $(VENDOR_BIN)/phpunit                    \
         --configuration="$(JBZOO_CONFIG_PHPUNIT)"                   \
         --cache-result-file="$(PATH_BUILD)/phpunit.result.cache"    \
@@ -75,9 +80,7 @@ test-phpunit-ga:
 #### All Coding Standards ##############################################################################################
 
 codestyle: ##@Tests Launch all codestyle linters at once
-	$(call download_phar,$(CO_DIFF_PHAR),"composer-diff")
-	$(call download_phar,$(CO_GRAPH_PHAR),"composer-graph")
-	$(call download_phar,$(CO_CI_REPORT_PHAR),"ci-report-converter")
+	@make build-download-phars
 	@if [ -n "$(TEAMCITY_VERSION)" ]; then    \
         make codestyle-teamcity;              \
     elif [ -n "$(GITHUB_ACTIONS)" ]; then     \

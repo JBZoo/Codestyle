@@ -11,6 +11,7 @@
 #
 
 report-all: ##@Reports Build all reports at once
+	@make build-download-phars
 	@-make report-composer-graph
 	@-make report-phpmetrics
 	@-make report-phploc
