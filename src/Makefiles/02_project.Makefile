@@ -37,3 +37,10 @@ build-phar: ##@Project Compile phar file
 	@$(COMPOSER_BIN) config autoloader-suffix $(PROJECT_ALIAS)          -v
 	@$(PHP_BIN) `pwd`/vendor/bin/box.phar compile --working-dir="`pwd`" -v
 	@$(COMPOSER_BIN) config autoloader-suffix --unset                   -v
+
+
+# TODO: remove this.
+build-download-phars:
+	$(call download_phar,$(CO_DIFF_PHAR),"composer-diff")
+	$(call download_phar,$(CO_GRAPH_PHAR),"composer-graph")
+	$(call download_phar,$(CO_CI_REPORT_PHAR),"ci-report-converter")

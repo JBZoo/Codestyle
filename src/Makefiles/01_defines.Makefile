@@ -58,7 +58,11 @@ CO_RC_PHAR         = https://github.com/maglnet/ComposerRequireChecker/releases/
 PHP_COVERALLS_PHAR = https://github.com/php-coveralls/php-coveralls/releases/latest/download/php-coveralls.phar
 CO_DIFF_PHAR       = https://github.com/JBZoo/Composer-Diff/releases/latest/download/composer-diff.phar
 CO_GRAPH_PHAR      = https://github.com/JBZoo/Composer-Graph/releases/latest/download/composer-graph.phar
-CO_CI_REPORT_PHAR  = https://github.com/JBZoo/CI-Report-Converter/releases/download/2.6.0/ci-report-converter.phar
+CO_CI_REPORT_PHAR  = https://github.com/JBZoo/CI-Report-Converter/releases/latest/download/ci-report-converter.phar
+
+CO_DIFF_BIN        = $(VENDOR_BIN)/composer-diff.phar
+CO_GRAPH_BIN       = $(VENDOR_BIN)/composer-graph.phar
+CO_CI_REPORT_BIN   = $(VENDOR_BIN)/ci-report-converter.phar
 
 
 ifneq (, $(wildcard ./src/phpcs.xml))
