@@ -26,57 +26,11 @@ use function JBZoo\PHPUnit\success;
 
 abstract class AbstractPhpStormProxyTest extends PHPUnit
 {
-    public function testPhpCsFixer(): void
-    {
-        $this->runToolViaMakefile('test-phpcsfixer-teamcity');
-    }
-
-    /**
-     * @depends testPhpCsFixer
-     */
-    public function testPhpCodeSniffer(): void
-    {
-        $this->runToolViaMakefile('test-phpcs-teamcity');
-    }
-
-    public function testPhpMessDetector(): void
-    {
-        $this->runToolViaMakefile('test-phpmd-teamcity');
-    }
-
-    public function testPhpMagicNumbers(): void
-    {
-        $this->runToolViaMakefile('test-phpmnd-teamcity');
-    }
-
-    public function testPhpStan(): void
-    {
-        $this->runToolViaMakefile('test-phpstan-teamcity');
-    }
-
-    /**
-     * @depends testPhpStan
-     */
-    public function testPsalm(): void
-    {
-        $this->runToolViaMakefile('test-psalm-teamcity');
-    }
-
-    /**
-     * @depends testPsalm
-     */
-    public function testPhan(): void
-    {
-        $this->runToolViaMakefile('test-phan-teamcity');
-    }
-
     /**
      * Test works only in PhpStorm or TeamCity if variable PHPSTORM_PROXY=1
      * Please, use `make codestyle` for any other environments.
-     *
-     * @suppress PhanPluginPossiblyStaticProtectedMethod
      */
-    protected function runToolViaMakefile(string $makeTargetName): void
+    protected static function runToolViaMakefile(string $makeTargetName): void
     {
         if (Env::bool('PHPSTORM_PROXY') && isPhpStorm()) {
             $phpBin = Env::string('PHP_BIN', 'php');
@@ -100,5 +54,49 @@ abstract class AbstractPhpStormProxyTest extends PHPUnit
         }
 
         success();
+    }
+
+    public function testPhpCsFixer(): void
+    {
+        static::runToolViaMakefile('test-phpcsfixer-teamcity');
+    }
+
+    /**
+     * @depends testPhpCsFixer
+     */
+    public function testPhpCodeSniffer(): void
+    {
+        static::runToolViaMakefile('test-phpcs-teamcity');
+    }
+
+    public function testPhpMessDetector(): void
+    {
+        static::runToolViaMakefile('test-phpmd-teamcity');
+    }
+
+    public function testPhpMagicNumbers(): void
+    {
+        static::runToolViaMakefile('test-phpmnd-teamcity');
+    }
+
+    public function testPhpStan(): void
+    {
+        static::runToolViaMakefile('test-phpstan-teamcity');
+    }
+
+    /**
+     * @depends testPhpStan
+     */
+    public function testPsalm(): void
+    {
+        static::runToolViaMakefile('test-psalm-teamcity');
+    }
+
+    /**
+     * @depends testPsalm
+     */
+    public function testPhan(): void
+    {
+        static::runToolViaMakefile('test-phan-teamcity');
     }
 }
