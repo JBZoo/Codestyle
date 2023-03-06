@@ -50,9 +50,9 @@
         "symfony/finder"                        : ">=4.4.16",
         "nikic/php-parser"                      : ">=4.15.3",
 
-        "jbzoo/composer-diff"                   : ">=1.7.0|dev-master|7.x-dev",
-        "jbzoo/composer-graph"                  : ">=1.5.0|dev-master|7.x-dev",
-        "jbzoo/ci-report-converter"             : ">=2.8.1|dev-master|7.x-dev",
+        "jbzoo/composer-diff"                   : "7.x-dev",
+        "jbzoo/composer-graph"                  : "7.x-dev",
+        "jbzoo/ci-report-converter"             : "7.x-dev",
         "mheap/phpunit-github-actions-printer"  : ">=1.5.1",
 
         "friendsofphp/php-cs-fixer"             : ">=3.14.4",
@@ -61,7 +61,7 @@
 
     "require-dev"  : {
         "jbzoo/phpunit"      : "7.x-dev",
-        "jbzoo/utils"        : ">=4.5.5",
+        "jbzoo/utils"        : "7.x-dev",
         "symfony/var-dumper" : ">=4.4.16"
     },
 
