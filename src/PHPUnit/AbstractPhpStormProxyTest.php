@@ -20,6 +20,7 @@ use JBZoo\PHPUnit\PHPUnit;
 use JBZoo\Utils\Cli;
 use JBZoo\Utils\Env;
 
+use function JBZoo\PHPUnit\getTestName;
 use function JBZoo\PHPUnit\isPhpStorm;
 use function JBZoo\PHPUnit\success;
 
@@ -30,6 +31,9 @@ abstract class AbstractPhpStormProxyTest extends PHPUnit
         $this->runToolViaMakefile('test-phpcsfixer-teamcity');
     }
 
+    /**
+     * @depends testPhpCsFixer
+     */
     public function testPhpCodeSniffer(): void
     {
         $this->runToolViaMakefile('test-phpcs-teamcity');
@@ -50,20 +54,31 @@ abstract class AbstractPhpStormProxyTest extends PHPUnit
         $this->runToolViaMakefile('test-phpstan-teamcity');
     }
 
+    /**
+     * @depends testPhpStan
+     */
     public function testPsalm(): void
     {
         $this->runToolViaMakefile('test-psalm-teamcity');
     }
 
+    /**
+     * @depends testPsalm
+     */
     public function testPhan(): void
     {
         $this->runToolViaMakefile('test-phan-teamcity');
     }
 
+    /**
+     * Test works only in PhpStorm or TeamCity if variable PHPSTORM_PROXY=1
+     * Please, use `make codestyle` for any other environments.
+     *
+     * @suppress PhanPluginPossiblyStaticProtectedMethod
+     */
     protected function runToolViaMakefile(string $makeTargetName): void
     {
-        // Test works only in PhpStorm ot TeamCity env. Please, use `make codestyle` for any other environments.
-        if (Env::bool('PHPSTORM_PROXY', false) && isPhpStorm()) {
+        if (Env::bool('PHPSTORM_PROXY') && isPhpStorm()) {
             $phpBin = Env::string('PHP_BIN', 'php');
 
             $cliCommand = \implode(' ', [
@@ -82,7 +97,10 @@ abstract class AbstractPhpStormProxyTest extends PHPUnit
                 $output = \trim($exception->getMessage());
                 Cli::out($output);
             }
+        } else {
+            Cli::out('Define env.PHPSTORM_PROXY=1 to run "' . (string)getTestName() . '"');
         }
+
         success();
     }
 }

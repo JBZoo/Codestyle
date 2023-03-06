@@ -69,7 +69,7 @@ abstract class AbstractPackageTest extends PHPUnit
         }
 
         if ($this->gaScheduleMinute === '') {
-            throw new Exception('$this->gaScheduleMinute is undefined');
+            $this->gaScheduleMinute = (string)self::stringToNumber($this->packageName, 59);
         }
 
         $projectRoot = (string)\realpath($this->projectRoot);
@@ -105,5 +105,14 @@ abstract class AbstractPackageTest extends PHPUnit
         }
 
         isTrue(true); // One assert is a minimum for test complete
+    }
+
+    protected static function stringToNumber(string $string, int $maxNumber): int
+    {
+        $hash   = \md5($string);
+        $substr = \substr($hash, 0, 8);
+        $number = \hexdec($substr);
+
+        return $number % ($maxNumber + 1);
     }
 }

@@ -18,6 +18,5 @@ namespace JBZoo\PHPUnit;
 
 final class CodestylePackageTest extends \JBZoo\Codestyle\PHPUnit\AbstractPackageTest
 {
-    protected string $packageName      = 'Codestyle';
-    protected string $gaScheduleMinute = '45';
+    protected string $packageName = 'Codestyle';
 }
