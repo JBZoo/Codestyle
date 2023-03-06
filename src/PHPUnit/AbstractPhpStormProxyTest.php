@@ -91,11 +91,9 @@ abstract class AbstractPhpStormProxyTest extends PHPUnit
 
             // Redirect error to std output
             try {
-                $output = \trim(Cli::exec($cliCommand, [], PROJECT_ROOT));
-                Cli::out($output);
+                Cli::out(\trim(Cli::exec($cliCommand, [], PROJECT_ROOT)));
             } catch (\Exception $exception) {
-                $output = \trim($exception->getMessage());
-                Cli::out($output);
+                Cli::out(\trim($exception->getMessage()));
             }
         } else {
             Cli::out('Define env.PHPSTORM_PROXY=1 to run "' . (string)getTestName() . '"');
