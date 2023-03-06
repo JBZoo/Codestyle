@@ -50,9 +50,6 @@
         "symfony/finder"                        : ">=4.4.16",
         "nikic/php-parser"                      : ">=4.15.3",
 
-        "jbzoo/composer-diff"                   : "7.x-dev",
-        "jbzoo/composer-graph"                  : "7.x-dev",
-        "jbzoo/ci-report-converter"             : "7.x-dev",
         "mheap/phpunit-github-actions-printer"  : ">=1.5.1",
 
         "friendsofphp/php-cs-fixer"             : ">=3.14.4",

@@ -75,6 +75,9 @@ test-phpunit-ga:
 #### All Coding Standards ##############################################################################################
 
 codestyle: ##@Tests Launch all codestyle linters at once
+	$(call download_phar,$(CO_DIFF_PHAR),"composer-diff")
+	$(call download_phar,$(CO_GRAPH_PHAR),"composer-graph")
+	$(call download_phar,$(CO_CI_REPORT_PHAR),"ci-report-converter")
 	@if [ -n "$(TEAMCITY_VERSION)" ]; then    \
         make codestyle-teamcity;              \
     elif [ -n "$(GITHUB_ACTIONS)" ]; then     \
