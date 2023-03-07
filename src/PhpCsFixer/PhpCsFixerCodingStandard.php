@@ -132,7 +132,7 @@ final class PhpCsFixerCodingStandard
         'method_chaining_indentation' => true,
 
         'cast_spaces'  => ['space' => 'none'],
-        'types_spaces' => ['space' => 'single'],
+        'types_spaces' => ['space' => 'none'],
         'concat_space' => ['spacing' => 'one'],
 
         'multiline_whitespace_before_semicolons' => ['strategy' => 'no_multi_line'],
