@@ -174,28 +174,6 @@ trait TraitCopyright
         '',
     ];
 
-    protected static function checkHeaderInFiles(Finder $finder, string $validHeader): void
-    {
-        $testName = \debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS, 2)[1]['function'];
-
-        $testFunction = static function (string $content, string $pathname) use ($validHeader): void {
-            $isValid = \str_starts_with($content, $validHeader);
-
-            $errMessage = \implode("\n", [
-                'The file has no valid copyright in header',
-                "See: {$pathname}",
-                'Expected file header:',
-                \str_repeat('-', 80),
-                $validHeader,
-                \str_repeat('-', 80),
-            ]);
-
-            isTrue($isValid, $errMessage);
-        };
-
-        AbstractPackageTest::checkFiles($testName, $finder, $testFunction);
-    }
-
     public function testHeadersPhp(): void
     {
         $phpTemplate = $this->prepareTemplate($this->validHeaderPHP);
@@ -349,5 +327,27 @@ trait TraitCopyright
         }
 
         return $template;
+    }
+
+    protected static function checkHeaderInFiles(Finder $finder, string $validHeader): void
+    {
+        $testName = \debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS, 2)[1]['function'];
+
+        $testFunction = static function (string $content, string $pathname) use ($validHeader): void {
+            $isValid = \str_starts_with($content, $validHeader);
+
+            $errMessage = \implode("\n", [
+                'The file has no valid copyright in header',
+                "See: {$pathname}",
+                'Expected file header:',
+                \str_repeat('-', 80),
+                $validHeader,
+                \str_repeat('-', 80),
+            ]);
+
+            isTrue($isValid, $errMessage);
+        };
+
+        AbstractPackageTest::checkFiles($testName, $finder, $testFunction);
     }
 }

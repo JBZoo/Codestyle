@@ -96,31 +96,6 @@ trait TraitReadme
 
     protected string $codacyId = '__SEE_REPO_CONFIG__';
 
-    protected static function getReadme(): string
-    {
-        $content = (string)\file_get_contents(PROJECT_ROOT . '/README.md');
-        isNotEmpty($content);
-
-        return $content;
-    }
-
-    protected static function splitCamelCase(string $input): string
-    {
-        $original = $input;
-
-        $output = (string)\preg_replace(['/(?<=[^A-Z])([A-Z])/', '/(?<=[^0-9])([0-9])/'], '_$0', $input);
-        $output = (string)\preg_replace('#_{1,}#', '_', $output);
-
-        $output = \trim($output);
-        $output = \strtolower($output);
-
-        if ($output === '') {
-            return $original;
-        }
-
-        return $output;
-    }
-
     // ### Test cases ##################################################################################################
 
     public function testReadmeHeader(): void
@@ -476,5 +451,30 @@ trait TraitReadme
         }
 
         return $badge;
+    }
+
+    protected static function getReadme(): string
+    {
+        $content = (string)\file_get_contents(PROJECT_ROOT . '/README.md');
+        isNotEmpty($content);
+
+        return $content;
+    }
+
+    protected static function splitCamelCase(string $input): string
+    {
+        $original = $input;
+
+        $output = (string)\preg_replace(['/(?<=[^A-Z])([A-Z])/', '/(?<=[^0-9])([0-9])/'], '_$0', $input);
+        $output = (string)\preg_replace('#_{1,}#', '_', $output);
+
+        $output = \trim($output);
+        $output = \strtolower($output);
+
+        if ($output === '') {
+            return $original;
+        }
+
+        return $output;
     }
 }
