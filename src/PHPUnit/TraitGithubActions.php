@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace JBZoo\Codestyle\PHPUnit;
 
 use function JBZoo\Data\yml;
-use function JBZoo\PHPUnit\is;
 use function JBZoo\PHPUnit\isSame;
 
 /**
@@ -30,21 +29,7 @@ trait TraitGithubActions
         $actual = yml(PROJECT_ROOT . '/.github/workflows/main.yml')->getArrayCopy();
 
         // General Parameters
-        $phpVersions    = [8.1, 8.2];
-        $phpExtensions  = 'ast';
-        $setupPhpAction = 'shivammathur/setup-php@v2';
-        $expectedOs     = 'ubuntu-latest';
-
-        // General Steps
-        $checkoutStep = [
-            'name' => 'Checkout code',
-            'uses' => 'actions/checkout@v3',
-            'with' => ['fetch-depth' => 0],
-        ];
-        $buildProjectStep = [
-            'name' => 'Build the Project',
-            'run'  => 'make update --no-print-directory',
-        ];
+        $expectedOs = 'ubuntu-latest';
 
         // Expected
         $expected = [
@@ -52,7 +37,7 @@ trait TraitGithubActions
             'on'   => [
                 'pull_request' => ['branches' => ['*']],
                 'push'         => ['branches' => ['master']],
-                'schedule'     => [['cron' => "{$this->gaScheduleMinute} */8 * * *"]],
+                'schedule'     => [['cron' => $this->getScheduleMinute()]],
             ],
 
             'env' => [
@@ -62,113 +47,179 @@ trait TraitGithubActions
 
             'jobs' => [
                 'phpunit' => [
-                    'name'    => 'PHPUnit',
-                    'runs-on' => $expectedOs,
-                    'env'     => ['JBZOO_COMPOSER_UPDATE_FLAGS' => '${{ matrix.composer_flags }}'],
-
+                    'name'     => 'PHPUnit',
+                    'runs-on'  => $expectedOs,
+                    'env'      => ['JBZOO_COMPOSER_UPDATE_FLAGS' => '${{ matrix.composer_flags }}'],
                     'strategy' => [
                         'matrix' => [
-                            'php-version'    => $phpVersions,
+                            'php-version'    => self::phpVersions(),
                             'coverage'       => ['xdebug', 'none'],
                             'composer_flags' => ['--prefer-lowest', ''],
                         ],
                     ],
                     'steps' => [
-                        $checkoutStep,
-                        [
-                            'name' => 'Setup PHP',
-                            'uses' => $setupPhpAction,
-                            'with' => [
-                                'php-version' => '${{ matrix.php-version }}',
-                                'coverage'    => '${{ matrix.coverage }}',
-                                'tools'       => 'composer',
-                                'extensions'  => $phpExtensions,
-                            ],
-                        ],
-                        $buildProjectStep,
+                        self::checkoutStep('phpunit'),
+                        self::setupPhpStep('phpunit'),
+                        self::buildStep('phpunit'),
+                        self::stepBeforeTests(),
                         [
                             'name' => '🧪 PHPUnit Tests',
                             'run'  => 'make test --no-print-directory',
                         ],
+                        self::stepAfterTests(),
                         [
                             'name'              => 'Uploading coverage to coveralls',
-                            'if'                => "\${{ matrix.coverage == 'xdebug' }}",
+                            'if'                => '${{ matrix.coverage == \'xdebug\' }}',
                             'continue-on-error' => true,
                             'env'               => ['COVERALLS_REPO_TOKEN' => '${{ secrets.GITHUB_TOKEN }}'],
                             'run'               => 'make report-coveralls --no-print-directory || true',
                         ],
-                        $this->uploadArtifactsStep('PHPUnit - ${{ matrix.php-version }} - ${{ matrix.coverage }}'),
+                        self::uploadArtifactsStep('PHPUnit - ${{ matrix.php-version }} - ${{ matrix.coverage }}'),
                     ],
                 ],
                 'linters' => [
                     'name'     => 'Linters',
                     'runs-on'  => $expectedOs,
-                    'strategy' => ['matrix' => ['php-version' => $phpVersions]],
+                    'strategy' => ['matrix' => ['php-version' => self::phpVersions()]],
                     'steps'    => [
-                        $checkoutStep,
-                        [
-                            'name' => 'Setup PHP',
-                            'uses' => $setupPhpAction,
-                            'with' => [
-                                'php-version' => '${{ matrix.php-version }}',
-                                'coverage'    => 'none',
-                                'tools'       => 'composer',
-                                'extensions'  => $phpExtensions,
-                            ],
-                        ],
-                        $buildProjectStep,
+                        self::checkoutStep('linters'),
+                        self::setupPhpStep('linters'),
+                        self::buildStep('linters'),
                         [
                             'name' => '👍 Code Quality',
                             'run'  => 'make codestyle --no-print-directory',
                         ],
-                        $this->uploadArtifactsStep('Linters - ${{ matrix.php-version }}'),
+                        self::uploadArtifactsStep('Linters - ${{ matrix.php-version }}'),
                     ],
                 ],
                 'report' => [
                     'name'     => 'Reports',
                     'runs-on'  => $expectedOs,
-                    'strategy' => ['matrix' => ['php-version' => $phpVersions]],
+                    'strategy' => ['matrix' => ['php-version' => self::phpVersions()]],
                     'steps'    => [
-                        $checkoutStep,
-                        [
-                            'name' => 'Setup PHP',
-                            'uses' => $setupPhpAction,
-                            'with' => [
-                                'php-version' => '${{ matrix.php-version }}',
-                                'coverage'    => 'xdebug',
-                                'tools'       => 'composer',
-                                'extensions'  => $phpExtensions,
-                            ],
-                        ],
-                        $buildProjectStep,
+                        self::checkoutStep('report'),
+                        self::setupPhpStep('report'),
+                        self::buildStep('report'),
                         [
                             'name' => '📝 Build Reports',
                             'run'  => 'make report-all --no-print-directory',
                         ],
-                        $this->uploadArtifactsStep('Reports - ${{ matrix.php-version }}'),
+                        self::uploadArtifactsStep('Reports - ${{ matrix.php-version }}'),
                     ],
                 ],
             ],
         ];
 
-        $actualYml    = (string)yml($actual);
-        $expectedYaml = (string)yml($expected);
-        isSame($expectedYaml, $actualYml);
+        $expectedYaml = self::toYaml($expected);
+        $actualYaml   = self::toYaml($actual);
 
-        is($expected, $actual, $expectedYaml);
-        isSame($expected, $actual);
+        isSame($expectedYaml, $actualYaml);
+    }
+
+    protected function getScheduleMinute(): string
+    {
+        return self::stringToNumber($this->packageName, 59) . ' */8 * * *';
+    }
+
+    protected static function stepBeforeTests(): ?array
+    {
+        return null;
+    }
+
+    protected static function stepAfterTests(): ?array
+    {
+        return null;
     }
 
     /**
-     * @suppress PhanPluginPossiblyStaticPrivateMethod
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * @phan-suppress PhanUnusedProtectedNoOverrideMethodParameter
      */
-    private function uploadArtifactsStep(string $stepName): array
+    protected static function checkoutStep(string $jobName): array
     {
         return [
-            'name'              => 'Upload Artifacts',
-            'uses'              => 'actions/upload-artifact@v3',
-            'continue-on-error' => true,
-            'with'              => ['name' => $stepName, 'path' => 'build/'],
+            'name' => 'Checkout code',
+            'uses' => 'actions/checkout@v3',
+            'with' => ['fetch-depth' => 0],
         ];
+    }
+
+    protected static function phpVersions(): array
+    {
+        return [8.1, 8.2];
+    }
+
+    /**
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * @phan-suppress PhanUnusedProtectedNoOverrideMethodParameter
+     */
+    protected static function buildStep(string $jobName): array
+    {
+        return [
+            'name' => 'Build the Project',
+            'run'  => 'make update --no-print-directory',
+        ];
+    }
+
+    protected static function setupPhpStep(string $jobName): array
+    {
+        $coverage = 'none';
+        if ($jobName === 'phpunit') {
+            $coverage = '${{ matrix.coverage }}';
+        } elseif ($jobName === 'report') {
+            $coverage = 'xdebug';
+        }
+
+        return [
+            'name' => 'Setup PHP',
+            'uses' => 'shivammathur/setup-php@v2',
+            'with' => [
+                'php-version' => '${{ matrix.php-version }}',
+                'coverage'    => $coverage,
+                'tools'       => 'composer',
+                'extensions'  => 'ast',
+            ],
+        ];
+    }
+
+    protected static function uploadArtifactsStep(string $stepName): array
+    {
+        return [
+            'name' => 'Upload Artifacts',
+            'uses' => 'actions/upload-artifact@v3',
+
+            'continue-on-error' => true,
+
+            'with' => ['name' => $stepName, 'path' => 'build/'],
+        ];
+    }
+
+    private static function normalizeData(array $data): array
+    {
+        foreach ($data['jobs'] as $jobName => $job) {
+            foreach ($job['steps'] as $stepIndex => $step) {
+                if ($step === null) {
+                    unset($data['jobs'][$jobName]['steps'][$stepIndex]);
+                }
+            }
+
+            $data['jobs'][$jobName]['steps'] = \array_values($data['jobs'][$jobName]['steps']);
+        }
+
+        return $data;
+    }
+
+    private static function toYaml(array $data): string
+    {
+        return (string)yml(self::normalizeData($data));
+    }
+
+    private static function stringToNumber(string $string, int $maxNumber): int
+    {
+        $hash   = \md5($string);
+        $substr = \substr($hash, 0, 8);
+        $number = \hexdec($substr);
+
+        return $number % ($maxNumber + 1);
     }
 }
