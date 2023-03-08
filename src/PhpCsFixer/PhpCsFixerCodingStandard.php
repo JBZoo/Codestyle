@@ -111,12 +111,12 @@ final class PhpCsFixerCodingStandard
                 'phpunit',
                 // Regular Methods
                 'method',
-                'method_public_static',
-                'method_protected_static',
-                'method_private_static',
                 'method_public',
+                'method_public_static',
                 'method_protected',
+                'method_protected_static',
                 'method_private',
+                'method_private_static',
             ],
         ],
 
