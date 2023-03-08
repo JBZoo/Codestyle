@@ -28,6 +28,7 @@ abstract class AbstractPhpStormProxyTest extends PHPUnit
 {
     public function testPhpCsFixer(): void
     {
+        $this->runToolViaMakefile('test-phpcsfixer-fix');
         $this->runToolViaMakefile('test-phpcsfixer-teamcity');
     }
 
