@@ -50,7 +50,11 @@ trait TraitComposer
         isSame(true, $composer->find('config.optimize-autoloader'));
         isSame(true, $composer->find('config.allow-plugins.composer/package-versions-deprecated'));
 
-        // minimum-stability
+        isSame('dev', $composer->find('minimum-stability'));
+        isSame(true, $composer->find('prefer-stable'));
+
         // jbzoo/* => !dev-master
+        // test phpunit.xml
+        // test makefile, update
     }
 }

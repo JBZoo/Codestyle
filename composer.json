@@ -21,6 +21,9 @@
         "tests"
     ],
 
+    "minimum-stability" : "dev",
+    "prefer-stable"     : true,
+
     "authors"      : [
         {
             "name"  : "Denis Smetannikov",
