@@ -289,7 +289,7 @@ trait TraitCopyright
         }
 
         foreach ($exclusions as $exclusion) {
-            $finder->notPath($exclusion);
+            $finder->notName($exclusion);
         }
 
         return $finder;
