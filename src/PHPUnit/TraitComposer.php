@@ -56,5 +56,6 @@ trait TraitComposer
         // jbzoo/* => !dev-master
         // test phpunit.xml
         // test makefile, update
+        // check public docs and length
     }
 }

@@ -280,6 +280,7 @@ trait TraitCopyright
             if (\str_contains($inclusion, '.')) {
                 $finder
                     ->name("*{$inclusion}")
+                    ->name(".*{$inclusion}")
                     ->name("*.dist{$inclusion}")
                     ->name("*{$inclusion}.dist")
                     ->name($inclusion);
