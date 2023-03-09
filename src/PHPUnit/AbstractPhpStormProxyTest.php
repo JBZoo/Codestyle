@@ -26,14 +26,21 @@ use function JBZoo\PHPUnit\success;
 
 abstract class AbstractPhpStormProxyTest extends PHPUnit
 {
-    public function testPhpCsFixer(): void
+    public function testPhpCsFixerFix(): void
     {
         $this->runToolViaMakefile('test-phpcsfixer-fix');
+    }
+
+    /**
+     * @depends testPhpCsFixerFix
+     */
+    public function testPhpCsFixerCheck(): void
+    {
         $this->runToolViaMakefile('test-phpcsfixer-teamcity');
     }
 
     /**
-     * @depends testPhpCsFixer
+     * @depends testPhpCsFixerCheck
      */
     public function testPhpCodeSniffer(): void
     {
