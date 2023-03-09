@@ -214,36 +214,24 @@ trait TraitCopyright
         static::checkHeaderInFiles($finder, $this->prepareTemplate($this->validHeaderXML));
     }
 
-    /**
-     * Test copyright headers of INI files.
-     */
     public function testHeadersIni(): void
     {
         $finder = $this->createFinder(['.ini']);
         static::checkHeaderInFiles($finder, $this->prepareTemplate($this->validHeaderINI));
     }
 
-    /**
-     * Test copyright headers of SH files.
-     */
     public function testHeadersSh(): void
     {
         $finder = $this->createFinder(['.sh', '.bash', '.fish']);
         static::checkHeaderInFiles($finder, $this->prepareTemplate($this->validHeaderSH));
     }
 
-    /**
-     * Test copyright headers of SQL files.
-     */
     public function testHeadersSql(): void
     {
         $finder = $this->createFinder(['.sql']);
         static::checkHeaderInFiles($finder, $this->prepareTemplate($this->validHeaderSQL));
     }
 
-    /**
-     * Test copyright headers for files with hash-like comments.
-     */
     public function testHeadersOtherConfigs(): void
     {
         $finder = $this->createFinder([
