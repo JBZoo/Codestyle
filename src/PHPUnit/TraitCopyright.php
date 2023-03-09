@@ -277,15 +277,9 @@ trait TraitCopyright
             ->followLinks();
 
         foreach ($inclusions as $inclusion) {
+            $finder->name($inclusion);
             if (\str_contains($inclusion, '.')) {
-                $finder
-                    ->name("*{$inclusion}")
-                    ->name(".*{$inclusion}")
-                    ->name("*.dist{$inclusion}")
-                    ->name("*{$inclusion}.dist")
-                    ->name($inclusion);
-            } else {
-                $finder->name($inclusion);
+                $finder->name('/\\' . $inclusion . '$/');
             }
         }
 
