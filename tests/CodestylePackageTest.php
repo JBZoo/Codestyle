@@ -18,5 +18,7 @@ namespace JBZoo\PHPUnit;
 
 final class CodestylePackageTest extends \JBZoo\Codestyle\PHPUnit\AbstractPackageTest
 {
+    protected const DEBUG_MODE = true;
+
     protected string $packageName = 'Codestyle';
 }

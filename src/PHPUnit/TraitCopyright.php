@@ -18,7 +18,9 @@ namespace JBZoo\Codestyle\PHPUnit;
 
 use Symfony\Component\Finder\Finder;
 
-use function JBZoo\PHPUnit\isTrue;
+use function JBZoo\PHPUnit\fail;
+use function JBZoo\PHPUnit\skip;
+use function JBZoo\PHPUnit\success;
 
 /**
  * @phan-file-suppress PhanUndeclaredProperty
@@ -314,23 +316,35 @@ trait TraitCopyright
 
     protected static function checkHeaderInFiles(Finder $finder, string $validHeader): void
     {
-        $testName = \debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS, 2)[1]['function'];
+        $invalidFiles = [];
 
-        $testFunction = static function (string $content, string $pathname) use ($validHeader): void {
-            $isValid = \str_starts_with($content, $validHeader);
-
-            $errMessage = \implode("\n", [
-                'The file has no valid copyright in header',
-                "See: {$pathname}",
-                'Expected file header:',
-                \str_repeat('-', 80),
-                $validHeader,
-                \str_repeat('-', 80),
-            ]);
-
-            isTrue($isValid, $errMessage);
+        $testFunction = static function (string $content, string $pathname) use ($validHeader, &$invalidFiles): void {
+            if (!\str_starts_with($content, $validHeader)) {
+                $invalidFiles[] = $pathname;
+            }
         };
 
-        AbstractPackageTest::checkFiles($testName, $finder, $testFunction);
+        $testName   = \debug_backtrace(\DEBUG_BACKTRACE_IGNORE_ARGS, 2)[1]['function'];
+        $filesCount = AbstractPackageTest::checkFiles($testName, $finder, $testFunction);
+
+        if (\count($invalidFiles) > 0) {
+            $errorMessage = \implode("\n", [
+                'The file has no valid copyright in header.',
+                'Expected file header:',
+                \str_repeat('-', 60),
+                $validHeader,
+                \str_repeat('-', 60),
+                'Invalid Files:',
+                'See: ' . \implode("\nSee: ", $invalidFiles),
+                '',
+            ]);
+            fail($errorMessage);
+        }
+
+        if ($filesCount > 0) {
+            success();
+        } else {
+            skip('Files not found');
+        }
     }
 }

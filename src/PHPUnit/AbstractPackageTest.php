@@ -82,7 +82,7 @@ abstract class AbstractPackageTest extends PHPUnit
         $this->packageNamespace = \str_replace('-', '', $this->packageName);
     }
 
-    public static function checkFiles(string $testcaseName, Finder $finder, \Closure $testCaseFunction): void
+    public static function checkFiles(string $testcaseName, Finder $finder, \Closure $testCaseFunction): int
     {
         if (static::DEBUG_MODE) {
             Cli::out("Count: {$finder->count()}; Method: {$testcaseName}");
@@ -101,5 +101,7 @@ abstract class AbstractPackageTest extends PHPUnit
         }
 
         isTrue(true); // One assert is a minimum for test complete
+
+        return $finder->count();
     }
 }
