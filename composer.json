@@ -1,9 +1,9 @@
 {
-    "name"         : "jbzoo/codestyle",
-    "type"         : "library",
-    "license"      : "MIT",
-    "description"  : "Collection of QA tools and JBZoo code standards",
-    "keywords"     : [
+    "name"              : "jbzoo/codestyle",
+    "type"              : "library",
+    "license"           : "MIT",
+    "description"       : "Collection of QA tools and JBZoo code standards",
+    "keywords"          : [
         "codestyle",
         "coding-standard",
         "jbzoo",
@@ -21,10 +21,7 @@
         "tests"
     ],
 
-    "minimum-stability" : "dev",
-    "prefer-stable"     : true,
-
-    "authors"      : [
+    "authors"           : [
         {
             "name"  : "Denis Smetannikov",
             "email" : "admin@jbzoo.com",
@@ -32,20 +29,23 @@
         }
     ],
 
-    "require"      : {
+    "minimum-stability" : "dev",
+    "prefer-stable"     : true,
+
+    "require"           : {
         "php"                                   : "^8.1",
 
         "vimeo/psalm"                           : ">=5.7.7",
         "phpmd/phpmd"                           : ">=2.13.0",
-        "phan/phan"                             : ">=5.4.1",
+        "phan/phan"                             : ">=5.4.2",
         "povils/phpmnd"                         : ">=3.0.1",
 
-        "phpstan/phpstan"                       : ">=1.10.3",
+        "phpstan/phpstan"                       : ">=1.10.5",
         "phpstan/phpstan-strict-rules"          : ">=1.5.0",
 
         "squizlabs/php_codesniffer"             : ">=3.7.2",
 
-        "phpmetrics/phpmetrics"                 : ">=2.8.1",
+        "phpmetrics/phpmetrics"                 : ">=2.8.2",
         "pdepend/pdepend"                       : ">=2.13.0",
 
         "symfony/yaml"                          : ">=4.4.16",
@@ -53,36 +53,35 @@
         "symfony/finder"                        : ">=4.4.16",
         "nikic/php-parser"                      : ">=4.15.3",
 
-        "mheap/phpunit-github-actions-printer"  : ">=1.5.1",
-
         "friendsofphp/php-cs-fixer"             : ">=3.14.4",
-        "kubawerlos/php-cs-fixer-custom-fixers" : ">=3.13.0"
+        "kubawerlos/php-cs-fixer-custom-fixers" : ">=3.13.0",
+
+        "jbzoo/data"                            : "7.x-dev"
     },
 
-    "require-dev"  : {
+    "require-dev"       : {
         "jbzoo/phpunit"      : "7.x-dev",
-        "jbzoo/utils"        : ">=4.5.5|7.x-dev",
-        "jbzoo/data"         : ">=4.0|7.x-dev",
+        "jbzoo/utils"        : "7.x-dev",
         "symfony/var-dumper" : ">=4.4.16"
     },
 
-    "autoload"     : {
+    "autoload"          : {
         "psr-4" : {"JBZoo\\Codestyle\\" : "src"},
         "files" : [
             "src/compatibility.php"
         ]
     },
 
-    "autoload-dev" : {
+    "autoload-dev"      : {
         "psr-4" : {"JBZoo\\PHPUnit\\" : "tests"}
     },
 
-    "config"       : {
+    "config"            : {
         "optimize-autoloader" : true,
         "allow-plugins"       : {"composer/package-versions-deprecated" : true}
     },
 
-    "extra"        : {
+    "extra"             : {
         "branch-alias" : {
             "dev-master" : "7.x-dev"
         }
