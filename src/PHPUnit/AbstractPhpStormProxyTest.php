@@ -111,6 +111,9 @@ abstract class AbstractPhpStormProxyTest extends PHPUnit
      */
     private function getEnvVariableForTestCase(string $makeTargetName): string
     {
-        return 'PHPSTORM_PROXY_' . \strtoupper(\str_replace(['test-', '-teamcity'], '', $makeTargetName));
+        $makeTargetName = \str_replace(['test-', '-teamcity', '-'], ['', '', '_'], $makeTargetName);
+        $makeTargetName = \strtoupper($makeTargetName);
+
+        return "PHPSTORM_PROXY_{$makeTargetName}";
     }
 }
