@@ -57,5 +57,11 @@ trait TraitComposer
         // test phpunit.xml
         // test makefile, update
         // check public docs and length
+        // final classes for tests
+        // @return $this
+        // @throws
+        // build-download-phars - all deps at once
+        // composer update -W everywhere
+        // composer order of properties
     }
 }

@@ -269,7 +269,10 @@ trait TraitCopyright
         foreach ($inclusions as $inclusion) {
             $finder->name($inclusion);
             if (\str_contains($inclusion, '.')) {
-                $finder->name('/\\' . $inclusion . '$/');
+                $finder
+                    ->name('/\\' . $inclusion . '$/')
+                    ->name('/dist\\' . $inclusion . '$/')
+                    ->name('/\\' . $inclusion . '.dist$/');
             }
         }
 

@@ -368,7 +368,7 @@ test-psalm: ##@Tests Psalm - static analysis tool for PHP
         --find-unused-psalm-suppress                            \
         --output-format=compact                                 \
         --long-progress                                         \
-        --shepherd
+        --no-cache
 
 
 test-psalm-teamcity:
@@ -380,10 +380,11 @@ test-psalm-teamcity:
         --report-show-info=true                                 \
         --find-unused-psalm-suppress                            \
         --output-format=json                                    \
+        --no-cache                                              \
         --no-progress                                           \
         --shepherd                                              \
         --monochrome > "$(PATH_BUILD)/psalm-checkstyle.json"
-	@$(CO_CI_REPORT_BIN) convert                  \
+	@$(CO_CI_REPORT_BIN) convert                                \
         --input-file="$(PATH_BUILD)/psalm-checkstyle.json"      \
         --input-format="psalm-json"                             \
         --output-format="$(CI_REPORT)"                          \
