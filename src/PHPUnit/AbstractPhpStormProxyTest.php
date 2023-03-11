@@ -57,6 +57,9 @@ abstract class AbstractPhpStormProxyTest extends PHPUnit
         $this->runToolViaMakefile('test-phpmnd-teamcity');
     }
 
+    /**
+     * @depends testPhpCodeSniffer
+     */
     public function testPhpStan(): void
     {
         $this->runToolViaMakefile('test-phpstan-teamcity');

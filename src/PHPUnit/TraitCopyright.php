@@ -337,7 +337,7 @@ trait TraitCopyright
                 \str_repeat('-', 60),
                 $validHeader,
                 \str_repeat('-', 60),
-                'Invalid Files:',
+                'Invalid Files (' . \count($invalidFiles) . '):',
                 'See: ' . \implode("\nSee: ", $invalidFiles),
                 '',
             ]);
