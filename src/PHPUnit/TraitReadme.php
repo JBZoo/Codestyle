@@ -425,7 +425,7 @@ trait TraitReadme
             '__PACKAGE__'      => \strtolower($this->packageName),
         ];
 
-        $result = Markdown::badge('__NAME__', '__SVG_URL__', '__SERVICE_URL__');
+        $result = (string)Markdown::badge('__NAME__', '__SVG_URL__', '__SERVICE_URL__');
 
         foreach ($params as $key => $value) {
             $result = \str_replace($key, $value, $result);
