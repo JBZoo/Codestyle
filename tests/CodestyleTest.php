@@ -18,7 +18,7 @@ namespace JBZoo\PHPUnit;
 
 use JBZoo\Codestyle\PhpCsFixer\PhpCsFixerCodingStandard;
 
-final class PhpUnitDefinesTest extends PHPUnit
+final class CodestyleTest extends PHPUnit
 {
     public function testDefines(): void
     {
