@@ -63,5 +63,6 @@ trait TraitComposer
         // build-download-phars - all deps at once
         // composer update -W everywhere
         // composer order of properties
+        // check banner in `box.json.dist`
     }
 }
