@@ -58,11 +58,12 @@ trait TraitComposer
         // test makefile, update
         // check public docs and length
         // final classes for tests
-        // @return $this
-        // @throws
-        // build-download-phars - all deps at once
+        // @return $this (and + ./tests)
+        // @throws (and + ./tests)
+        // build-download-phars - add all deps to download at once
         // composer update -W everywhere
         // composer order of properties
         // check banner in `box.json.dist`
+        // Move tests from PhpStormProxy => AbstractPackageTest
     }
 }

@@ -317,6 +317,15 @@ trait TraitCopyright
         return $template;
     }
 
+    /**
+     * Checks for the presence of a valid header in files found by a Finder object.
+     * If any invalid files are found, it generates an error indicating the incorrect files.
+     * On successful validation of all files, it outputs a success message.
+     * If no files are found, it outputs a skipped check message.
+     *
+     * @param Finder $finder      finder object used to search for files
+     * @param string $validHeader string containing the correct header for validation
+     */
     protected static function checkHeaderInFiles(Finder $finder, string $validHeader): void
     {
         $invalidFiles = [];

@@ -87,6 +87,7 @@ return [
         'PossiblyStaticMethodPlugin',
         'PHPDocToRealTypesPlugin',
         'UnusedSuppressionPlugin',
+        // 'PHPDocRedundantPlugin'
     ],
 
     'file_list'      => [],
