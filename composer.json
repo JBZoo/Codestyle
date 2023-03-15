@@ -53,7 +53,7 @@
         "symfony/finder"                        : ">=4.4.16",
         "nikic/php-parser"                      : ">=4.15.3",
 
-        "friendsofphp/php-cs-fixer"             : ">=3.15.0",
+        "friendsofphp/php-cs-fixer"             : ">=3.15.1",
         "kubawerlos/php-cs-fixer-custom-fixers" : ">=3.13.0",
 
         "jbzoo/data"                            : "7.x-dev"
