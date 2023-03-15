@@ -13,16 +13,16 @@
 clean-build: clean
 clean: ##@Project Cleanup only build directory
 	$(call title,"Cleanup only build directory")
-	@rm    -fr `pwd`/build
-	@mkdir -pv `pwd`/build
-	@touch     `pwd`/build/.gitkeep
+	@rm    -fr $(PATH_BUILD)
+	@mkdir -pv $(PATH_BUILD)
+	@touch     $(PATH_BUILD)/.gitkeep
 
 
 clean-vendor: ##@Project Cleanup all
 	$(call title,"Cleanup build and vendor directories")
 	@make clean
-	@rm -fr `pwd`/vendor
-	@rm -fr `pwd`/composer.lock
+	@rm -fr $(PATH_ROOT)/vendor
+	@rm -fr $(PATH_ROOT)/composer.lock
 
 
 autoload: ##@Project Dump optimized autoload file for PHP
@@ -32,15 +32,10 @@ autoload: ##@Project Dump optimized autoload file for PHP
 
 build-phar: ##@Project Compile phar file
 	$(call download_phar,$(BOX_PHAR),"box")
-	@$(PHP_BIN) `pwd`/vendor/bin/box.phar --version
-	@$(PHP_BIN) `pwd`/vendor/bin/box.phar validate  \
-        --ignore-recommendations-and-warnings       \
-        -vvv
+	@$(BOX_BIN) --version
+	@$(BOX_BIN) validate -vvv || true
 	@$(COMPOSER_BIN) config autoloader-suffix $(PROJECT_ALIAS) -v
-	@$(PHP_BIN) `pwd`/vendor/bin/box.phar compile   \
-        --working-dir="`pwd`"                       \
-        --allow-composer-check-failure              \
-        -vvv
+	@$(BOX_BIN) compile -vvv
 	@$(COMPOSER_BIN) config autoloader-suffix --unset          -v
 
 
