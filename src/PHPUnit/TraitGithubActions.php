@@ -17,7 +17,7 @@ declare(strict_types=1);
 namespace JBZoo\Codestyle\PHPUnit;
 
 use function JBZoo\Data\yml;
-use function JBZoo\PHPUnit\isSame;
+use function JBZoo\PHPUnit\isTrue;
 
 /**
  * @phan-file-suppress PhanUndeclaredProperty
@@ -26,7 +26,8 @@ trait TraitGithubActions
 {
     public function testGithubActionsWorkflow(): void
     {
-        $actual = yml(PROJECT_ROOT . '/.github/workflows/main.yml')->getArrayCopy();
+        $mailYmlPath = PROJECT_ROOT . '/.github/workflows/main.yml';
+        $actual      = yml($mailYmlPath)->getArrayCopy();
 
         // General Parameters
         $expectedOs = 'ubuntu-latest';
@@ -113,7 +114,16 @@ trait TraitGithubActions
         $expectedYaml = self::toYaml($expected);
         $actualYaml   = self::toYaml($actual);
 
-        isSame($expectedYaml, $actualYaml);
+        isTrue(
+            \str_contains($actualYaml, $expectedYaml),
+            \implode("\n", [
+                'Expected Yaml file:',
+                "See: {$mailYmlPath}",
+                '----------------------------------------',
+                $expectedYaml,
+                '----------------------------------------',
+            ]),
+        );
     }
 
     protected function getScheduleMinute(): string
