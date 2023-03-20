@@ -49,8 +49,11 @@ return [
     'assume_real_types_for_internal_functions' => true,
 
     'globals_type_map'     => [],
-    'suppress_issue_types' => [],
-    'minimum_severity'     => 0, // Issue::SEVERITY_LOW,
+    'suppress_issue_types' => [
+        'PhanCompatibleTrailingCommaParameterList',
+    ],
+
+    'minimum_severity' => 0, // Issue::SEVERITY_LOW,
 
     'analyzed_file_extensions'               => ['php'],
     'autoload_internal_extension_signatures' => [],
