@@ -35,7 +35,7 @@ build-phar: ##@Project Compile phar file
 	@$(BOX_BIN) --version
 	@$(BOX_BIN) validate -vvv || true
 	@$(COMPOSER_BIN) config autoloader-suffix $(PROJECT_ALIAS) -v
-	@$(BOX_BIN) compile --allow-composer-check-failure -vv
+	@$(BOX_BIN) compile --allow-composer-check-failure -vv --composer-bin="php ./composer.phar"
 	@$(COMPOSER_BIN) config autoloader-suffix --unset          -v
 
 
