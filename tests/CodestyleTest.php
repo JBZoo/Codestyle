@@ -66,7 +66,9 @@ final class CodestyleTest extends PHPUnit
             'assume_real_types_for_internal_functions' => true,
 
             'globals_type_map'                       => [],
-            'suppress_issue_types'                   => [],
+            'suppress_issue_types'                   => [
+                'PhanCompatibleTrailingCommaParameterList'
+            ],
             'minimum_severity'                       => 0,
             'analyzed_file_extensions'               => ['php'],
             'autoload_internal_extension_signatures' => [],
