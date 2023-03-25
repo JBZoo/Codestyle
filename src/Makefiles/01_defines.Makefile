@@ -51,15 +51,15 @@ endif
 
 
 #### Phar files
-PHPCPD_PHAR        = https://phar.phpunit.de/phpcpd.phar
-PHPLOC_PHAR        = https://phar.phpunit.de/phploc.phar
-PHPCOV_PHAR        = https://phar.phpunit.de/phpcov.phar
-BOX_PHAR           = https://github.com/box-project/box/releases/latest/download/box.phar
-CO_RC_PHAR         = https://github.com/maglnet/ComposerRequireChecker/releases/latest/download/composer-require-checker.phar
-PHP_COVERALLS_PHAR = https://github.com/php-coveralls/php-coveralls/releases/latest/download/php-coveralls.phar
-CO_DIFF_PHAR       = https://github.com/JBZoo/Composer-Diff/releases/latest/download/composer-diff.phar
-CO_GRAPH_PHAR      = https://github.com/JBZoo/Composer-Graph/releases/latest/download/composer-graph.phar
-CO_CI_REPORT_PHAR  = https://github.com/JBZoo/CI-Report-Converter/releases/latest/download/ci-report-converter.phar
+PHPCPD_PHAR        ?= https://phar.phpunit.de/phpcpd.phar
+PHPLOC_PHAR        ?= https://phar.phpunit.de/phploc.phar
+PHPCOV_PHAR        ?= https://phar.phpunit.de/phpcov.phar
+BOX_PHAR           ?= https://github.com/box-project/box/releases/download/3.16.0/box.phar
+CO_RC_PHAR         ?= https://github.com/maglnet/ComposerRequireChecker/releases/latest/download/composer-require-checker.phar
+PHP_COVERALLS_PHAR ?= https://github.com/php-coveralls/php-coveralls/releases/latest/download/php-coveralls.phar
+CO_DIFF_PHAR       ?= https://github.com/JBZoo/Composer-Diff/releases/latest/download/composer-diff.phar
+CO_GRAPH_PHAR      ?= https://github.com/JBZoo/Composer-Graph/releases/latest/download/composer-graph.phar
+CO_CI_REPORT_PHAR  ?= https://github.com/JBZoo/CI-Report-Converter/releases/latest/download/ci-report-converter.phar
 
 BOX_BIN            = $(VENDOR_BIN)/box.phar
 CO_DIFF_BIN        = $(VENDOR_BIN)/composer-diff.phar
