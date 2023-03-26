@@ -413,7 +413,8 @@ test-phan: ##@Tests Phan - super strict static analyzer for PHP
         --markdown-issue-messages                               \
         --allow-polyfill-parser                                 \
         --strict-type-checking                                  \
-        --analyze-twice	                                        \
+        --analyze-twice                                         \
+        --disable-cache                                         \
         --color
 
 
@@ -430,6 +431,7 @@ test-phan-teamcity:
         --allow-polyfill-parser                                 \
         --strict-type-checking                                  \
         --analyze-twice	                                        \
+        --disable-cache                                         \
         --no-color
 	@$(CO_CI_REPORT_BIN) convert                                \
         --input-file="$(PATH_BUILD)/phan-checkstyle.xml"        \
