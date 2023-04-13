@@ -12,10 +12,6 @@
 -->
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          bootstrap="tests/autoload.php"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
-         convertDeprecationsToExceptions="true"
          executionOrder="random"
          processIsolation="false"
          stopOnError="false"
@@ -23,8 +19,10 @@
          stopOnIncomplete="false"
          stopOnSkipped="false"
          stopOnRisky="false"
+         stopOnWarning="false"
          colors="true"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.0/phpunit.xsd"
+         cacheDirectory="build/phpunit.cache"
 >
     <coverage>
         <include>

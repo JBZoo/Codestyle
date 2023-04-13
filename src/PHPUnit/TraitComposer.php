@@ -20,13 +20,14 @@ use function JBZoo\Data\json;
 use function JBZoo\PHPUnit\isContain;
 use function JBZoo\PHPUnit\isNotEmpty;
 use function JBZoo\PHPUnit\isSame;
+use function JBZoo\PHPUnit\skip;
 
 /**
  * @phan-file-suppress PhanUndeclaredProperty
  */
 trait TraitComposer
 {
-    public function testComposerJsonProperties(): void
+    public function testComposerAuthor(): void
     {
         $composer = json(PROJECT_ROOT . '/composer.json');
 
@@ -35,23 +36,89 @@ trait TraitComposer
             'email' => 'admin@jbzoo.com',
             'role'  => 'lead',
         ], $composer->find('authors.0'));
+    }
 
+    public function testComposerBranchAlias(): void
+    {
+        $composer = json(PROJECT_ROOT . '/composer.json');
         isSame($this->composerDevVersion, $composer->find('extra.branch-alias.dev-master'));
+    }
+
+    public function testComposerRequirePhp(): void
+    {
+        $composer = json(PROJECT_ROOT . '/composer.json');
         isSame($this->composerPhpVersion, $composer->find('require.php'));
+    }
+
+    public function testComposerLicense(): void
+    {
+        $composer = json(PROJECT_ROOT . '/composer.json');
         isSame($this->composerLicense, $composer->find('license'));
+    }
+
+    public function testComposerType(): void
+    {
+        $composer = json(PROJECT_ROOT . '/composer.json');
         isSame($this->composerType, $composer->find('type'));
+    }
 
+    public function testComposerPackageName(): void
+    {
+        $composer = json(PROJECT_ROOT . '/composer.json');
         isContain(\strtolower("{$this->vendorName}/{$this->packageName}"), $composer->find('name'));
+    }
+
+    public function testComposerKeywords(): void
+    {
+        $composer = json(PROJECT_ROOT . '/composer.json');
         isNotEmpty($composer->find('keywords'));
+    }
+
+    public function testComposerDescription(): void
+    {
+        $composer = json(PROJECT_ROOT . '/composer.json');
         isNotEmpty($composer->find('description'));
+    }
 
+    public function testComposerAutoload(): void
+    {
+        $composer = json(PROJECT_ROOT . '/composer.json');
         isSame(["{$this->vendorName}\\{$this->packageNamespace}\\" => 'src'], $composer->find('autoload.psr-4'));
-        isSame(["{$this->vendorName}\\PHPUnit\\" => 'tests'], $composer->find('autoload-dev.psr-4'));
-        isSame(true, $composer->find('config.optimize-autoloader'));
-        isSame(true, $composer->find('config.allow-plugins.composer/package-versions-deprecated'));
+    }
 
+    public function testComposerAutoloadDev(): void
+    {
+        $composer = json(PROJECT_ROOT . '/composer.json');
+        isSame(["{$this->vendorName}\\PHPUnit\\" => 'tests'], $composer->find('autoload-dev.psr-4'));
+    }
+
+    public function testComposerOptimizeAutoloader(): void
+    {
+        $composer = json(PROJECT_ROOT . '/composer.json');
+        isSame(true, $composer->find('config.optimize-autoloader'));
+    }
+
+    public function testComposerAllowPlugins(): void
+    {
+        $composer = json(PROJECT_ROOT . '/composer.json');
+        isSame(true, $composer->find('config.allow-plugins.composer/package-versions-deprecated'));
+    }
+
+    public function testComposerMinimumStability(): void
+    {
+        $composer = json(PROJECT_ROOT . '/composer.json');
         isSame('dev', $composer->find('minimum-stability'));
+    }
+
+    public function testComposerPreferStable(): void
+    {
+        $composer = json(PROJECT_ROOT . '/composer.json');
         isSame(true, $composer->find('prefer-stable'));
+    }
+
+    public function testComposer(): void
+    {
+        skip('TODO: Complete tests from comments');
 
         // jbzoo/* => !dev-master
         // test phpunit.xml
@@ -65,5 +132,6 @@ trait TraitComposer
         // composer order of properties
         // check banner in `box.json.dist`
         // Move tests from PhpStormProxy => AbstractPackageTest
+        // test .gitattributes
     }
 }

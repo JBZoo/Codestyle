@@ -67,9 +67,7 @@
 
     "autoload"          : {
         "psr-4" : {"JBZoo\\Codestyle\\" : "src"},
-        "files" : [
-            "src/compatibility.php"
-        ]
+        "files" : ["src/compatibility.php"]
     },
 
     "autoload-dev"      : {

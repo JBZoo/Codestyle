@@ -36,7 +36,7 @@ CI_REPORT_MND    ?= $(TC_REPORT_MND)
 CI_REPORT_GA     ?= plain
 
 PHP_BIN           ?= php
-VENDOR_BIN        ?= $(PHP_BIN) `pwd`/vendor/bin
+VENDOR_BIN        ?= $(PHP_BIN) $(PATH_ROOT)/vendor/bin
 COMPOSER_BIN      ?= $(shell if [ $(PHP_BIN) = "php" ]; then echo "composer"; else which composer fi;)
 PHP_VERSION_ALIAS ?= $(shell $(PHP_BIN) --version | head -n 1 | cut -d " " -f 2 | cut -c 1,3)
 PROJECT_ALIAS     ?= $(shell basename `git rev-parse --show-toplevel` | sed 's/-//g')
@@ -61,81 +61,75 @@ CO_DIFF_PHAR       ?= https://github.com/JBZoo/Composer-Diff/releases/latest/dow
 CO_GRAPH_PHAR      ?= https://github.com/JBZoo/Composer-Graph/releases/latest/download/composer-graph.phar
 CO_CI_REPORT_PHAR  ?= https://github.com/JBZoo/CI-Report-Converter/releases/latest/download/ci-report-converter.phar
 
-BOX_BIN            = $(VENDOR_BIN)/box.phar
-CO_DIFF_BIN        = $(VENDOR_BIN)/composer-diff.phar
-CO_GRAPH_BIN       = $(VENDOR_BIN)/composer-graph.phar
-CO_CI_REPORT_BIN   = $(VENDOR_BIN)/ci-report-converter.phar
+BOX_BIN            ?= $(VENDOR_BIN)/box.phar
+CO_DIFF_BIN        ?= $(VENDOR_BIN)/composer-diff.phar
+CO_GRAPH_BIN       ?= $(VENDOR_BIN)/composer-graph.phar
+CO_CI_REPORT_BIN   ?= $(VENDOR_BIN)/ci-report-converter.phar
 
 
-ifneq (, $(wildcard ./src/phpcs.xml))
-    JBZOO_CONFIG_PHPCS ?= `pwd`/src/phpcs.xml
+ifneq (, $(wildcard ./phpcs.xml))
+    JBZOO_CONFIG_PHPCS ?= $(PATH_ROOT)/phpcs.xml
 else
-    JBZOO_CONFIG_PHPCS ?= `pwd`/vendor/jbzoo/codestyle/src/phpcs.xml
+    JBZOO_CONFIG_PHPCS ?= $(PATH_ROOT)/vendor/jbzoo/codestyle/src/phpcs.xml
 endif
 
 
 ifneq (, $(wildcard ./.php-cs-fixer.php))
-    JBZOO_CONFIG_PHPCSFIXER ?= `pwd`/.php-cs-fixer.php
+    JBZOO_CONFIG_PHPCSFIXER ?= $(PATH_ROOT)/.php-cs-fixer.php
 else
-    JBZOO_CONFIG_PHPCSFIXER ?= `pwd`/vendor/jbzoo/codestyle/src/PhpCsFixer/php-cs-fixer.php
+    JBZOO_CONFIG_PHPCSFIXER ?= $(PATH_ROOT)/vendor/jbzoo/codestyle/src/PhpCsFixer/php-cs-fixer.php
 endif
 
 
-ifneq (, $(wildcard ./src/phpmd.xml))
-    JBZOO_CONFIG_PHPMD ?= `pwd`/src/phpmd.xml
+ifneq (, $(wildcard ./phpmd.xml))
+    JBZOO_CONFIG_PHPMD ?= $(PATH_ROOT)/phpmd.xml
 else
-    JBZOO_CONFIG_PHPMD ?= `pwd`/vendor/jbzoo/codestyle/src/phpmd.xml
+    JBZOO_CONFIG_PHPMD ?= $(PATH_ROOT)/vendor/jbzoo/codestyle/src/phpmd.xml
 endif
 
 
 ifneq (, $(wildcard ./phpstan.neon))
-    JBZOO_CONFIG_PHPSTAN ?= `pwd`/phpstan.neon
+    JBZOO_CONFIG_PHPSTAN ?= $(PATH_ROOT)/phpstan.neon
 else
-    JBZOO_CONFIG_PHPSTAN ?= `pwd`/vendor/jbzoo/codestyle/src/phpstan.neon
+    JBZOO_CONFIG_PHPSTAN ?= $(PATH_ROOT)/vendor/jbzoo/codestyle/src/phpstan.neon
 endif
 
 
 ifneq (, $(wildcard ./psalm.xml))
-    JBZOO_CONFIG_PSALM ?= `pwd`/psalm.xml
+    JBZOO_CONFIG_PSALM ?= $(PATH_ROOT)/psalm.xml
 else
-    JBZOO_CONFIG_PSALM ?= `pwd`/vendor/jbzoo/codestyle/psalm.xml
+    JBZOO_CONFIG_PSALM ?= $(PATH_ROOT)/vendor/jbzoo/codestyle/psalm.xml
 endif
 
 
 ifneq (, $(wildcard ./psalm-baseline.xml))
-    JBZOO_CONFIG_PSALM_BASELINE ?= `pwd`/psalm-baseline.xml
+    JBZOO_CONFIG_PSALM_BASELINE ?= $(PATH_ROOT)/psalm-baseline.xml
 else
-    JBZOO_CONFIG_PSALM_BASELINE ?= `pwd`/vendor/jbzoo/codestyle/psalm-baseline.xml
+    JBZOO_CONFIG_PSALM_BASELINE ?= $(PATH_ROOT)/vendor/jbzoo/codestyle/psalm-baseline.xml
 endif
 
 
 ifneq (, $(wildcard ./.phan.php))
-    JBZOO_CONFIG_PHAN ?= `pwd`/.phan.php
+    JBZOO_CONFIG_PHAN ?= $(PATH_ROOT)/.phan.php
 else ifneq (, $(wildcard ./.phan/config.php))
-    JBZOO_CONFIG_PHAN ?= `pwd`/.phan/config.php
+    JBZOO_CONFIG_PHAN ?= $(PATH_ROOT)/.phan/config.php
 else
-    JBZOO_CONFIG_PHAN ?= `pwd`/vendor/jbzoo/codestyle/.phan/config.php
+    JBZOO_CONFIG_PHAN ?= $(PATH_ROOT)/vendor/jbzoo/codestyle/.phan/config.php
 endif
 
-
-ifneq (, $(wildcard ./phpunit.xml))
-    JBZOO_CONFIG_PHPUNIT ?= `pwd`/phpunit.xml
-else
-    JBZOO_CONFIG_PHPUNIT ?= `pwd`/phpunit.xml.dist
-endif
 
 
 ifneq (, $(wildcard ./composer-require-checker.json))
-    JBZOO_CONFIG_COMPOSER_REQ_CHECKER ?= `pwd`/composer-require-checker.json
+    JBZOO_CONFIG_COMPOSER_REQ_CHECKER ?= $(PATH_ROOT)/composer-require-checker.json
 else
-    JBZOO_CONFIG_COMPOSER_REQ_CHECKER ?= `pwd`/vendor/jbzoo/codestyle/src/composer-require-checker.json
+    JBZOO_CONFIG_COMPOSER_REQ_CHECKER ?= $(PATH_ROOT)/vendor/jbzoo/codestyle/src/composer-require-checker.json
 endif
 
 
 ifneq (, $(wildcard ./phpbench.json))
-    JBZOO_CONFIG_PHPBENCH ?= `pwd`/phpbench.json
+    JBZOO_CONFIG_PHPBENCH ?= $(PATH_ROOT)/phpbench.json
 else
-    JBZOO_CONFIG_PHPBENCH ?= `pwd`/vendor/jbzoo/codestyle/src/phpbench.json
+    JBZOO_CONFIG_PHPBENCH ?= $(PATH_ROOT)/vendor/jbzoo/codestyle/src/phpbench.json
 endif
 
 
@@ -147,11 +141,7 @@ endef
 
 # Download phar file (if needs) and save it in ./vendor/bin
 define download_phar
-    @echo "Expected PHAR: $(1)"
-    @echo "Binary file  : ./vendor/bin/$(2).phar"
     @test -f "$(PATH_ROOT)/vendor/bin/$(2).phar"                                            \
-      &&                                                                                    \
-      echo " * File found. No download required."                                           \
       ||                                                                                    \
     (                                                                                       \
       echo " * File not found. Downloading."                                                \

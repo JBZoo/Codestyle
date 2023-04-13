@@ -237,6 +237,7 @@ trait TraitCopyright
     public function testHeadersOtherConfigs(): void
     {
         $finder = $this->createFinder([
+            'Dockerfile',
             'Makefile',
             '.Makefile',
             '.yml',
