@@ -11,18 +11,10 @@
     @see        https://github.com/JBZoo/Codestyle
 -->
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         bootstrap="tests/autoload.php"
-         executionOrder="random"
-         processIsolation="false"
-         stopOnError="false"
-         stopOnFailure="false"
-         stopOnIncomplete="false"
-         stopOnSkipped="false"
-         stopOnRisky="false"
-         stopOnWarning="false"
-         colors="true"
          xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.0/phpunit.xsd"
          cacheDirectory="build/phpunit.cache"
+         bootstrap="tests/autoload.php"
+         colors="true"
 >
     <coverage>
         <include>

@@ -27,17 +27,6 @@ use function JBZoo\PHPUnit\skip;
  */
 trait TraitComposer
 {
-    public function testComposerAuthor(): void
-    {
-        $composer = json(PROJECT_ROOT . '/composer.json');
-
-        isSame([
-            'name'  => 'Denis Smetannikov',
-            'email' => 'admin@jbzoo.com',
-            'role'  => 'lead',
-        ], $composer->find('authors.0'));
-    }
-
     public function testComposerBranchAlias(): void
     {
         $composer = json(PROJECT_ROOT . '/composer.json');
@@ -68,46 +57,10 @@ trait TraitComposer
         isContain(\strtolower("{$this->vendorName}/{$this->packageName}"), $composer->find('name'));
     }
 
-    public function testComposerKeywords(): void
-    {
-        $composer = json(PROJECT_ROOT . '/composer.json');
-        isNotEmpty($composer->find('keywords'));
-    }
-
-    public function testComposerDescription(): void
-    {
-        $composer = json(PROJECT_ROOT . '/composer.json');
-        isNotEmpty($composer->find('description'));
-    }
-
-    public function testComposerAutoload(): void
-    {
-        $composer = json(PROJECT_ROOT . '/composer.json');
-        isSame(["{$this->vendorName}\\{$this->packageNamespace}\\" => 'src'], $composer->find('autoload.psr-4'));
-    }
-
     public function testComposerAutoloadDev(): void
     {
         $composer = json(PROJECT_ROOT . '/composer.json');
         isSame(["{$this->vendorName}\\PHPUnit\\" => 'tests'], $composer->find('autoload-dev.psr-4'));
-    }
-
-    public function testComposerOptimizeAutoloader(): void
-    {
-        $composer = json(PROJECT_ROOT . '/composer.json');
-        isSame(true, $composer->find('config.optimize-autoloader'));
-    }
-
-    public function testComposerAllowPlugins(): void
-    {
-        $composer = json(PROJECT_ROOT . '/composer.json');
-        isSame(true, $composer->find('config.allow-plugins.composer/package-versions-deprecated'));
-    }
-
-    public function testComposerMinimumStability(): void
-    {
-        $composer = json(PROJECT_ROOT . '/composer.json');
-        isSame('dev', $composer->find('minimum-stability'));
     }
 
     public function testComposerPreferStable(): void
@@ -133,5 +86,52 @@ trait TraitComposer
         // check banner in `box.json.dist`
         // Move tests from PhpStormProxy => AbstractPackageTest
         // test .gitattributes
+    }
+
+    public function testComposerAutoload(): void
+    {
+        $composer = json(PROJECT_ROOT . '/composer.json');
+        isSame(["{$this->vendorName}\\{$this->packageNamespace}\\" => 'src'], $composer->find('autoload.psr-4'));
+    }
+
+    public static function testComposerKeywords(): void
+    {
+        $composer = json(PROJECT_ROOT . '/composer.json');
+        isNotEmpty($composer->find('keywords'));
+    }
+
+    public static function testComposerDescription(): void
+    {
+        $composer = json(PROJECT_ROOT . '/composer.json');
+        isNotEmpty($composer->find('description'));
+    }
+
+    public static function testComposerOptimizeAutoloader(): void
+    {
+        $composer = json(PROJECT_ROOT . '/composer.json');
+        isSame(true, $composer->find('config.optimize-autoloader'));
+    }
+
+    public static function testComposerAllowPlugins(): void
+    {
+        $composer = json(PROJECT_ROOT . '/composer.json');
+        isSame(true, $composer->find('config.allow-plugins.composer/package-versions-deprecated'));
+    }
+
+    public static function testComposerMinimumStability(): void
+    {
+        $composer = json(PROJECT_ROOT . '/composer.json');
+        isSame('dev', $composer->find('minimum-stability'));
+    }
+
+    public static function testComposerAuthor(): void
+    {
+        $composer = json(PROJECT_ROOT . '/composer.json');
+
+        isSame([
+            'name'  => 'Denis Smetannikov',
+            'email' => 'admin@jbzoo.com',
+            'role'  => 'lead',
+        ], $composer->find('authors.0'));
     }
 }
