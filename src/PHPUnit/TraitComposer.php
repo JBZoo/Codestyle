@@ -63,13 +63,19 @@ trait TraitComposer
         isSame(["{$this->vendorName}\\PHPUnit\\" => 'tests'], $composer->find('autoload-dev.psr-4'));
     }
 
-    public function testComposerPreferStable(): void
+    public function testComposerAutoload(): void
+    {
+        $composer = json(PROJECT_ROOT . '/composer.json');
+        isSame(["{$this->vendorName}\\{$this->packageNamespace}\\" => 'src'], $composer->find('autoload.psr-4'));
+    }
+
+    public static function testComposerPreferStable(): void
     {
         $composer = json(PROJECT_ROOT . '/composer.json');
         isSame(true, $composer->find('prefer-stable'));
     }
 
-    public function testComposer(): void
+    public static function testComposer(): void
     {
         skip('TODO: Complete tests from comments');
 
@@ -86,12 +92,6 @@ trait TraitComposer
         // check banner in `box.json.dist`
         // Move tests from PhpStormProxy => AbstractPackageTest
         // test .gitattributes
-    }
-
-    public function testComposerAutoload(): void
-    {
-        $composer = json(PROJECT_ROOT . '/composer.json');
-        isSame(["{$this->vendorName}\\{$this->packageNamespace}\\" => 'src'], $composer->find('autoload.psr-4'));
     }
 
     public static function testComposerKeywords(): void
