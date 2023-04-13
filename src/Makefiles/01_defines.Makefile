@@ -33,7 +33,7 @@ CI_NON_ZERO_CODE ?= no
 # Legacy vars. Will be removed ASAP
 CI_REPORT        ?= $(TC_REPORT)
 CI_REPORT_MND    ?= $(TC_REPORT_MND)
-CI_REPORT_GA     ?= plain
+CI_REPORT_GA     ?= github-cli
 
 PHP_BIN           ?= php
 VENDOR_BIN        ?= $(PHP_BIN) $(PATH_ROOT)/vendor/bin
