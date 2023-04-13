@@ -18,7 +18,6 @@ test: ##@Tests Launch PHPUnit Tests (alias "test-phpunit")
 
 test-phpunit: ##@Tests PHPUnit - Launch General Tests
 	$(call title,"PHPUnit - Run all tests")
-	@echo "Config: $(JBZOO_CONFIG_PHPUNIT)"
 	@if [ -n "$(TEAMCITY_VERSION)" ]; then    \
         make test-phpunit-teamcity;           \
     elif [ -n "$(GITHUB_ACTIONS)" ]; then     \
@@ -30,14 +29,7 @@ test-phpunit: ##@Tests PHPUnit - Launch General Tests
 
 test-phpunit-teamcity:
 	@echo "##teamcity[progressStart 'PHPUnit Tests']"
-	@make build-download-phars
-	@XDEBUG_MODE=coverage $(VENDOR_BIN)/phpunit                     \
-        --configuration="$(JBZOO_CONFIG_PHPUNIT)"                   \
-        --cache-result-file="$(PATH_BUILD)/phpunit.result.cache"    \
-        --order-by=random                                           \
-        --colors=always                                             \
-        --teamcity                                                  \
-        --verbose
+	@XDEBUG_MODE=coverage $(VENDOR_BIN)/phpunit --teamcity
 	@$(CO_CI_REPORT_BIN) teamcity:stats                             \
         --input-format="phpunit-clover-xml"                         \
         --input-file="$(PATH_BUILD)/coverage_xml/main.xml"
@@ -48,26 +40,14 @@ test-phpunit-teamcity:
 
 
 test-phpunit-local:
-	@make build-download-phars
-	@XDEBUG_MODE=coverage $(VENDOR_BIN)/phpunit                     \
-        --configuration="$(JBZOO_CONFIG_PHPUNIT)"                   \
-        --cache-result-file="$(PATH_BUILD)/phpunit.result.cache"    \
-        --order-by=random                                           \
-        --colors=always                                             \
-        --verbose
+	@XDEBUG_MODE=coverage $(VENDOR_BIN)/phpunit
 
 
 test-phpunit-ga:
-	@make build-download-phars
-	@-XDEBUG_MODE=coverage $(VENDOR_BIN)/phpunit                    \
-        --configuration="$(JBZOO_CONFIG_PHPUNIT)"                   \
-        --cache-result-file="$(PATH_BUILD)/phpunit.result.cache"    \
-        --order-by=random                                           \
-        --colors=always                                             \
-        --verbose || true
+	@-XDEBUG_MODE=coverage $(VENDOR_BIN)/phpunit
 	@for f in `find ./build/coverage_junit -type f -name "*.xml"`;  \
     do                                                              \
-        $(CO_CI_REPORT_BIN) convert                   \
+        $(CO_CI_REPORT_BIN) convert                                 \
             --input-format=junit                                    \
             --input-file="$${f}"                                    \
             --output-format=$(CI_REPORT_GA)                         \

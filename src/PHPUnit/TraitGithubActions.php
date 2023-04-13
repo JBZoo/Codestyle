@@ -195,12 +195,10 @@ trait TraitGithubActions
     protected static function uploadArtifactsStep(string $stepName): array
     {
         return [
-            'name' => 'Upload Artifacts',
-            'uses' => 'actions/upload-artifact@v3',
-
+            'name'              => 'Upload Artifacts',
+            'uses'              => 'actions/upload-artifact@v3',
             'continue-on-error' => true,
-
-            'with' => ['name' => $stepName, 'path' => 'build/'],
+            'with'              => ['name' => $stepName, 'path' => 'build/'],
         ];
     }
 
