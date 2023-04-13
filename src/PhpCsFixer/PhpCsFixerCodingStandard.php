@@ -128,9 +128,6 @@ final class PhpCsFixerCodingStandard
         ],
 
         // Blank lines & spaces
-        'control_structure_braces'    => true,
-        'method_chaining_indentation' => true,
-
         'cast_spaces'  => ['space' => 'none'],
         'types_spaces' => ['space' => 'none'],
         'concat_space' => ['spacing' => 'one'],
@@ -175,10 +172,14 @@ final class PhpCsFixerCodingStandard
             ],
         ],
 
-        'braces' => [
-            'allow_single_line_closure'                         => true,
-            'allow_single_line_anonymous_class_with_empty_body' => true,
-        ],
+        'single_space_around_construct'           => true,
+        'control_structure_braces'                => true,
+        'curly_braces_position'                   => true,
+        'control_structure_continuation_position' => true,
+        'declare_parentheses'                     => true,
+        'statement_indentation'                   => true,
+        'no_multiple_statements_per_line'         => true,
+        'method_chaining_indentation'             => true,
 
         // Extra rules
         'increment_style' => ['style' => 'post'],
@@ -208,7 +209,6 @@ final class PhpCsFixerCodingStandard
             'strict' => true,
         ],
 
-        'control_structure_continuation_position'          => true,
         'nullable_type_declaration_for_default_null_value' => true,
 
         // For the future

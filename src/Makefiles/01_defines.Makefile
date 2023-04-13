@@ -67,8 +67,8 @@ CO_GRAPH_BIN       ?= $(VENDOR_BIN)/composer-graph.phar
 CO_CI_REPORT_BIN   ?= $(VENDOR_BIN)/ci-report-converter.phar
 
 
-ifneq (, $(wildcard ./phpcs.xml))
-    JBZOO_CONFIG_PHPCS ?= $(PATH_ROOT)/phpcs.xml
+ifneq (, $(wildcard ./src/phpcs.xml))
+    JBZOO_CONFIG_PHPCS ?= $(PATH_ROOT)/src/phpcs.xml
 else
     JBZOO_CONFIG_PHPCS ?= $(PATH_ROOT)/vendor/jbzoo/codestyle/src/phpcs.xml
 endif
@@ -81,8 +81,8 @@ else
 endif
 
 
-ifneq (, $(wildcard ./phpmd.xml))
-    JBZOO_CONFIG_PHPMD ?= $(PATH_ROOT)/phpmd.xml
+ifneq (, $(wildcard ./src/phpmd.xml))
+    JBZOO_CONFIG_PHPMD ?= $(PATH_ROOT)/src/phpmd.xml
 else
     JBZOO_CONFIG_PHPMD ?= $(PATH_ROOT)/vendor/jbzoo/codestyle/src/phpmd.xml
 endif
@@ -138,6 +138,7 @@ define title
     @echo ""
     @echo "$(C_BACK)>>>> >>>> >>>> >>>> >>>> >>>> $(C_TITLE) $(1) $(CE)"
 endef
+
 
 # Download phar file (if needs) and save it in ./vendor/bin
 define download_phar
