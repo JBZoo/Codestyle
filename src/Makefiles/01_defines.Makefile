@@ -145,7 +145,7 @@ define download_phar
     @test -f "$(PATH_ROOT)/vendor/bin/$(2).phar"                                            \
       ||                                                                                    \
     (                                                                                       \
-      echo " * File not found. Downloading."                                                \
+      echo "File ./vendor/bin/$(2).phar not found. Downloading."                                                \
       &&                                                                                    \
       curl $(1) --output "$(PATH_ROOT)/vendor/bin/$(2).phar"                                \
           --connect-timeout 5 --max-time 10 --retry 5 --retry-delay 0 --retry-max-time 40   \
