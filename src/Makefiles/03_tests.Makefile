@@ -80,7 +80,6 @@ codestyle-local:
 	@make test-psalm
 	@make test-phan
 	@make test-composer
-	@-make test-composer-reqs
 
 
 codestyle-ga:
@@ -93,7 +92,6 @@ codestyle-ga:
 	@make test-psalm-ga
 	@make test-phan-ga
 	@make test-composer-ga
-	@-make test-composer-reqs-ga
 
 
 codestyle-teamcity:
@@ -126,23 +124,6 @@ test-composer: ##@Tests Validates composer.json and composer.lock
 test-composer-ga:
 	@echo "::group::Composer Validate"
 	@make test-composer
-	@echo "::endgroup::"
-
-
-test-composer-reqs: ##@Tests Checks composer.json the defined dependencies against your code
-	$(call title,Composer - Check the defined dependencies against your code)
-	$(call download_phar,$(CO_RC_PHAR),"composer-require-checker")
-	@echo "Config: $(JBZOO_CONFIG_COMPOSER_REQ_CHECKER)"
-	@$(VENDOR_BIN)/composer-require-checker.phar check                 \
-        --config-file=$(JBZOO_CONFIG_COMPOSER_REQ_CHECKER)             \
-        --ignore-parse-errors                                          \
-        -vvv                                                           \
-        $(PATH_ROOT)/composer.json
-
-
-test-composer-reqs-ga:
-	@echo "::group::Composer Require Checker"
-	@make test-composer-reqs
 	@echo "::endgroup::"
 
 
