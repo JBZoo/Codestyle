@@ -127,6 +127,8 @@ final class PhpCsFixerCodingStandard
             ],
         ],
 
+        'type_declaration_spaces' => ['elements' => ['function']],
+
         // Blank lines & spaces
         'cast_spaces'  => ['space' => 'none'],
         'types_spaces' => ['space' => 'none'],
