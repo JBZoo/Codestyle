@@ -141,7 +141,7 @@ define download_phar
       echo "File ./vendor/bin/$(2).phar not found. Downloading."                            \
       &&                                                                                    \
       curl $(1) --output "$(PATH_ROOT)/vendor/bin/$(2).phar"                                \
-          --connect-timeout 5 --max-time 10 --retry 5 --retry-delay 0 --retry-max-time 40   \
+          --connect-timeout 5 --max-time 10 --retry 5 --retry-delay 1 --retry-max-time 40   \
           --location --fail --silent --show-error                                           \
       &&                                                                                    \
       chmod +x "$(PATH_ROOT)/vendor/bin/$(2).phar"                                          \
