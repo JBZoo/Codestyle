@@ -54,7 +54,7 @@ endif
 PHPCPD_PHAR        ?= https://phar.phpunit.de/phpcpd.phar
 PHPLOC_PHAR        ?= https://phar.phpunit.de/phploc.phar
 PHPCOV_PHAR        ?= https://phar.phpunit.de/phpcov.phar
-BOX_PHAR           ?= https://github.com/box-project/box/releases/download/3.16.0/box.phar
+BOX_PHAR           ?= https://github.com/box-project/box/releases/latest/download/box.phar
 PHP_COVERALLS_PHAR ?= https://github.com/php-coveralls/php-coveralls/releases/latest/download/php-coveralls.phar
 CO_DIFF_PHAR       ?= https://github.com/JBZoo/Composer-Diff/releases/latest/download/composer-diff.phar
 CO_GRAPH_PHAR      ?= https://github.com/JBZoo/Composer-Graph/releases/latest/download/composer-graph.phar
@@ -141,7 +141,7 @@ define download_phar
       echo "File ./vendor/bin/$(2).phar not found. Downloading."                            \
       &&                                                                                    \
       curl $(1) --output "$(PATH_ROOT)/vendor/bin/$(2).phar"                                \
-          --connect-timeout 5 --max-time 10 --retry 5 --retry-delay 0 --retry-max-time 40   \
+          --connect-timeout 5 --max-time 10 --retry 5 --retry-delay 1 --retry-max-time 40   \
           --location --fail --silent --show-error                                           \
       &&                                                                                    \
       chmod +x "$(PATH_ROOT)/vendor/bin/$(2).phar"                                          \
