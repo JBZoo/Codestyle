@@ -72,7 +72,7 @@ trait TraitReadme
         'sonarcloud'     => true,
         'coveralls'      => true,
         'circle_ci'      => true,
-        'visitors'       => true,
+        'visitors'       => false,
     ];
 
     /** @var string[] */
