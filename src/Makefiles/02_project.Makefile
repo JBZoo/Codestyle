@@ -39,6 +39,11 @@ build-phar: ##@Project Compile phar file
 	@$(COMPOSER_BIN) config autoloader-suffix --unset          -v
 
 
+toc: ##@Project Generate table of contents in readme file
+	$(call title,"Generate table of contents")
+	@gh-md-toc --insert --no-backup --hide-footer --skip-header "$(PATH_ROOT)/README.md"
+
+
 # TODO: remove this.
 build-download-phars:
 	$(call download_phar,$(CO_DIFF_PHAR),"composer-diff")
