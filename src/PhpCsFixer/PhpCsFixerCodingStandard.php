@@ -213,6 +213,8 @@ final class PhpCsFixerCodingStandard
 
         'nullable_type_declaration_for_default_null_value' => true,
 
+        'single_line_empty_body' => false,
+
         // For the future
         // 'final_class' => true
     ];
