@@ -22,7 +22,9 @@ if (\extension_loaded('xdebug')) {
          * Enable showing stack traces on error conditions.
          * @phan-suppress PhanRedefineFunctionInternal
          */
-        function xdebug_enable(): void {}
+        function xdebug_enable(): void
+        {
+        }
     }
 
     if (!\function_exists('xdebug_disable')) {
@@ -30,7 +32,9 @@ if (\extension_loaded('xdebug')) {
          * Disable showing stack traces on error conditions.
          * @phan-suppress PhanRedefineFunctionInternal
          */
-        function xdebug_disable(): void {}
+        function xdebug_disable(): void
+        {
+        }
     }
 
     if (!\function_exists('xdebug_get_declared_vars')) {
