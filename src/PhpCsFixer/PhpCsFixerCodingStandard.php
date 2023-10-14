@@ -176,7 +176,7 @@ final class PhpCsFixerCodingStandard
 
         'single_space_around_construct'           => true,
         'control_structure_braces'                => true,
-        'curly_braces_position'                   => true,
+        'braces_position'                         => true,
         'control_structure_continuation_position' => true,
         'declare_parentheses'                     => true,
         'statement_indentation'                   => true,

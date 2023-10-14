@@ -46,7 +46,7 @@ JBZOO_COMPOSER_UPDATE_FLAGS ?= --with-all-dependencies
 ifeq ($(strip $(PHP_BIN)),php)
 	COMPOSER_BIN = composer
 else
-	COMPOSER_BIN = $(PHP_BIN) $(shell which composer)
+	COMPOSER_BIN = $(shell which composer)
 endif
 
 
