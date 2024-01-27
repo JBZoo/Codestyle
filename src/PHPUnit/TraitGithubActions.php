@@ -17,7 +17,7 @@ declare(strict_types=1);
 namespace JBZoo\Codestyle\PHPUnit;
 
 use function JBZoo\Data\yml;
-use function JBZoo\PHPUnit\isTrue;
+use function JBZoo\PHPUnit\isSame;
 
 /**
  * @phan-file-suppress PhanUndeclaredProperty
@@ -29,6 +29,10 @@ trait TraitGithubActions
         $mailYmlPath = PROJECT_ROOT . '/.github/workflows/main.yml';
         $actual      = yml($mailYmlPath)->getArrayCopy();
 
+        isSame(120, $actual['env']['COLUMNS']);
+        isSame('Hyper', $actual['env']['TERM_PROGRAM']);
+        unset($actual['env']);
+
         // General Parameters
         $expectedOs = 'ubuntu-latest';
 
@@ -39,11 +43,6 @@ trait TraitGithubActions
                 'pull_request' => ['branches' => ['*']],
                 'push'         => ['branches' => ['master']],
                 'schedule'     => [['cron' => $this->getScheduleMinute()]],
-            ],
-
-            'env' => [
-                'COLUMNS'      => 120,
-                'TERM_PROGRAM' => 'Hyper',
             ],
 
             'jobs' => [
@@ -114,16 +113,19 @@ trait TraitGithubActions
         $expectedYaml = self::toYaml($expected);
         $actualYaml   = self::toYaml($actual);
 
-        isTrue(
-            \str_contains($actualYaml, $expectedYaml),
-            \implode("\n", [
-                'Expected Yaml file:',
-                "See: {$mailYmlPath}",
-                '----------------------------------------',
+        if (!\str_contains($actualYaml, $expectedYaml)) {
+            isSame(
                 $expectedYaml,
-                '----------------------------------------',
-            ]),
-        );
+                $actualYaml,
+                \implode("\n", [
+                    'Expected Yaml file:',
+                    "See: {$mailYmlPath}",
+                    '----------------------------------------',
+                    $expectedYaml,
+                    '----------------------------------------',
+                ]),
+            );
+        }
     }
 
     protected function getScheduleMinute(): string
@@ -156,7 +158,7 @@ trait TraitGithubActions
 
     protected static function phpVersions(): array
     {
-        return [8.1, 8.2];
+        return [8.1, 8.2, 8.3];
     }
 
     /**
