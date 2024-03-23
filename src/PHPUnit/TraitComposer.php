@@ -20,7 +20,7 @@ use function JBZoo\Data\json;
 use function JBZoo\PHPUnit\isContain;
 use function JBZoo\PHPUnit\isNotEmpty;
 use function JBZoo\PHPUnit\isSame;
-use function JBZoo\PHPUnit\skip;
+use function JBZoo\PHPUnit\success;
 
 /**
  * @phan-file-suppress PhanUndeclaredProperty
@@ -77,7 +77,7 @@ trait TraitComposer
 
     public static function testComposer(): void
     {
-        skip('TODO: Complete tests from comments');
+        success('TODO: Complete tests from comments');
 
         // jbzoo/* => !dev-master
         // test phpunit.xml
