@@ -19,7 +19,6 @@ namespace JBZoo\Codestyle\PHPUnit;
 use Symfony\Component\Finder\Finder;
 
 use function JBZoo\PHPUnit\fail;
-use function JBZoo\PHPUnit\skip;
 use function JBZoo\PHPUnit\success;
 
 /**
@@ -357,7 +356,7 @@ trait TraitCopyright
         if ($filesCount > 0) {
             success();
         } else {
-            skip('Files not found');
+            success('Files not found');
         }
     }
 }
