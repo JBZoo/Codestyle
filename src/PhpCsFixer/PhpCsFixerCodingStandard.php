@@ -238,19 +238,28 @@ final class PhpCsFixerCodingStandard
         return $this->ruleSet;
     }
 
-    public function getFixerConfig(?Finder $customFinder = null, array $customRules = []): ConfigInterface
-    {
-        $customRules = [
-            NoDuplicatedArrayKeyFixer::name() => true,
-            NoUselessCommentFixer::name()     => true,
-        ] + $customRules;
+    public function getFixerConfig(
+        ?Finder $customFinder = null,
+        array $customRules = [],
+        bool $inheritRuleSet = true,
+    ): ConfigInterface {
+        if ($inheritRuleSet) {
+            $customRules = [
+                NoDuplicatedArrayKeyFixer::name() => true,
+                NoUselessCommentFixer::name()     => true,
+            ] + $customRules;
+
+            $all = self::mergeRules($this->getRules(), $customRules);
+        } else {
+            $all = $customRules;
+        }
 
         return (new Config($this->styleName))
             ->setRiskyAllowed(true)
             ->registerCustomFixers(new Fixers())
             ->setCacheFile("{$this->projectPath}/build/php-cs-fixer-cache.json")
             ->setFinder($customFinder ?? $this->getFinder())
-            ->setRules($this->getRules() + $customRules);
+            ->setRules($all);
     }
 
     public function getFinder(): Finder
@@ -264,5 +273,19 @@ final class PhpCsFixerCodingStandard
             ->exclude('vendor')
             ->exclude('build')
             ->name('/\.php$/');
+    }
+
+    private static function mergeRules(array $original, array $overrides): array
+    {
+        foreach ($overrides as $newKey => $newValue) {
+            if (isset($original[$newKey]) && $newValue === null) {
+                unset($original[$newKey]);
+                continue;
+            }
+
+            $original[$newKey] = $newValue;
+        }
+
+        return $original;
     }
 }
