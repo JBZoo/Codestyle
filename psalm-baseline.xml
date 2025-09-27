@@ -11,23 +11,5 @@
     @see        https://github.com/JBZoo/Codestyle
 -->
 <files psalm-version="3.12.2@7c7ebd068f8acaba211d4a2c707c4ba90874fa26">
-    <file src="vendor/lstrojny/functional-php/src/Functional/Match.php">
-        <ParseError occurrences="3">
-            <code>match</code>
-            <code>$conditions</code>
-            <code>)</code>
-        </ParseError>
-    </file>
-    <file src="vendor/phpunit/phpunit/src/Framework/MockObject/Builder/ParametersMatch.php">
-        <ParseError occurrences="3">
-            <code>Match</code>
-            <code>;</code>
-            <code>;</code>
-        </ParseError>
-    </file>
-    <file src="vendor/symfony/polyfill-mbstring/bootstrap80.php">
-        <ParseError occurrences="1">
-            <code>=</code>
-        </ParseError>
-    </file>
+
 </files>

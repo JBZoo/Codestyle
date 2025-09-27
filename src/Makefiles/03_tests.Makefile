@@ -166,8 +166,8 @@ test-phpcs-ga:
 test-phpcsfixer-fix: ##@Tests PhpCsFixer - Auto fix code to follow stylish standards
 	$(call title,"Fix Coding Standards with PhpCsFixer")
 	@echo "Config: $(JBZOO_CONFIG_PHPCSFIXER)"
-	@PHP_CS_FIXER_IGNORE_ENV=1 $(VENDOR_BIN)/php-cs-fixer fix   \
-        --config="$(JBZOO_CONFIG_PHPCSFIXER)"                   \
+	@$(VENDOR_BIN)/php-cs-fixer fix            \
+        --config="$(JBZOO_CONFIG_PHPCSFIXER)"  \
         -vvv
 
 
@@ -178,7 +178,7 @@ test-phpcsfixer: ##@Tests PhpCsFixer - Check code to follow stylish standards
 
 test-phpcsfixer-int:
 	@echo "Config: $(JBZOO_CONFIG_PHPCSFIXER)"
-	@PHP_CS_FIXER_IGNORE_ENV=1 $(VENDOR_BIN)/php-cs-fixer fix               \
+	@$(VENDOR_BIN)/php-cs-fixer fix                                         \
         --config="$(JBZOO_CONFIG_PHPCSFIXER)"                               \
         --dry-run                                                           \
         -vvv                                                                \

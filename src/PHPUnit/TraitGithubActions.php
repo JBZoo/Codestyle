@@ -146,6 +146,7 @@ trait TraitGithubActions
     /**
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      * @phan-suppress PhanUnusedProtectedNoOverrideMethodParameter
+     * @psalm-suppress PossiblyUnusedParam
      */
     protected static function checkoutStep(string $jobName): array
     {
@@ -164,6 +165,7 @@ trait TraitGithubActions
     /**
      * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      * @phan-suppress PhanUnusedProtectedNoOverrideMethodParameter
+     * @psalm-suppress PossiblyUnusedParam
      */
     protected static function buildStep(string $jobName): array
     {

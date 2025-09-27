@@ -453,6 +453,7 @@ trait TraitReadme
         return $badge;
     }
 
+    // @phan-suppress PossiblyUnusedMethod
     protected static function getReadme(): string
     {
         $content = (string)\file_get_contents(PROJECT_ROOT . '/README.md');
