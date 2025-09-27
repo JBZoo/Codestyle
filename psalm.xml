@@ -11,15 +11,20 @@
     @see        https://github.com/JBZoo/Codestyle
 -->
 <psalm
-        errorLevel="1"
-        reportMixedIssues="false"
-        useDocblockPropertyTypes="true"
-        resolveFromConfigFile="false"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns="https://getpsalm.org/schema/config"
-        xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+    errorLevel="1"
+    reportMixedIssues="false"
+    useDocblockPropertyTypes="true"
+    resolveFromConfigFile="false"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
 >
     <projectFiles>
         <directory name="src"/>
     </projectFiles>
+    <issueHandlers>
+        <PossiblyUnusedMethod errorLevel="suppress"/>
+        <InvalidOperand errorLevel="suppress"/>
+        <MissingOverrideAttribute errorLevel="suppress"/>
+    </issueHandlers>
 </psalm>

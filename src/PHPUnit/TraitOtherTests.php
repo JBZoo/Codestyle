@@ -74,12 +74,12 @@ trait TraitOtherTests
         AbstractPackageTest::checkFiles(__METHOD__, $finder, static function (string $content, string $pathname): void {
             isTrue(
                 !\str_contains($content, "\r"),
-                'The file contains prohibited symbol "\\r" (CARRIAGE RETURN) : ' . $pathname,
+                'The file contains prohibited symbol "\r" (CARRIAGE RETURN) : ' . $pathname,
             );
 
             isTrue(
                 !\str_contains($content, "\t"),
-                'The file contains prohibited symbol "\\t" (TAB) : ' . $pathname,
+                'The file contains prohibited symbol "\t" (TAB) : ' . $pathname,
             );
         });
     }

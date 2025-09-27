@@ -24,6 +24,7 @@ use function JBZoo\PHPUnit\isPhpStorm;
 use function JBZoo\PHPUnit\skip;
 use function JBZoo\PHPUnit\success;
 
+/** @psalm-suppress UnusedClass */
 abstract class AbstractPhpStormProxyTest extends PHPUnit
 {
     public function testPhpCsFixerFix(): void

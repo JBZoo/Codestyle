@@ -16,6 +16,7 @@ declare(strict_types=1);
 
 namespace JBZoo\Codestyle\PHPUnit;
 
+/** @psalm-suppress ClassMustBeFinal */
 class Exception extends \RuntimeException
 {
 }

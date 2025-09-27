@@ -18,6 +18,7 @@ namespace JBZoo\Codestyle\PhpCsFixer;
 
 use PhpCsFixer\Config;
 use PhpCsFixer\ConfigInterface;
+use PhpCsFixer\Runner\Parallel\ParallelConfigFactory;
 use PhpCsFixerCustomFixers\Fixer\NoDuplicatedArrayKeyFixer;
 use PhpCsFixerCustomFixers\Fixer\NoUselessCommentFixer;
 use PhpCsFixerCustomFixers\Fixers;
@@ -30,15 +31,12 @@ final class PhpCsFixerCodingStandard
 {
     private array $ruleSet = [
         // Presets
-        '@PHP80Migration'           => true,
-        '@PHP80Migration:risky'     => true,
-        '@PHPUnit84Migration:risky' => true,
-        '@Symfony'                  => true,
-        '@Symfony:risky'            => true,
-        '@PhpCsFixer'               => true,
-        '@PhpCsFixer:risky'         => true,
-        '@PSR12'                    => true,
-        '@PSR12:risky'              => true,
+        '@Symfony'          => true,
+        '@Symfony:risky'    => true,
+        '@PhpCsFixer'       => true,
+        '@PhpCsFixer:risky' => true,
+        '@PSR12'            => true,
+        '@PSR12:risky'      => true,
 
         // The most dangerous options! They are excluded from above presets. Just in case.
         'no_trailing_whitespace_in_string'      => false,
@@ -255,6 +253,7 @@ final class PhpCsFixerCodingStandard
         }
 
         return (new Config($this->styleName))
+            ->setParallelConfig(ParallelConfigFactory::detect())
             ->setRiskyAllowed(true)
             ->registerCustomFixers(new Fixers())
             ->setCacheFile("{$this->projectPath}/build/php-cs-fixer-cache.json")

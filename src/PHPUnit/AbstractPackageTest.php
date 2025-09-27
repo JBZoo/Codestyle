@@ -35,7 +35,9 @@ abstract class AbstractPackageTest extends PHPUnit
     protected const DEBUG_MODE = false;
 
     // Important! Overload these properties in your test class.
-    protected string $packageName      = '';
+    protected string $packageName = '';
+
+    /** @psalm-suppress PossiblyUnusedProperty */
     protected string $gaScheduleMinute = '';
 
     // ### Default values. #############################################################################################
@@ -44,7 +46,7 @@ abstract class AbstractPackageTest extends PHPUnit
 
     // Composer
     protected string $composerDevVersion = '7.x-dev';
-    protected string $composerPhpVersion = '^8.1';
+    protected string $composerPhpVersion = '^8.2';
     protected string $composerType       = 'library';
     protected string $composerLicense    = 'MIT';
 
@@ -88,7 +90,6 @@ abstract class AbstractPackageTest extends PHPUnit
             Cli::out("Count: {$finder->count()}; Method: {$testcaseName}");
         }
 
-        /** @var \SplFileInfo $file */
         foreach ($finder as $file) {
             $pathname = $file->getPathname();
             $content  = (string)openFile($pathname);
