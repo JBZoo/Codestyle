@@ -120,13 +120,13 @@ trait TraitReadme
             }
         }
 
-        $expectedBadgeLine = \implode("\n", [
+        $expectedBadgeLine = \str_replace("    \n", "\n", \implode("\n", [
             $this->getTitle(),
             '',
             \trim(\implode('', \array_filter($expectedBadges))),
             '',
             '',
-        ]);
+        ]));
 
         isFileContains($expectedBadgeLine, PROJECT_ROOT . '/README.md');
     }

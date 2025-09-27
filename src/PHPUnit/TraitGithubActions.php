@@ -19,12 +19,9 @@ namespace JBZoo\Codestyle\PHPUnit;
 use function JBZoo\Data\yml;
 use function JBZoo\PHPUnit\isSame;
 
-/**
- * @phan-file-suppress PhanUndeclaredProperty
- */
 trait TraitGithubActions
 {
-    public function testGithubActionsWorkflow(): void
+    public static function testGithubActionsWorkflow(): void
     {
         $mailYmlPath = PROJECT_ROOT . '/.github/workflows/main.yml';
         $actual      = yml($mailYmlPath)->getArrayCopy();
@@ -42,7 +39,6 @@ trait TraitGithubActions
             'on'   => [
                 'pull_request' => ['branches' => ['*']],
                 'push'         => ['branches' => ['master']],
-                'schedule'     => [['cron' => $this->getScheduleMinute()]],
             ],
 
             'jobs' => [
@@ -128,11 +124,6 @@ trait TraitGithubActions
         }
     }
 
-    protected function getScheduleMinute(): string
-    {
-        return self::stringToNumber($this->packageName, 59) . ' */8 * * *';
-    }
-
     protected static function stepBeforeTests(): ?array
     {
         return null;
@@ -159,7 +150,7 @@ trait TraitGithubActions
 
     protected static function phpVersions(): array
     {
-        return [8.1, 8.2, 8.3];
+        return [8.2, 8.3, 8.4];
     }
 
     /**
@@ -224,14 +215,5 @@ trait TraitGithubActions
     private static function toYaml(array $data): string
     {
         return (string)yml(self::normalizeData($data));
-    }
-
-    private static function stringToNumber(string $string, int $maxNumber): int
-    {
-        $hash   = \md5($string);
-        $substr = \substr($hash, 0, 8);
-        $number = \hexdec($substr);
-
-        return $number % ($maxNumber + 1);
     }
 }
