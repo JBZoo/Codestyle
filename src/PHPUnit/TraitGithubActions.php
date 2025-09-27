@@ -191,7 +191,7 @@ trait TraitGithubActions
     {
         return [
             'name'              => 'Upload Artifacts',
-            'uses'              => 'actions/upload-artifact@v3',
+            'uses'              => 'actions/upload-artifact@v4',
             'continue-on-error' => true,
             'with'              => ['name' => $stepName, 'path' => 'build/'],
         ];
