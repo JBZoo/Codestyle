@@ -35,8 +35,11 @@ trait TraitGithubActions
 
         // Expected
         $expected = [
-            'name' => 'CI',
-            'on'   => [
+            'name'        => 'CI',
+            'permissions' => [
+                'contents' => 'read',
+            ],
+            'on' => [
                 'pull_request' => ['branches' => ['*']],
                 'push'         => ['branches' => ['master']],
             ],
