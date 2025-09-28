@@ -112,7 +112,7 @@ trait TraitReadme
                     /** @phpstan-ignore-next-line */
                     $tmpBadge = $this->{$testMethod}();
                     if ($tmpBadge !== null) {
-                        $expectedBadges[$badgeName] = "{$tmpBadge}";
+                        $expectedBadges[$badgeName] = $tmpBadge;
                     }
                 } else {
                     fail("Method not found: '{$testMethod}'");
@@ -123,7 +123,7 @@ trait TraitReadme
         $expectedBadgeLine = \implode("\n", [
             $this->getTitle(),
             '',
-            \trim(\implode("\n", \array_filter($expectedBadges))),
+            \str_replace("\n\n", "\n", \trim(\implode("\n", \array_filter($expectedBadges)))),
             '',
         ]);
 
