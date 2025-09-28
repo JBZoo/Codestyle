@@ -112,7 +112,7 @@ trait TraitReadme
                     /** @phpstan-ignore-next-line */
                     $tmpBadge = $this->{$testMethod}();
                     if ($tmpBadge !== null) {
-                        $expectedBadges[$badgeName] = "{$tmpBadge}    ";
+                        $expectedBadges[$badgeName] = "{$tmpBadge}";
                     }
                 } else {
                     fail("Method not found: '{$testMethod}'");
@@ -120,13 +120,12 @@ trait TraitReadme
             }
         }
 
-        $expectedBadgeLine = \str_replace("    \n", "\n", \implode("\n", [
+        $expectedBadgeLine = \implode("\n", [
             $this->getTitle(),
             '',
-            \trim(\implode('', \array_filter($expectedBadges))),
+            \trim(\implode("\n", \array_filter($expectedBadges))),
             '',
-            '',
-        ]));
+        ]);
 
         isFileContains($expectedBadgeLine, PROJECT_ROOT . '/README.md');
     }

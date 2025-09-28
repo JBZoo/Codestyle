@@ -1,7 +1,16 @@
 # JBZoo / Codestyle
 
-[![CI](https://github.com/JBZoo/Codestyle/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/JBZoo/Codestyle/actions/workflows/main.yml?query=branch%3Amaster)    [![Coverage Status](https://coveralls.io/repos/github/JBZoo/Codestyle/badge.svg?branch=master)](https://coveralls.io/github/JBZoo/Codestyle?branch=master)    [![Psalm Coverage](https://shepherd.dev/github/JBZoo/Codestyle/coverage.svg)](https://shepherd.dev/github/JBZoo/Codestyle)    [![Psalm Level](https://shepherd.dev/github/JBZoo/Codestyle/level.svg)](https://shepherd.dev/github/JBZoo/Codestyle)    [![CodeFactor](https://www.codefactor.io/repository/github/jbzoo/codestyle/badge)](https://www.codefactor.io/repository/github/jbzoo/codestyle/issues)
-[![Stable Version](https://poser.pugx.org/jbzoo/codestyle/version)](https://packagist.org/packages/jbzoo/codestyle/)    [![Total Downloads](https://poser.pugx.org/jbzoo/codestyle/downloads)](https://packagist.org/packages/jbzoo/codestyle/stats)    [![Dependents](https://poser.pugx.org/jbzoo/codestyle/dependents)](https://packagist.org/packages/jbzoo/codestyle/dependents?order_by=downloads)    [![GitHub License](https://img.shields.io/github/license/jbzoo/codestyle)](https://github.com/JBZoo/Codestyle/blob/master/LICENSE)
+[![CI](https://github.com/JBZoo/Codestyle/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/JBZoo/Codestyle/actions/workflows/main.yml?query=branch%3Amaster)
+[![Coverage Status](https://coveralls.io/repos/github/JBZoo/Codestyle/badge.svg?branch=master)](https://coveralls.io/github/JBZoo/Codestyle?branch=master)
+[![Psalm Coverage](https://shepherd.dev/github/JBZoo/Codestyle/coverage.svg)](https://shepherd.dev/github/JBZoo/Codestyle)
+[![Psalm Level](https://shepherd.dev/github/JBZoo/Codestyle/level.svg)](https://shepherd.dev/github/JBZoo/Codestyle)
+[![CodeFactor](https://www.codefactor.io/repository/github/jbzoo/codestyle/badge)](https://www.codefactor.io/repository/github/jbzoo/codestyle/issues)
+
+[![Stable Version](https://poser.pugx.org/jbzoo/codestyle/version)](https://packagist.org/packages/jbzoo/codestyle/)
+[![Total Downloads](https://poser.pugx.org/jbzoo/codestyle/downloads)](https://packagist.org/packages/jbzoo/codestyle/stats)
+[![Dependents](https://poser.pugx.org/jbzoo/codestyle/dependents)](https://packagist.org/packages/jbzoo/codestyle/dependents?order_by=downloads)
+[![GitHub License](https://img.shields.io/github/license/jbzoo/codestyle)](https://github.com/JBZoo/Codestyle/blob/master/LICENSE)
+
 
 Comprehensive collection of QA tools and code quality standards for PHP 8.2+ projects. Provides configurations and wrappers for PHPStan, Psalm, PHP-CS-Fixer, PHPUnit, PHPMD, Phan and other popular code analysis tools.
 

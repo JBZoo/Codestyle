@@ -26,5 +26,7 @@
         <PossiblyUnusedMethod errorLevel="suppress"/>
         <InvalidOperand errorLevel="suppress"/>
         <MissingOverrideAttribute errorLevel="suppress"/>
+        <UnusedClass errorLevel="suppress"/>
+        <PossiblyUnusedReturnValue errorLevel="suppress"/>
     </issueHandlers>
 </psalm>
