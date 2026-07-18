@@ -33,7 +33,7 @@
     "prefer-stable"     : true,
 
     "require"           : {
-        "php"                                   : "^8.2",
+        "php"                                   : "^8.3",
 
         "vimeo/psalm"                           : ">=6.7.0",
         "phpmd/phpmd"                           : ">=2.15.0",
@@ -56,13 +56,18 @@
         "friendsofphp/php-cs-fixer"             : ">=3.88.2",
         "kubawerlos/php-cs-fixer-custom-fixers" : ">=3.35.0",
 
-        "jbzoo/data"                            : "^7.1.1"
+        "jbzoo/data"                            : "^8.0"
     },
 
     "require-dev"       : {
-        "jbzoo/phpunit"      : "^7.1",
-        "jbzoo/utils"        : "^7.2.2",
+        "jbzoo/phpunit"      : "^8.0",
+        "jbzoo/utils"        : "^8.0",
         "symfony/var-dumper" : ">=7.3.4"
+    },
+
+    "conflict"          : {
+        "phpmd/phpmd"     : ">=3.0",
+        "pdepend/pdepend" : ">=3.0"
     },
 
     "autoload"          : {
@@ -81,7 +86,7 @@
 
     "extra"             : {
         "branch-alias" : {
-            "dev-master" : "7.x-dev"
+            "dev-master" : "8.x-dev"
         }
     }
 }

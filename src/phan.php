@@ -39,7 +39,6 @@ return [
     'ignore_undeclared_variables_in_global_scope'       => false,
     'ignore_undeclared_functions_with_known_signatures' => false,
 
-    'backward_compatibility_checks'              => true,
     'check_docblock_signature_return_type_match' => true,
     'phpdoc_type_mapping'                        => [],
 

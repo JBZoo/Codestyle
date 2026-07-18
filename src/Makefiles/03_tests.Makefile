@@ -369,7 +369,6 @@ test-phan: ##@Tests Phan - super strict static analyzer for PHP
         --project-root-directory="`pwd`"                        \
         --color-scheme=light                                    \
         --no-progress-bar                                       \
-        --backward-compatibility-checks                         \
         --print-memory-usage-summary                            \
         --markdown-issue-messages                               \
         --allow-polyfill-parser                                 \
@@ -387,7 +386,6 @@ test-phan-teamcity:
         --output-mode="checkstyle"                              \
         --output="$(PATH_BUILD)/phan-checkstyle.xml"            \
         --no-progress-bar                                       \
-        --backward-compatibility-checks                         \
         --markdown-issue-messages                               \
         --allow-polyfill-parser                                 \
         --strict-type-checking                                  \

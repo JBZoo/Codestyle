@@ -19,12 +19,15 @@ namespace JBZoo\Codestyle\PHPUnit;
 use JBZoo\PHPUnit\PHPUnit;
 use JBZoo\Utils\Cli;
 use JBZoo\Utils\Env;
+use PHPUnit\Framework\Attributes\Depends;
 
 use function JBZoo\PHPUnit\isPhpStorm;
 use function JBZoo\PHPUnit\skip;
 use function JBZoo\PHPUnit\success;
 
-/** @psalm-suppress UnusedClass */
+/**
+ * @psalm-suppress UnusedClass
+ */
 abstract class AbstractPhpStormProxyTest extends PHPUnit
 {
     public function testPhpCsFixerFix(): void
@@ -32,17 +35,13 @@ abstract class AbstractPhpStormProxyTest extends PHPUnit
         $this->runToolViaMakefile('test-phpcsfixer-fix');
     }
 
-    /**
-     * @depends testPhpCsFixerFix
-     */
+    #[Depends('testPhpCsFixerFix')]
     public function testPhpCsFixerCheck(): void
     {
         $this->runToolViaMakefile('test-phpcsfixer-teamcity');
     }
 
-    /**
-     * @depends testPhpCsFixerCheck
-     */
+    #[Depends('testPhpCsFixerCheck')]
     public function testPhpCodeSniffer(): void
     {
         $this->runToolViaMakefile('test-phpcs-teamcity');
@@ -58,25 +57,19 @@ abstract class AbstractPhpStormProxyTest extends PHPUnit
         $this->runToolViaMakefile('test-phpmnd-teamcity');
     }
 
-    /**
-     * @depends testPhpCodeSniffer
-     */
+    #[Depends('testPhpCodeSniffer')]
     public function testPhpStan(): void
     {
         $this->runToolViaMakefile('test-phpstan-teamcity');
     }
 
-    /**
-     * @depends testPhpStan
-     */
+    #[Depends('testPhpStan')]
     public function testPsalm(): void
     {
         $this->runToolViaMakefile('test-psalm-teamcity');
     }
 
-    /**
-     * @depends testPsalm
-     */
+    #[Depends('testPsalm')]
     public function testPhan(): void
     {
         $this->runToolViaMakefile('test-phan-teamcity');

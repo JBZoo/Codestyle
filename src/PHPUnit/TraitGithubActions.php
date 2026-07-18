@@ -18,6 +18,7 @@ namespace JBZoo\Codestyle\PHPUnit;
 
 use function JBZoo\Data\yml;
 use function JBZoo\PHPUnit\isSame;
+use function JBZoo\PHPUnit\isTrue;
 
 trait TraitGithubActions
 {
@@ -109,6 +110,27 @@ trait TraitGithubActions
             ],
         ];
 
+        // #3 Canary (major 8.0): the workflow MUST define a schedule with at least one non-blank string
+        // cron and allow workflow_dispatch (null or a config map), but NOT a specific cron literal
+        // (per-repo cadence is allowed — e.g. toolbox keeps its tighter '30 */8 * * *'). Verified as
+        // presence, then dropped before the structural compare below.
+        $triggers = (array)($actual['on'] ?? []);
+        $schedule = $triggers['schedule'] ?? [];
+        $crons    = \is_array($schedule)
+            ? \array_filter(
+                $schedule,
+                static fn (mixed $entry): bool => \is_array($entry)
+                    && \is_string($entry['cron'] ?? null)
+                    && $entry['cron'] !== '',
+            )
+            : [];
+        isTrue($crons !== [], 'The workflow must define a schedule with at least one non-blank cron (canary).');
+
+        $dispatchOk = \array_key_exists('workflow_dispatch', $triggers)
+            && ($triggers['workflow_dispatch'] === null || \is_array($triggers['workflow_dispatch']));
+        isTrue($dispatchOk, 'The workflow must allow workflow_dispatch (null or a config map) for the dispatcher.');
+        unset($actual['on']['schedule'], $actual['on']['workflow_dispatch']);
+
         $expectedYaml = self::toYaml($expected);
         $actualYaml   = self::toYaml($actual);
 
@@ -146,14 +168,14 @@ trait TraitGithubActions
     {
         return [
             'name' => 'Checkout code',
-            'uses' => 'actions/checkout@v3',
+            'uses' => 'actions/checkout@v7',
             'with' => ['fetch-depth' => 0],
         ];
     }
 
     protected static function phpVersions(): array
     {
-        return [8.2, 8.3, 8.4];
+        return [8.3, 8.4, 8.5];
     }
 
     /**
@@ -194,9 +216,9 @@ trait TraitGithubActions
     {
         return [
             'name'              => 'Upload Artifacts',
-            'uses'              => 'actions/upload-artifact@v4',
+            'uses'              => 'actions/upload-artifact@v7',
             'continue-on-error' => true,
-            'with'              => ['name' => $stepName, 'path' => 'build/'],
+            'with'              => ['name' => $stepName, 'path' => 'build/', 'overwrite' => true],
         ];
     }
 
