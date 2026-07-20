@@ -62,7 +62,7 @@ make report-pdepend     # PHP Depend report
 ## Code Standards
 
 ### PHP Requirements
-- PHP 8.2+ required
+- PHP 8.3+ required
 - Strict types declaration required (`declare(strict_types=1)`)
 - PSR-12 coding standard with additional JBZoo rules
 

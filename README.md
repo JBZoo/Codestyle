@@ -12,11 +12,11 @@
 [![GitHub License](https://img.shields.io/github/license/jbzoo/codestyle)](https://github.com/JBZoo/Codestyle/blob/master/LICENSE)
 
 
-Comprehensive collection of QA tools and code quality standards for PHP 8.2+ projects. Provides configurations and wrappers for PHPStan, Psalm, PHP-CS-Fixer, PHPUnit, PHPMD, Phan and other popular code analysis tools.
+Comprehensive collection of QA tools and code quality standards for PHP 8.3+ projects. Provides configurations and wrappers for PHPStan, Psalm, PHP-CS-Fixer, PHPUnit, PHPMD, Phan and other popular code analysis tools.
 
 ## Requirements
 
-- **PHP 8.2+** - Modern PHP version with strict typing support
+- **PHP 8.3+** - Modern PHP version with strict typing support
 - **Composer** - For dependency management
 - **Make** - Build automation tool
 
